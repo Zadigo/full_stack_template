@@ -5,6 +5,8 @@ import router from './routes'
 
 import products from './products.js'
 
+import Cookies from 'js-cookie'
+
 var _ = require('lodash')
 
 
@@ -160,15 +162,6 @@ var authenticationModule = {
                 state.userDetails.payments = paymentsCopy
             }
         },
-        newAddress (state, values) {
-            var lastAddress = _.last(state.userDetails.addresses)
-            var id = 1
-            if (lastAddress !== undefined) {
-                id = lastAddress.id += 1
-            }
-            values['id'] = id
-            state.userDetails.addresses.push(values)
-        },
         deleteAddress (state) {
             state
         },
@@ -241,6 +234,28 @@ var authenticationModule = {
             .then((response) => {
                 if (response.status >= 200 && response.status <= 201) {
                     router.push({ name: 'signin' })
+                } else {
+                    console.log(response.data)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        },
+        newAddress({ state, rootState }, payload) {
+            axios({
+                method: 'post',
+                url: urlJoin(rootState.baseUrls.api, 'new-address'),
+                data: payload,
+                headers: {
+                    'Authorization': `Token ${state.token}`,
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': Cookies.get('csrftoken')
+                }
+            })
+            .then((response) => {
+                if (response.status >= 200 | response.status <= 201) {
+                    state.userDetails.addresses.push(response.data)
                 } else {
                     console.log(response.data)
                 }

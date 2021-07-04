@@ -11,6 +11,8 @@ npm install --save mdb-ui-kit
 npm install --save @fortawesome/vue-fontawesome@latest
 npm install --save @fortawesome/fontawesome-svg-core
 
+npm install js-cookie
+
 // npm install --save @fortawesome/fontawesome-free-solid
 // npm install --save @fortawesome/free-brands-svg-icons
 // npm install --save @fortawesome/free-regular-svg-icons

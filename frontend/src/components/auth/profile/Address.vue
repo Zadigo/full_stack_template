@@ -13,7 +13,7 @@
     <b-card v-else-if="addNew">
       <b-card-body>
         <div class="form-group">
-          <input v-model="newAddress['street']" type="text" class="form-control" id="street-address" placeholder="1 rue de Rivoli" autocomplete="address-line1">
+          <input v-model="newAddress['street_address']" type="text" class="form-control" id="street-address" placeholder="1 rue de Rivoli" autocomplete="address-line1">
         </div>
 
         <div class="form-group mt-2">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group mt-2">
-          <input v-model="newAddress['postal']" type="text" class="form-control" id="postal-code" placeholder="75001" autocomplete="postal-code">
+          <input v-model="newAddress['zip_code']" type="text" class="form-control" id="postal-code" placeholder="75001" autocomplete="postal-code">
         </div>
 
         <div class="form-group mt-2">
@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     sendChanges () {
-      this.$store.commit('authenticationModule/newAddress', this.newAddress)
+      this.$store.dispatch('authenticationModule/newAddress', this.newAddress)
       this.addNew = false
       this.newAddress = {}
     },

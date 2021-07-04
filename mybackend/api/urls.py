@@ -14,6 +14,7 @@ router.register(r'users', admin.UsersViewset, basename='users')
 urlpatterns = [
     url(r'^user-token', authentication.GetUserToken.as_view(), name='token'),
 
+    url(r'^new-address', profile.AddNewAddress.as_view(), name='new_address'),
     url(r'^change-password', profile.ChangePassword.as_view(), name='change_password'),
     url(r'^logout', authentication.Logout.as_view(), name='logout'),
     url(r'^login', authentication.Login.as_view(), name='login'),

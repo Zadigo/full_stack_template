@@ -1,6 +1,4 @@
-class GlobalMixins:
-    authentication_classes = []
-    permission_classes = []
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 class GlobalAPIMixins:
@@ -8,3 +6,7 @@ class GlobalAPIMixins:
     def get_extra_actions(self, **kwargs):
         return []
 
+
+class RestrictedGlobalAPIMixin(GlobalAPIMixins):
+    authentication_classes = []
+    permission_classes = []

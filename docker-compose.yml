@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  django_website:
     build: ./mybackend
     container_name: mywebsite
     # command: gunicorn mywebsite.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/app/mywebsite --log-level=debug --log-file=/app/mywebsite/gunicorn.log
@@ -9,19 +9,23 @@ services:
     env_file:
       - ./docker/environment/env_prod.env
       - ./docker/environment/general.env
-    ports:
-      - "8000:80"
+    # ports:
+    #   - "8000:80"
+    expose:
+      - 8000
     volumes:
       - ./mywebsite:/app
     networks:
       - mywebsite_network
 
-  frontend:
+  vue_website:
     build: ./frontend
     container_name: mywebsite_front
     command: npm run serve
-    ports:
-      "8000:80"
+    # ports:
+    #   "8000:80"
+    expose:
+      - 3000
     volumes:
       - ./frontend:/app
     networks:
@@ -35,7 +39,7 @@ services:
     volumes:
       - ./mywebsite:/app
     depends_on:
-      - web
+      - django_website
     networks:
       - mywebsite_network
 
@@ -76,7 +80,8 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - web
+      - django_website
+      - vue_website
     volumes:
       - ./var/nginx_error.log:/etc/nginx/logs/error.log
       - ./var/nginx_access.log:/etc/nginx/logs/access.log
@@ -97,7 +102,7 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
     depends_on:
-      - web
+      - django_website
       - enginx
       - db
     networks:
@@ -132,7 +137,7 @@ services:
       - 6379:6379
     restart: always
     depends_on:
-      - web
+      - django_website
     volumes:
       - RedisData:/data
       - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
@@ -148,7 +153,7 @@ services:
       - ./docker/environment/general.env
     depends_on:
       - redis
-      - web
+      - django_website
     volumes:
       - ./mywebsite/:/app
     networks:

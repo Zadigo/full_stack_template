@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from rest_framework import fields
 from rest_framework.serializers import ModelSerializer, Serializer
 
+from accounts.models import Address, Payment
+
 USER_MODEL = get_user_model()
 
 USER_PROFILE_MODEL = get_userprofile_model()
@@ -15,8 +17,15 @@ class LoginSerializer(Serializer):
 
 class PaymentSerializer(ModelSerializer):
     class Meta:
-        model = None
+        model = Payment
         fields = ['reference', 'card', 'iban']
+
+
+class AddressSerializer(ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['street_address', 'zip_code', 'country']
+
 
 
 class UserSerializer(ModelSerializer):    
