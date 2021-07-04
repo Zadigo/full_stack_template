@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # node modules
-./baseproject/node_modules
+./mybackend/frontend/node_modules

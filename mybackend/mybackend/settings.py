@@ -3,6 +3,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+FRONTEND_DIR = Path.joinpath(BASE_DIR, 'frontend')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -52,7 +54,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # Path.joinpath(BASE_DIR, 'dist')
+            Path.joinpath(FRONTEND_DIR, 'dist')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -120,16 +122,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = Path.joinpath(BASE_DIR, 'static')
+
 STATICFILES_DIRS = [
-    Path.joinpath(BASE_DIR, 'static'),
-    # Path.joinpath(FRONTEND_DIR, 'dist/static')
+    # Path.joinpath(BASE_DIR, 'static'),
+    Path.joinpath(FRONTEND_DIR, 'dist/static')
 ]
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
 
-# API
 
 # CORS
 
