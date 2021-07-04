@@ -1,0 +1,27 @@
+npm install --save-dev eslint eslint-plugin-vue
+
+npm install --save bootstrap@next bootstrap-vue
+npm install --save axios router vue-router vuex lodash
+
+npm install --save sass-loader sass
+npm install --save datejs
+npm install --save vue-chartjs chart.js
+npm install --save mdb-ui-kit
+
+npm install --save @fortawesome/vue-fontawesome@latest
+npm install --save @fortawesome/fontawesome-svg-core
+
+// npm install --save @fortawesome/fontawesome-free-solid
+// npm install --save @fortawesome/free-brands-svg-icons
+// npm install --save @fortawesome/free-regular-svg-icons
+
+
+Imports
+-------
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+@import '~mdb-ui-kit/css/mdb.min.css';
+@import url('https://use.fontawesome.com/releases/v5.15.3/js/all.js');
+@import url('https://cdn.jsdelivr.net/npm/mdbvue/lib/css/mdb.min.css');
