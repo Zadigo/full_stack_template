@@ -3,10 +3,10 @@
     <div class="col-xl-5 col-md-8">
       <b-card class="mt-5">
         <div class="form-group">
-          <!-- <label class="font-weight-bold" for="email">Email</label>
-          <input v-model="credentials['email']" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email"> -->
-          <label class="font-weight-bold" for="username">Username</label>
-          <input v-model="credentials['username']" type="username" class="form-control" id="username" autocomplete="username" placeholder="Username">
+          <label class="font-weight-bold" for="email">Email</label>
+          <input v-model="credentials['email']" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email">
+          <!-- <label class="font-weight-bold" for="username">Username</label>
+          <input v-model="credentials['username']" type="username" class="form-control" id="username" autocomplete="username" placeholder="Username"> -->
         </div>
         
         <div class="form-group mt-3">

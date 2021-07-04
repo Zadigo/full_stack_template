@@ -29,7 +29,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_extensions',
 
+    'accounts',
     'api',
 ]
 
@@ -156,3 +158,36 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
+
+# ACCOUNTS
+
+AUTH_USER_MODEL = 'accounts.MyUser'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailAuthenticationBackend'
+]
+
+AUTH_USER_PROFILE_MODEL = 'accounts.MyUserProfile'
+
+
+# Emailing
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = ''
+
+EMAIL_HOST_PASSWORD = ''
+
+EMAIL_USE_TLS = True
+
+EMAIL_PORT = 587
+
+EMAIL_USE_LOCALTIME = True
+
+
+# Debug
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

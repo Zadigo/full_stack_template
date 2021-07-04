@@ -22,9 +22,9 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
         if not credentials:
             return request.user
 
-        username = credentials['username']
+        email = credentials['email']
         password = credentials['password']
-        return authenticate(request, username=username, password=password)
+        return authenticate(request, email=email, password=password)
 
     def perform_login(self, credentials: dict):
         user = self.perform_authentication(self.request, credentials=credentials)
@@ -37,11 +37,13 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
         token, serializer = self.perform_login(request.data)
         if not serializer:
             return Response({'error': "User does not exist"}, status=status.HTTP_202_ACCEPTED)
-        return Response({'token': token.key, 'user': serializer.data})
+        return Response({'token': token.key, 'myuser': serializer.data})
 
 
 class Logout(mixins.GlobalAPIMixins, GenericAPIView):
-    pass
+    def post(self, request, **kwargs):
+        logout(request)
+        return Response({'state': True})
 
 
 class Signup(mixins.GlobalAPIMixins, CreateAPIView):

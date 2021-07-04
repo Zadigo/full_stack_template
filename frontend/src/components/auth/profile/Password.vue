@@ -8,7 +8,10 @@
       </transition>
       
       <div v-for="field in fields" :key="field.id" class="form-group mt-2">
-        <label v-if="field.name==='password1'" :for="field.name" class="mt-3 mb-2">Enter your new password here. It should be something and another thing and that.</label>
+        <label v-if="field.name==='password1'" :for="field.name" class="mt-3 mb-2">
+          Enter your new password here. It should be different from your old password
+          and should contain at least one.
+        </label>
         <input v-model="credentials[field.name]" :id="field.name" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
       </div>
     </div>
@@ -23,6 +26,8 @@
 </template>
 
 <script>
+var axios = require('axios')
+
 export default {
   data () {
     return {
@@ -46,7 +51,26 @@ export default {
   },
   methods: {
     updatePassword () {
-      this.credentials = {}
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/api/v1/change-password',
+        data: this.credentials,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${this.$store.getters['authenticationModule/getToken']}`
+        },
+        withCredentials: true
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          this.credentials = {}
+        } else {
+          console.log('Could not reset password')
+        }
+      })
+      .error((error) => {
+        console.log(error)
+      })
     }
   }
 }

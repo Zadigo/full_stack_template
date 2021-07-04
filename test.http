@@ -23,3 +23,13 @@ GET http://127.0.0.1:8000/api/v1/profile/1 HTTP/1.1
 
 # GET http://127.0.0.1:8000/api/v1/user-token HTTP/1.1
 # Authorization: Token 35ddf00916efb80384d55661b6367a12fc373ef1
+
+
+# POST http://127.0.0.1:8000/api/v1/users/1/change-password HTTP/1.1
+# Authorization: Token 35ddf00916efb80384d55661b6367a12fc373ef1
+
+# {
+#     "old_password": "touparet",
+#     "password1": "touparette",
+#     "password2": "touparette"
+# }

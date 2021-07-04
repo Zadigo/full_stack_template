@@ -97,6 +97,7 @@ var authenticationModule = {
     state: () => ({
         authenticated: false,
         admin: false,
+        staff: false,
         token: null,
         userDetails: {
             id: null,
@@ -108,18 +109,15 @@ var authenticationModule = {
         }
     }),
     mutations: {
-        performLogin (state, payload) {
-            // TODO: Replace this after by updateUserDetails
+        performLogin(state, payload) {
             state.authenticated = true
-            state.userDetails.id = payload.user.id
-            state.userDetails.firstname = payload.user.first_name
-            state.userDetails.lastname = payload.user.last_name
-            state.userDetails.email = payload.user.email
-            state.admin = payload.user.is_staff
+            this.commit('authenticationModule/updateUserDetails', payload.myuser)
+            state.admin = payload.myuser.is_admin
+            state.staff = payload.myuser.is_staff
             state.token = payload.token
             localStorage.setItem('ttk', state.token)
         },
-        logout (state) {
+        performLogout (state) {
             state.token = null
             state.authenticated = false
             state.userDetails = {
@@ -130,15 +128,16 @@ var authenticationModule = {
                 addresses: []
             }
         },
-        updateUserDetails (state, values) {
+        updateUserDetails(state, values) {
             // Updates some very specific user details
             // such as the firstname, the lastname and
             // the email address. P.S. Might also update
             // the date of birth
             _.forEach(Object.keys(values), (key) => {
-                if (Object.keys(state.userDetails).includes(key)) {
-                    state.userDetails[key] = values[key]
-                }
+                // if (Object.keys(state.userDetails).includes(key)) {
+                //     state.userDetails[key] = values[key]
+                // }
+                state.userDetails[key] = values[key]
             })
         },
         addNewCreditCard (state, values) {
@@ -209,6 +208,24 @@ var authenticationModule = {
                 console.log(error)
             })
         },
+        logout({ commit, rootState }) {
+            axios({
+                url: urlJoin(rootState.baseUrls.api, 'logout'),
+                method: 'post',
+                data: null,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                response.data
+                commit('performLogout')
+                router.push({ name: 'home' })
+            })
+            .error((error) => {
+                console.log(error)
+            })
+        },
         signUp({ rootState }, payload) {
             let { password1, password2 } = payload
             password1, password2
@@ -264,6 +281,9 @@ var authenticationModule = {
             return state.userDetails.addresses
         },
         getAuthenticationToken (state) {
+            return state.token
+        },
+        getToken(state) {
             return state.token
         },
         hasPaymentMethods (state) {

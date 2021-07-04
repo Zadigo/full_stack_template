@@ -79,8 +79,7 @@ export default {
   },
   methods: {
     logoutUser () {
-      this.$store.commit('authenticationModule/logout')
-      this.$router.push({ name: 'home' })
+      this.$store.dispatch('authenticationModule/logout')
     }
   }
 }
