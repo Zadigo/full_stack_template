@@ -26,10 +26,12 @@ export default {
   },
   
   mounted () {
-    var userDetails = this.$store.getters['authenticationModule/getUserDetails']
+    var userDetails = this.$store.state.profileModule.userDetails
     _.forEach(this.fields, (field) => {
       if (field.prefilled) {
-        field['value'] = userDetails[field['name']]
+        // field['value'] = userDetails[field['name']]
+        // this.changedValues[field.name] = userDetails[field.name]
+        field['value'] = userDetails[field.name]
       }
     })
   },
@@ -40,8 +42,10 @@ export default {
     },
     
     sendChanges (position) {
-      console.log(position)
-      this.$store.commit('authenticationModule/updateUserDetails', this.changedValues)
+      this.$store.dispatch(
+        'updatePersonalDetails', 
+        { position: position, content: this.changedValues }
+      )
     }
   }
 }

@@ -29,7 +29,7 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
     def perform_login(self, credentials: dict):
         user = self.perform_authentication(self.request, credentials=credentials)
         if not user:
-            return False, False
+            return False, False, False
         login(self.request, user)
         return Token.objects.get(user=user), serializers.UserSerializer(instance=user), user
 

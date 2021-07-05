@@ -9,7 +9,7 @@
       </b-card-body>
     </b-card>
 
-    <!-- Form -->
+    <!-- Update/Creation form -->
     <b-card v-else-if="addNew">
       <b-card-body>
         <div class="form-group">
@@ -28,8 +28,13 @@
           <input v-model="newAddress['country']" type="text" class="form-control" id="country" placeholder="France" autocomplete="country-name">
         </div>
 
-        <button @click="sendChanges" class="btn btn-primary btn-md m-0 mt-4">
+        <button @click="sendChanges" v-if="createMode" class="btn btn-primary btn-md m-0 mt-4">
+          <i class="fa fa-check mr-3"></i>
           Validate
+        </button>
+        <button @click="updateAddress" v-else class="btn btn-primary btn-md m-0 mt-4">
+          <i class="fa fa-check mr-3"></i>
+          Update
         </button>
       </b-card-body>
     </b-card>
@@ -50,13 +55,18 @@
                 <button @click="deleteAddress(address.id)" class="btn btn btn-light">
                   <i class="fa fa-trash mr-2"></i>
                 </button>
+
+                <button @click="startUpdateAddress(address.id)" class="btn btn btn-light">
+                  <i class="fa fa-create mr-2"></i>
+                </button>
               </div>
             </div>
           </b-card-body>
         </b-card>
 
+        <!-- Creation -->
         <b-card class="text-center mt-2">
-          <button @click="addNew=true" class="btn btn-lg btn-primary">New address</button>
+          <button @click="addNew=true" class="btn btn-lg btn-primary">Create new</button>
         </b-card>
       </div>
     </div>
@@ -64,6 +74,8 @@
 </template>
 
 <script>
+var _ = require('lodash')
+
 export default {
   name: 'Addresses',
   title () {
@@ -72,33 +84,46 @@ export default {
   data () {
     return {
       addNew: false,
-      newAddress: { is_main: false }
+      newAddress: { is_main: false },
+      createMode: true
     }
   },
-
-  // beforeMount() {
-  //   this.$store.commit('authenticationModule/getAddresses')
-  // },
   
   computed: {
-    addresses () {
-      return this.$store.getters['authenticationModule/getUserAddresses']
+    addresses() {
+      return this.$store.state.profileModule.userDetails.addresses
     }
   },
   
   methods: {
     sendChanges () {
-      this.$store.dispatch('authenticationModule/newAddress', this.newAddress)
       this.addNew = false
+      this.$store.dispatch('profileModule/newAddress', this.newAddress)
       this.newAddress = {}
     },
 
     deleteAddress (id) {
-      this.$store.commit('authenticationModule/deleteAddress', id)
+      this.$store.commit('profileModule/deleteAddress', id)
     },
-    
-    mainAddress (id) {
-      this.$store.commit('authenticationModule/mainAddress', id)
+
+    startUpdateAddress(id) {
+      // Initiates the updating of the address by
+      // showing the update fields with the the
+      // address details
+      var address = this.$store.getters['profileModule/getAddress'](id)
+      _.forEach(Object.keys(address), (key) => {
+        this.newAddress[key] = address[key]
+      })
+      this.createMode = false
+      this.addNew = true
+    },
+
+    updateAddress() {
+      // Finalizes the updating of the address
+      // by sending the request to the server
+      this.$store.dispatch('profileModule/updateAddress', this.newAddress)
+      this.createMode = true
+      this.addNew = false
     }
   }
 }

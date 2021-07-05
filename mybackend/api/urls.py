@@ -13,11 +13,19 @@ router.register(r'addresses', profile.UserAddresses, basename='addresses')
 
 
 urlpatterns = [
+    # Tests
     url(r'^test', admin.TestEndpoint.as_view(), name='test'),
+    url(r'^new-address', profile.AddressesViewset.as_view(), name='new_address'),
+    # url(r'^new-address', profile.AddNewAddress.as_view(), name='new_address'),
+
+
 
     url(r'^user-token', authentication.GetUserToken.as_view(), name='token'),
 
-    url(r'^new-address', profile.AddNewAddress.as_view(), name='new_address'),
+    url(r'^update-details', profile.ChangePersonalDetails.as_view(), name='update_details'),
+
+
+
     url(r'^change-password', profile.ChangePassword.as_view(), name='change_password'),
     url(r'^logout', authentication.Logout.as_view(), name='logout'),
     url(r'^login', authentication.Login.as_view(), name='login'),

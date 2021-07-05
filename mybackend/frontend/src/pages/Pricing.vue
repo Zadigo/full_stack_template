@@ -47,12 +47,15 @@ import PricingCard from '@/components/pricing/Card.vue'
 
 export default {
   name: 'Pricing',
+  
   title () {
     return 'Pricing'
   },
+
   components: {
     PricingCard
   },
+
   data() {
     return {
       subscriptions: [

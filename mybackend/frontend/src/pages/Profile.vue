@@ -31,11 +31,13 @@ var _ = require('lodash')
 
 export default {
   name: 'Profile',
+
   data() {
     return {
       sideBarLinks: []
     }
   },
+  
   beforeMount() {
     // Gather all the links related to the user profile dynamically
     var routesForProfile = _.find(this.$router.options.routes, ['path', '/profile'])
@@ -43,6 +45,7 @@ export default {
       this.sideBarLinks.push({ id: index, link: route.name, name: route.meta.verboseName })
     })
   },
+  
   _checkCredentials () {
       var { email, password } = this.credentials
       if (!this._validateEmail(email)) {

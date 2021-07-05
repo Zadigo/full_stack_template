@@ -14,21 +14,6 @@
           <input v-model="credentials['password']" type="password" class="form-control" id="password" autocomplete="current-password" placeholder="Password">
         </div>
 
-        <!-- <div class="row mt-4 mb-4">
-          <div class="col d-flex justify-content-center">
-            <div class="form-check">
-              <input v-model="rememberMe" class="form-check-input" type="checkbox" id="remember-me">
-              <label class="form-check-label" for="remember-me">
-                Remember me
-              </label>
-            </div>
-          </div>
-
-          <div class="col">
-            <router-link :to="{ name: 'forgot' }">Forgot password?</router-link>
-          </div>
-        </div> -->
-
         <template class="text-center" #footer>
           <button @click="loginUser" class="btn btn-primary">
             Sign in to your account
@@ -50,6 +35,7 @@ export default {
   title () {
     return 'Signin'
   },
+
   data() {
     return {
       credentials: {
@@ -60,14 +46,14 @@ export default {
       rememberMe: false
     }
   },
+
   beforeRouteLeave (to, from, next) {
-    console.log(to)
     next()
   },
+  
   methods: {
     loginUser () {
       this.$store.dispatch('authenticationModule/login', this.credentials)
-      // this.$router.push({ name: 'home' })
     }
   }
 }

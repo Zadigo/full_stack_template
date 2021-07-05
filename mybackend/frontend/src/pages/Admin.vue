@@ -27,10 +27,12 @@
 
 export default {
   name: 'Admin',
+  
   components: {
     // Header,
     // Footer
   },
+
   data() {
     return {
       socials: [

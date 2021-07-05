@@ -24,7 +24,7 @@
 export default {
   computed: {
     firstName() {
-      return this.$store.getters['authenticationModule/userFirstName']
+      return this.$store.state.profileModule.userDetails.firstname
     }
   }
 }

@@ -1,3 +1,4 @@
+from django import http
 from accounts.models import Address
 from accounts import get_userprofile_model
 from api import serializers
@@ -9,6 +10,7 @@ from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from django.db.transaction import atomic
 
 USER_MODEL = get_user_model()
 
@@ -68,3 +70,73 @@ class AddNewAddress(GenericAPIView):
 class UserAddresses(GenericViewSet, ListModelMixin):
     queryset = Address.objects.all()
     serializer_class = serializers.AddressSerializer
+
+
+
+
+class AddressesViewset(GenericAPIView):
+    http_method_names = ['post', 'patch', 'options']
+    queryset = Address.objects.all()
+    serializer_class = serializers.AddressValidationSerializer
+
+    def post(self, request, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.create(
+            user=request.user, 
+            validated_data=serializer.validated_data
+        )
+        return Response(serializer.data)
+
+
+    # def update(self, request, **kwargs):
+    #     pass
+
+    def patch(self, request, **kwargs):
+        user = request.user
+        candidates = user.myuserprofile.addresses.filter(
+            id=request.data['id']
+        )
+        try:
+            address = candidates.get()
+        except:
+            return Response({'error': 'Change was not made'})
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_address = serializer.update(
+            instance=address, 
+            validated_data=serializer.validated_data
+        )
+        serialized_address = self.get_serializer(instance=new_address)
+        return Response(serialized_address.data)
+
+
+
+
+class ChangePersonalDetails(GenericAPIView):
+    # Dynamically update the data depending 
+    # on the incoming position that was
+    # included in the incoming POST data
+    serializer_classes = [
+        serializers.UserValidationSerializer
+    ]
+
+    def post(self, request, **kwargs):
+        serializer_position = request.data.get('position', None)
+        if serializer_position is not None:
+            serializer_position = int(serializer_position)
+        else:
+            return Response({'error': 'An error occured - PF1'})
+        serializer = self._get_serializer(
+            serializer_position, 
+            request.data['content']
+        )
+        serializer.update(request.user, serializer._validated_data)
+        return Response(serializer.data)
+
+    def _get_serializer(self, position, data):
+        serializer = self.serializer_classes[position]
+        instance = serializer(data=data)
+        instance.is_valid(raise_exception=True)
+        return instance
