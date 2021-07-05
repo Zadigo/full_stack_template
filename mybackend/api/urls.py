@@ -9,9 +9,12 @@ app_name = 'api'
 router = DefaultRouter()
 router.register(r'profile', profile.ProfileDetails)
 router.register(r'users', admin.UsersViewset, basename='users')
+router.register(r'addresses', profile.UserAddresses, basename='addresses')
 
 
 urlpatterns = [
+    url(r'^test', admin.TestEndpoint.as_view(), name='test'),
+
     url(r'^user-token', authentication.GetUserToken.as_view(), name='token'),
 
     url(r'^new-address', profile.AddNewAddress.as_view(), name='new_address'),

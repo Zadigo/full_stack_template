@@ -39,6 +39,7 @@ export default {
       ]
     }
   },
+
   computed: {
     isValid () {
       let { password1, password2 } = this.credentials
@@ -49,6 +50,7 @@ export default {
       }
     }
   },
+  
   methods: {
     updatePassword () {
       axios({
@@ -81,11 +83,13 @@ export default {
 .alert-transition-leave-active {
   transition: all .5s ease;
 }
+
 .alert-transition-enter,
 .alert-transition-leave-to {
   opacity: 0;
   transform: scale(.95, .95);
 }
+
 .alert-transition-enter-to,
 .alert-transition-leave {
   opacity: 1;

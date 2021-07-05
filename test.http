@@ -1,4 +1,4 @@
-# GET http://127.0.0.1:8000/api/v1/profile/1 HTTP/1.1
+GET http://127.0.0.1:8000/api/v1/profile/1 HTTP/1.1
 
 # POST http://127.0.0.1:8000/api/v1/signup HTTP/1.1
 # Content-Type: application/json; charset=utf8
@@ -35,12 +35,12 @@
 # }
 
 
-POST http://127.0.0.1:8000/api/v1/new-address HTTP/1.1
-Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
-Content-Type: application/json; charset=utf8
+# POST http://127.0.0.1:8000/api/v1/new-address HTTP/1.1
+# Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
+# Content-Type: application/json; charset=utf8
 
-{
-    "street_address": "36 rue de Suède",
-    "zip_code": "59000",
-    "country": "France"
-}
+# {
+#     "street_address": "36 rue de Suède",
+#     "zip_code": "59000",
+#     "country": "France"
+# }

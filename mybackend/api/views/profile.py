@@ -1,3 +1,4 @@
+from accounts.models import Address
 from accounts import get_userprofile_model
 from api import serializers
 from api.views import mixins
@@ -5,7 +6,7 @@ from django.contrib.auth import (authenticate, get_user_model,
                                  update_session_auth_hash)
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, get_object_or_404
-from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -48,8 +49,7 @@ class ChangePassword(mixins.GlobalAPIMixins, GenericAPIView):
         return Response({'state': True})
 
 
-class AddNewAddress(mixins.RestrictedGlobalAPIMixin, GenericAPIView):
-    http_method_names = ['post']
+class AddNewAddress(GenericAPIView):
     queryset = USER_PROFILE_MODEL.objects.all()
     serializer_class = serializers.AddressSerializer
 
@@ -58,7 +58,13 @@ class AddNewAddress(mixins.RestrictedGlobalAPIMixin, GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
-            user.addresses.create(**serializer.data)
+            address = user.myuserprofile.addresses.create(**serializer.data)
         except:
             return Response({'error': 'Address was not created'}, status=status.HTTP_501_NOT_IMPLEMENTED)
+        serializer = self.get_serializer(instance=address)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class UserAddresses(GenericViewSet, ListModelMixin):
+    queryset = Address.objects.all()
+    serializer_class = serializers.AddressSerializer

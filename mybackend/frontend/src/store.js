@@ -5,7 +5,7 @@ import router from './routes'
 
 import products from './products.js'
 
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 var _ = require('lodash')
 
@@ -15,8 +15,8 @@ function urlJoin (url, path) {
 }
 
 
-
 Vue.use(Vuex)
+
 
 var cartModule = {
     // This sections deals with products
@@ -25,6 +25,7 @@ var cartModule = {
     state: () => ({
         cart: []
     }),
+
     mutations: {
         addToCart(state, payload) {
             var lastItem = _.last(state.cart)
@@ -39,6 +40,7 @@ var cartModule = {
             state.cart = []
         }
     },
+
     getters: {
         getCart(state) {
             return state.cart
@@ -51,6 +53,7 @@ var cartModule = {
         }
     }
 }
+
 
 var subscriptionsModule = {
     // This module deals with everything
@@ -68,11 +71,13 @@ var subscriptionsModule = {
         currentSubscription: {},
         selectedSubscription: {},
     }),
+
     mutations: {
         selectSubscription(state, payload) {
             state.selectedSubscription = payload
         }
     },
+    
     getters: {
         hasSubscription(state) {
             if (Object.keys(state.currentSubscription).length === 0) {
@@ -88,11 +93,9 @@ var subscriptionsModule = {
                 return true
             }
         }
-    },
-    actions: {
-        
     }
 }
+
 
 var authenticationModule = {
     namespaced: true,
@@ -110,6 +113,7 @@ var authenticationModule = {
             addresses: []
         }
     }),
+
     mutations: {
         performLogin(state, payload) {
             state.authenticated = true
@@ -119,6 +123,7 @@ var authenticationModule = {
             state.token = payload.token
             localStorage.setItem('ttk', state.token)
         },
+
         performLogout (state) {
             state.token = null
             state.authenticated = false
@@ -130,6 +135,7 @@ var authenticationModule = {
                 addresses: []
             }
         },
+        
         updateUserDetails(state, values) {
             // Updates some very specific user details
             // such as the firstname, the lastname and
@@ -142,6 +148,7 @@ var authenticationModule = {
                 state.userDetails[key] = values[key]
             })
         },
+
         addNewCreditCard (state, values) {
             // The front end should request adding a new
             // card to Stripe and then return a token to be used
@@ -154,6 +161,7 @@ var authenticationModule = {
             }
             state.userDetails.payments.push({ id: id, token: 'cc-dnfozienoz' })
         },
+        
         deleteCreditCard (state, id) {
             var paymentsCopy = [...state.userDetails.payments]
             var cardIndex = _.findIndex(paymentsCopy, ['id', id])
@@ -162,9 +170,11 @@ var authenticationModule = {
                 state.userDetails.payments = paymentsCopy
             }
         },
+        
         deleteAddress (state) {
             state
         },
+        
         mainAddress (state, id) {
             // Let's the user select a preferred address
             _.forEach(state.userDetails.addresses, (address) => {
@@ -172,8 +182,32 @@ var authenticationModule = {
             })
             var address = _.find(state.userDetails.addresses, ['id', id])
             address.is_main = !address.is_main
+        },
+       
+        getAddresses(state) {
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:8000/api/v1/addresses',
+                responseType: 'json',
+                headers: {
+                    'Authorization': `Token ${state.token}`,
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    state.userDetails.addresses = response.data
+                } else {
+                    console.error(response.data)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         }
     },
+
     actions: {
         login({ commit, rootState }, payload) {
             // Initiates a login request to Django
@@ -201,6 +235,7 @@ var authenticationModule = {
                 console.log(error)
             })
         },
+
         logout({ commit, rootState }) {
             axios({
                 url: urlJoin(rootState.baseUrls.api, 'logout'),
@@ -219,6 +254,7 @@ var authenticationModule = {
                 console.log(error)
             })
         },
+
         signUp({ rootState }, payload) {
             let { password1, password2 } = payload
             password1, password2
@@ -242,16 +278,18 @@ var authenticationModule = {
                 console.log(error)
             })
         },
+
         newAddress({ state, rootState }, payload) {
             axios({
                 method: 'post',
-                url: urlJoin(rootState.baseUrls.api, 'new-address'),
+                url: urlJoin(rootState.baseUrls.api, 'new-address').href,
                 data: payload,
+                responseType: 'json',
                 headers: {
                     'Authorization': `Token ${state.token}`,
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': Cookies.get('csrftoken')
-                }
+                },
+                widthCredentials: true
             })
             .then((response) => {
                 if (response.status >= 200 | response.status <= 201) {
@@ -263,8 +301,7 @@ var authenticationModule = {
             .catch((error) => {
                 console.log(error)
             })
-        },
-
+        }
     },
     getters: {
         isAuthenticated(state) {
@@ -277,41 +314,52 @@ var authenticationModule = {
             // }
             return state.authenticated && state.token !== null
         },
+
         isAdmin(state) {
             return state.admin
         },
+
         userFullName (state) {
             return `${state.userDetails.firstname} ${state.userDetails.lastname}`
         },
+
         userFirstName (state) {
             return state.userDetails.firstname
         },
+
         getUserDetails (state) {
             return state.userDetails
         },
+
         getPaymentMethods (state) {
             return state.userDetails.payments
         },
+
         getUserAddresses (state) {
             return state.userDetails.addresses
         },
+
         getAuthenticationToken (state) {
             return state.token
         },
+
         getToken(state) {
             return state.token
         },
+
         hasPaymentMethods (state) {
             return state.userDetails.payments.length > 0
         }
     }
 }
 
+
 var itemsModule = {
     namespaced: true,
     state: () => ({
         items: products
     }),
+
     mutations: {
         newItem(state, item) {
             state.items.push(item)
@@ -328,14 +376,17 @@ var itemsModule = {
             // })
             // state.items.push(products)
         },
+
         activateItems (state, payload) {
             state
             payload
         },
+
         deactivateItems (state, payload) {
             state,
             payload
         },
+
         deleteItems (state, payload) {
             var items = _.reject(state.items, (item) => {
                 return payload.includes(item.id)
@@ -343,15 +394,18 @@ var itemsModule = {
             state.items = items
         }
     },
+
     getters: {
         getItems(state) {
             return state.items
         },
+        
         getItem: (state) => (id) => {
             return _.find(state.items, { id: id })
         }
     }
 }
+
 
 var store = new Vuex.Store({
     state: () => ({
@@ -359,6 +413,7 @@ var store = new Vuex.Store({
             api: 'http://127.0.0.1:8000/api/v1/'
         }
     }),
+
     modules: {
         itemsModule: itemsModule,
         authenticationModule: authenticationModule,
@@ -366,5 +421,6 @@ var store = new Vuex.Store({
         cartModule: cartModule
     }
 })
+
 
 export default store

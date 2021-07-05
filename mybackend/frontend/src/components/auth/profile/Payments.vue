@@ -74,9 +74,11 @@
 <script>
 export default {
   name: 'Payment',
+  
   title () {
     return 'Payment methods'
   },
+
   data () {
     return {
       addNew: false,
@@ -84,17 +86,20 @@ export default {
       bankAccounts: {}
     }
   },
+  
   computed: {
     payments () {
       // return this.$store.state.authenticationModule.userDetails.payments
       return this.$store.getters['authenticationModule/getPaymentMethods']
     }
   },
+  
   methods: {
     sendChanges () {
       this.$store.commit('authenticationModule/addNewCreditCard', this.newCreditCard)
       this.addNew = false
     },
+    
     deleteCreditCard (id) {
       this.$store.commit('authenticationModule/deleteCreditCard', id)
     }

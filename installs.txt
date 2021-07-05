@@ -11,7 +11,11 @@ npm install --save mdb-ui-kit
 npm install --save @fortawesome/vue-fontawesome@latest
 npm install --save @fortawesome/fontawesome-svg-core
 
+npm install buefy
+
 npm install js-cookie
+
+npm install -g @ionic/cli
 
 // npm install --save @fortawesome/fontawesome-free-solid
 // npm install --save @fortawesome/free-brands-svg-icons

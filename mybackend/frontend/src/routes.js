@@ -58,316 +58,318 @@ import NotAuthorized from './pages/NotAuthorized.vue'
 
 Vue.use(Router)
 
+const routes = [
+    {
+        path: '/',
+        components: {
+            default: Home,
+        },
+        children: [
+            {
+                name: 'home',
+                path: '/',
+                components: {
+                    nav: Navbar,
+                    default: Intro,
+                    footer: Footer
+                }
+            }
+        ]
+    },
+
+    {
+        path: '/',
+        components: {
+            default: RegistrationHero
+        },
+        children: [
+            {
+                name: 'signin',
+                path: '/signin',
+                components: {
+                    default: Signin
+                }
+            },
+            {
+                name: 'signup',
+                path: '/signup',
+                components: {
+                    default: Signup
+                }
+            },
+            {
+                name: 'forgot',
+                path: '/forgot-password',
+                components: {
+                    default: Forgot
+                }
+            }
+        ]
+    },
+
+    {
+        path: '/pricing',
+        name: 'pricing',
+        components: {
+            default: Pricing,
+            nav: Navbar,
+            footer: Footer
+        }
+    },
+    {
+        path: '/payment',
+        name: 'payment',
+        component: Payment,
+        meta: {
+            requiresAuthentication: true
+        }
+        // beforeEnter: (to, from, next) {
+
+        // }
+    },
+    {
+        name: 'about',
+        path: '/about-us',
+        components: {
+            nav: Navbar,
+            default: AboutUs,
+            footer: Footer
+        }
+    },
+    {
+        name: 'jobs',
+        path: '/jobs',
+        components: {
+            nav: Navbar,
+            default: Jobs,
+            footer: Footer
+        }
+    },
+    {
+        name: 'contact',
+        path: '/contact-us',
+        components: {
+            nav: Navbar,
+            default: Contact,
+            footer: Footer
+        }
+    },
+
+    {
+        path: '/legal',
+        components: {
+            default: Legal
+        },
+        children: [
+            {
+                name: 'terms_of_condition',
+                path: 'terms-of-condition',
+                components: {
+                    default: TermsOfConditions
+                },
+                meta: {
+                    verboseName: 'Terms of condition'
+                }
+            },
+            {
+                name: 'terms_of_use',
+                path: 'terms-of-use',
+                components: {
+                    default: TermsOfUse
+                },
+                meta: {
+                    verboseName: 'Terms of use'
+                }
+            }
+        ]
+    },
+
+    {
+        path: '/profile',
+        components: {
+            default: Profile,
+            nav: Navbar,
+            footer: Footer
+        },
+        children: [
+            {
+                name: 'profile_overview',
+                path: '/',
+                components: {
+                    default: ProfileIndex,
+                },
+                meta: {
+                    verboseName: 'Home',
+                    requiresAuthentication: true
+                }
+            },
+            {
+                name: 'profile_details',
+                path: 'details',
+                components: {
+                    default: Details,
+                },
+                meta: {
+                    verboseName: 'Details',
+                    requiresAuthentication: true
+                }
+            },
+            {
+                name: 'profile_preferences',
+                path: 'preferences',
+                components: {
+                    default: Preferences,
+                },
+                meta: {
+                    verboseName: 'Preferences',
+                    requiresAuthentication: true
+                }
+            },
+            {
+                name: 'profile_passwords',
+                path: 'password',
+                components: {
+                    default: Password,
+                },
+                meta: {
+                    verboseName: 'Passwords',
+                    requiresAuthentication: true
+                }
+            },
+            {
+                name: 'profile_addresses',
+                path: 'addresses',
+                components: {
+                    default: Address,
+                },
+                meta: {
+                    verboseName: 'Addresses',
+                    requiresAuthentication: true
+                }
+            },
+            {
+                name: 'profile_payments',
+                path: 'payments',
+                components: {
+                    default: Payments,
+                },
+                meta: {
+                    verboseName: 'Payments',
+                    requiresAuthentication: true
+                }
+            },
+            {
+                name: 'profile_subscriptions',
+                path: 'subscriptions',
+                components: {
+                    default: Subscriptions,
+                },
+                meta: {
+                    verboseName: 'Subscription',
+                    requiresAuthentication: true
+                },
+                children: [
+                    {
+                        name: 'profile_subscription_payment',
+                        path: 'payment',
+                        components: {
+                            content: SubscriptionPayment
+                        },
+                        meta: {
+                            verboseName: 'Payment',
+                            requiresAuthentication: true
+                        }
+                    }
+                ]
+            },
+            {
+                name: 'profile_account',
+                path: 'account',
+                components: {
+                    default: Account
+                },
+                meta: {
+                    verboseName: 'Account',
+                    requiresAuthentication: true
+                }
+            }
+        ]
+    },
+
+    {
+        path: '/admin',
+        component: Admin,
+        meta: {
+            requiresAuthentication: true,
+            requiresAdmin: true,
+            requiresStaff: true
+        },
+        children: [
+            {
+                name: 'admin_home',
+                path: '/',
+                components: {
+                    default: Index,
+                    nav: AdminNav,
+                    footer: AdminFooter
+                }
+            },
+            {
+                name: 'admin_products',
+                path: 'products',
+                components: {
+                    default: Products,
+                    nav: AdminNav,
+                    footer: AdminFooter
+                },
+            },
+            {
+                name: 'admin_product',
+                path: 'products/:id(\\d)',
+                components: {
+                    default: Product,
+                    nav: AdminNav,
+                    footer: AdminFooter
+                }
+            },
+            {
+                name: 'admin_product_create',
+                path: 'create',
+                components: {
+                    default: Create,
+                    nav: AdminNav,
+                    footer: AdminFooter
+                }
+            },
+            {
+                name: 'admin_settings',
+                path: 'settings',
+                components: {
+                    default: Settings,
+                    nav: AdminNav,
+                    footer: AdminFooter
+                }
+            }
+        ]
+    },
+
+    {
+        path: '/506',
+        name: 'not_authorized',
+        component: NotAuthorized
+    },
+
+    {
+        path: '/404',
+        name: 'not_found',
+        alias: '*',
+        component: NotFound
+    }
+]
+
 var router = new Router({
     mode: 'history',
-    routes: [
-        {
-            path: '/',
-            components: {
-                default: Home,
-            },
-            children: [
-                {
-                    name: 'home',
-                    path: '/',
-                    components: {
-                        nav: Navbar,
-                        default: Intro,
-                        footer: Footer
-                    }
-                }
-            ]
-        },
-
-        {
-            path: '/',
-            components: {
-                default: RegistrationHero
-            },
-            children: [
-                {
-                    name: 'signin',
-                    path: '/signin',
-                    components: {
-                        default: Signin
-                    }
-                },
-                {
-                    name: 'signup',
-                    path: '/signup',
-                    components: {
-                        default: Signup
-                    }
-                },
-                {
-                    name: 'forgot',
-                    path: '/forgot-password',
-                    components: {
-                        default: Forgot
-                    }
-                }
-            ]
-        },
-
-        {
-            path: '/pricing',
-            name: 'pricing',
-            components: {
-                default: Pricing,
-                nav: Navbar,
-                footer: Footer
-            }
-        },
-        {
-            path: '/payment',
-            name: 'payment',
-            component: Payment,
-            meta: {
-                requiresAuthentication: true
-            }
-            // beforeEnter: (to, from, next) {
-
-            // }
-        },
-        {
-            name: 'about',
-            path: '/about-us',
-            components: {
-                nav: Navbar,
-                default: AboutUs,
-                footer: Footer
-            }
-        },
-        {
-            name: 'jobs',
-            path: '/jobs',
-            components: {
-                nav: Navbar,
-                default: Jobs,
-                footer: Footer
-            }
-        },
-        {
-            name: 'contact',
-            path: '/contact-us',
-            components: {
-                nav: Navbar,
-                default: Contact,
-                footer: Footer
-            }
-        },
-
-        {
-            path: '/legal',
-            components: {
-                default: Legal
-            },
-            children: [
-                {
-                    name: 'terms_of_condition',
-                    path: 'terms-of-condition',
-                    components: {
-                        default: TermsOfConditions
-                    },
-                    meta: {
-                        verboseName: 'Terms of condition'
-                    }
-                },
-                {
-                    name: 'terms_of_use',
-                    path: 'terms-of-use',
-                    components: {
-                        default: TermsOfUse
-                    },
-                    meta: {
-                        verboseName: 'Terms of use'
-                    }
-                }
-            ]
-        },
-
-        {
-            path: '/profile',
-            components: {
-                default: Profile,
-                nav: Navbar,
-                footer: Footer
-            },
-            children: [
-                {
-                    name: 'profile_overview',
-                    path: '/',
-                    components: {
-                        default: ProfileIndex,
-                    },
-                    meta: {
-                        verboseName: 'Home',
-                        requiresAuthentication: true
-                    }
-                },
-                {
-                    name: 'profile_details',
-                    path: 'details',
-                    components: {
-                        default: Details,
-                    },
-                    meta: {
-                        verboseName: 'Details',
-                        requiresAuthentication: true
-                    }
-                },
-                {
-                    name: 'profile_preferences',
-                    path: 'preferences',
-                    components: {
-                        default: Preferences,
-                    },
-                    meta: {
-                        verboseName: 'Preferences',
-                        requiresAuthentication: true
-                    }
-                },
-                {
-                    name: 'profile_passwords',
-                    path: 'password',
-                    components: {
-                        default: Password,
-                    },
-                    meta: {
-                        verboseName: 'Passwords',
-                        requiresAuthentication: true
-                    }
-                },
-                {
-                    name: 'profile_addresses',
-                    path: 'addresses',
-                    components: {
-                        default: Address,
-                    },
-                    meta: {
-                        verboseName: 'Addresses',
-                        requiresAuthentication: true
-                    }
-                },
-                {
-                    name: 'profile_payments',
-                    path: 'payments',
-                    components: {
-                        default: Payments,
-                    },
-                    meta: {
-                        verboseName: 'Payments',
-                        requiresAuthentication: true
-                    }
-                },
-                {
-                    name: 'profile_subscriptions',
-                    path: 'subscriptions',
-                    components: {
-                        default: Subscriptions,
-                    },
-                    meta: {
-                        verboseName: 'Subscription',
-                        requiresAuthentication: true
-                    },
-                    children: [
-                        {
-                            name: 'profile_subscription_payment',
-                            path: 'payment',
-                            components: {
-                                content: SubscriptionPayment
-                            },
-                            meta: {
-                                verboseName: 'Payment',
-                                requiresAuthentication: true
-                            }
-                        }
-                    ]
-                },
-                {
-                    name: 'profile_account',
-                    path: 'account',
-                    components: {
-                        default: Account
-                    },
-                    meta: {
-                        verboseName: 'Account',
-                        requiresAuthentication: true
-                    }
-                }
-            ]
-        },
-
-        {
-            path: '/admin',
-            component: Admin,
-            meta: {
-                requiresAuthentication: true,
-                requiresAdmin: true,
-                requiresStaff: true
-            },
-            children: [
-                {
-                    name: 'admin_home',
-                    path: '/',
-                    components: {
-                        default: Index,
-                        nav: AdminNav,
-                        footer: AdminFooter
-                    }
-                },
-                {
-                    name: 'admin_products',
-                    path: 'products',
-                    components: {
-                        default: Products,
-                        nav: AdminNav,
-                        footer: AdminFooter
-                    },
-                },
-                {
-                    name: 'admin_product',
-                    path: 'products/:id(\\d)',
-                    components: {
-                        default: Product,
-                        nav: AdminNav,
-                        footer: AdminFooter
-                    }
-                },
-                {
-                    name: 'admin_product_create',
-                    path: 'create',
-                    components: {
-                        default: Create,
-                        nav: AdminNav,
-                        footer: AdminFooter
-                    }
-                },
-                {
-                    name: 'admin_settings',
-                    path: 'settings',
-                    components: {
-                        default: Settings,
-                        nav: AdminNav,
-                        footer: AdminFooter
-                    }
-                }
-            ]
-        },
-
-        {
-            path: '/506',
-            name: 'not_authorized',
-            component: NotAuthorized
-        },
-
-        {
-            path: '/404',
-            name: 'not_found',
-            alias: '*',
-            component: NotFound
-        }
-    ]
+    routes: routes
 })
 
 export default router

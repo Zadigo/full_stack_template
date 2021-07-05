@@ -39,9 +39,9 @@
       <div class="col-12">
         <b-card v-for="(address, index) in addresses" :key="address.id" :class="{ 'mt-2': index >= 1 }">
           <b-card-body>
-            {{ address.street }}, {{ address.city }}
+            {{ address.street_address }}, {{ address.zip_code }}
 
-            <b-checkbox @change="mainAddress(address.id)" id="main-address" :checked="address.is_main">
+            <b-checkbox @change="mainAddress(address.id)" :id="`address_${address.id}`" :checked="address.is_main">
               <span class="ml-2">Use as main address</span>
             </b-checkbox>
             
@@ -75,20 +75,28 @@ export default {
       newAddress: { is_main: false }
     }
   },
+
+  // beforeMount() {
+  //   this.$store.commit('authenticationModule/getAddresses')
+  // },
+  
   computed: {
     addresses () {
       return this.$store.getters['authenticationModule/getUserAddresses']
     }
   },
+  
   methods: {
     sendChanges () {
       this.$store.dispatch('authenticationModule/newAddress', this.newAddress)
       this.addNew = false
       this.newAddress = {}
     },
+
     deleteAddress (id) {
       this.$store.commit('authenticationModule/deleteAddress', id)
     },
+    
     mainAddress (id) {
       this.$store.commit('authenticationModule/mainAddress', id)
     }

@@ -52,6 +52,7 @@ export default {
       completed: false
     }
   },
+  
   methods: {
     requestPayment() {
       this.$router.push({ name: 'profile_subscriptions' })

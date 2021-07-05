@@ -24,6 +24,7 @@ export default {
             }
         }
     },
+
     methods: {
         _validateEmail(email) {
             if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -35,6 +36,7 @@ export default {
             }
         }
     },
+    
     filters: {
         currency(value) {
             return `$${value}`

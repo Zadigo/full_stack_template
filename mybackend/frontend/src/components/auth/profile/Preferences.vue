@@ -27,9 +27,11 @@
 <script>
 export default {
   name: 'Preferences',
+  
   title() {
     return 'Preferences'
   },
+
   data() {
     return {
       userOptions: {}

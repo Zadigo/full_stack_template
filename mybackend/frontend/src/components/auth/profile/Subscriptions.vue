@@ -36,12 +36,15 @@ export default {
     hasSubscription() {
       return this.$store.getters['subscriptionsModule/hasSubscription']
     },
+
     selectedSubscription() {
       return this.$store.state.subscriptionsModule.selectedSubscription
     },
+    
     hasSelectedSubscription() {
       return this.$store.getters['subscriptionsModule/hasSelectedSubscription']
     },
+    
     subscriptionPrice() {
       if (this.hasSelectedSubscription) {
         if (this.selectedSubscription.isMonthly) {
@@ -54,6 +57,7 @@ export default {
       }
     }
   },
+  
   methods: {
     proceedToPayment() {
       this.$store.commit('addToCart', this.selectedSubscription)

@@ -69,6 +69,7 @@ export default {
       ]
     }
   },
+
   computed: {
     isAuthenticated () {
       return this.$store.getters['authenticationModule/isAuthenticated']
@@ -77,6 +78,7 @@ export default {
       return this.$store.getters['authenticationModule/isAdmin']
     }
   },
+  
   methods: {
     logoutUser () {
       this.$store.dispatch('authenticationModule/logout')

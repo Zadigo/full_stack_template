@@ -13,6 +13,7 @@ import FieldsIterator from "../../FieldsIterator.vue"
 export default {
   name: 'ProfileIndex',
   components: { FieldsIterator, 'profile-card': ProfileCard },
+
   data () {
     return {
       changedValues: {},
@@ -23,6 +24,7 @@ export default {
       ]
     }
   },
+  
   mounted () {
     var userDetails = this.$store.getters['authenticationModule/getUserDetails']
     _.forEach(this.fields, (field) => {
@@ -31,10 +33,12 @@ export default {
       }
     })
   },
+  
   methods: {
     changeItems (field, value) {
       this.changedValues[field] = value
     },
+    
     sendChanges (position) {
       console.log(position)
       this.$store.commit('authenticationModule/updateUserDetails', this.changedValues)

@@ -31,13 +31,14 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
         if not user:
             return False, False
         login(self.request, user)
-        return Token.objects.get(user=user), serializers.UserSerializer(instance=user)
+        return Token.objects.get(user=user), serializers.UserSerializer(instance=user), user
 
     def post(self, request, *args, **kwargs):
-        token, serializer = self.perform_login(request.data)
+        token, serializer, user = self.perform_login(request.data)
         if not serializer:
             return Response({'error': "User does not exist"}, status=status.HTTP_202_ACCEPTED)
-        return Response({'token': token.key, 'myuser': serializer.data})
+        profile_serializer = serializers.MyUserProfileSerializer(instance=user.myuserprofile)
+        return Response({'token': token.key, 'myuser': profile_serializer.data})
 
 
 class Logout(mixins.GlobalAPIMixins, GenericAPIView):

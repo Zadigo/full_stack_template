@@ -24,8 +24,7 @@ class PaymentSerializer(ModelSerializer):
 class AddressSerializer(ModelSerializer):
     class Meta:
         model = Address
-        fields = ['street_address', 'zip_code', 'country']
-
+        fields = ['id', 'street_address', 'zip_code', 'country']
 
 
 class UserSerializer(ModelSerializer):    
@@ -37,7 +36,8 @@ class UserSerializer(ModelSerializer):
 
 class MyUserProfileSerializer(ModelSerializer):
     myuser = UserSerializer()
+    addresses = AddressSerializer(many=True)
 
     class Meta:
         model = USER_PROFILE_MODEL
-        fields = ['id', 'customer_id', 'myuser']
+        fields = ['id', 'customer_id', 'myuser', 'addresses']
