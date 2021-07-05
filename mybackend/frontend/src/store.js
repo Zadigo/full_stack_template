@@ -2,10 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from './routes'
-
-// import products from './products.js'
-
 // import Cookies from 'js-cookie'
+
+// Modules
+// import shopModule from './stores/shop'
+
 
 var _ = require('lodash')
 
@@ -16,85 +17,6 @@ function urlJoin (url, path) {
 
 
 Vue.use(Vuex)
-
-
-// var cartModule = {
-//     // This sections deals with products
-//     // or items that the user has placed
-//     // in the cart of future payment
-//     state: () => ({
-//         cart: []
-//     }),
-
-//     mutations: {
-//         addToCart(state, payload) {
-//             var lastItem = _.last(state.cart)
-//             var id = 1
-//             if (lastItem !== undefined) {
-//                 id = lastItem.id + 1
-//             }
-//             payload['id'] = id
-//             state.cart.push(payload)
-//         },
-//         emptyCart(state) {
-//             state.cart = []
-//         }
-//     },
-
-//     getters: {
-//         getCart(state) {
-//             return state.cart
-//         },
-//         cartEmpty(state) {
-//             return state.cart.length === 0
-//         },
-//         numberOfItems(state) {
-//             return state.cart.length
-//         }
-//     }
-// }
-
-
-// var subscriptionsModule = {
-//     // This module deals with everything
-//     // related to the pricing page and
-//     // the user's actual subscription
-
-//     // This is kind of distinct from the
-//     // cart because it deals specifically
-//     // with services that require a subscription.
-//     // These items are thereafter placed in the
-//     // users cart once selected
-
-//     namespaced: true,
-//     state: () => ({
-//         currentSubscription: {},
-//         selectedSubscription: {},
-//     }),
-
-//     mutations: {
-//         selectSubscription(state, payload) {
-//             state.selectedSubscription = payload
-//         }
-//     },
-    
-//     getters: {
-//         hasSubscription(state) {
-//             if (Object.keys(state.currentSubscription).length === 0) {
-//                 return false
-//             } else {
-//                 return true
-//             }
-//         },
-//         hasSelectedSubscription(state) {
-//             if (Object.keys(state.selectedSubscription).length === 0) {
-//                 return false
-//             } else {
-//                 return true
-//             }
-//         }
-//     }
-// }
 
 
 // Module that contains all the getters
@@ -365,59 +287,6 @@ var authenticationModule = {
 }
 
 
-// var itemsModule = {
-//     namespaced: true,
-//     state: () => ({
-//         items: products
-//     }),
-
-//     mutations: {
-//         newItem(state, item) {
-//             state.items.push(item)
-//         },
-//         duplicateItems(state, payload) {
-//             state
-//             payload
-//             // var lastItem = _.last(state.items)
-//             // var products = _.filter(state.items, (item) => {
-//             //     return payload.includes(item.id)
-//             // })
-//             // _.forEach(products, (product) => {
-//             //     product['id'] = lastItem += 1
-//             // })
-//             // state.items.push(products)
-//         },
-
-//         activateItems (state, payload) {
-//             state
-//             payload
-//         },
-
-//         deactivateItems (state, payload) {
-//             state,
-//             payload
-//         },
-
-//         deleteItems (state, payload) {
-//             var items = _.reject(state.items, (item) => {
-//                 return payload.includes(item.id)
-//             })
-//             state.items = items
-//         }
-//     },
-
-//     getters: {
-//         getItems(state) {
-//             return state.items
-//         },
-        
-//         getItem: (state) => (id) => {
-//             return _.find(state.items, { id: id })
-//         }
-//     }
-// }
-
-
 var store = new Vuex.Store({
     state: () => ({
         baseUrls: {
@@ -426,11 +295,11 @@ var store = new Vuex.Store({
     }),
 
     modules: {
-        // itemsModule: itemsModule,
         authenticationModule: authenticationModule,
-        // subscriptionsModule: subscriptionsModule,
-        // cartModule: cartModule,
-        profileModule: profileModule
+        profileModule: profileModule,
+
+        // Optional
+        // shopModule: shopModule
     },
 
     getters: {
