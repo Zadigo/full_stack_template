@@ -2,7 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './routes.js'
 import store from './store.js'
+
 import BootstrapVue from 'bootstrap-vue'
+import Buefy from 'buefy'
+// import 'buefy/dist/buefy.css'
 
 
 // Global components
@@ -30,6 +33,7 @@ Vue.mixin(globalMixins)
 // Plugins
 Vue.use(BootstrapVue)
 Vue.use(Stripe)
+Vue.use(Buefy)
 
 
 // Components

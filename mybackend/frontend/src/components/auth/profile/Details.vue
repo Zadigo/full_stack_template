@@ -24,6 +24,13 @@ export default {
       ]
     }
   },
+
+  beforeRouteLeave(to, from, next) {
+    if (Object.keys(this.changedValues).length > 0) {
+      console.log('You have unfinished unsaved data')
+    }
+    next()
+  },
   
   mounted () {
     var userDetails = this.$store.state.profileModule.userDetails
@@ -46,6 +53,22 @@ export default {
         'updatePersonalDetails', 
         { position: position, content: this.changedValues }
       )
+      this.changedValues = {}
+      this.$buefy.snackbar.open({
+        message: 'Données mis à jour',
+        type: 'is-warning',
+        position: 'is-top-right',
+        actionText: 'Cancel',
+        indefinite: false,
+        duration: 3500,
+        onAction: () => {
+          // this.$buefy.toast.open({
+          //   message: 'Action pressed',
+          //   queue: false
+          // })
+          console.log('This message')
+        } 
+      })
     }
   }
 }

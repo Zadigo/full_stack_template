@@ -52,6 +52,7 @@ import Testimonials from '@/components/hero/sections/Testimonials.vue'
 
 export default {
   name: 'Home',
+  
   components: {
     Testimonials,
     Boxes

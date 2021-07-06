@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from './routes'
+import { isNull } from 'lodash'
 // import Cookies from 'js-cookie'
 
 // Modules
@@ -197,6 +198,15 @@ var authenticationModule = {
         login({ commit, rootState }, payload) {
             // Initiates a login request to Django
             let { email, username, password } = payload
+            
+            // When a person just presses the button without
+            // entering anykind of credentials, we should
+            // not be continuing the process
+            if (isNull(email) | isNull(username) && isNull(password)) {
+                console.error('No crendentials entered')
+                return false
+            }
+            
             axios({
                 method: 'post',
                 url: urlJoin(rootState.baseUrls.api, 'login').href,
@@ -240,8 +250,13 @@ var authenticationModule = {
         },
 
         signUp({ rootState }, payload) {
-            let { password1, password2 } = payload
-            password1, password2
+            let { email, password1, password2 } = payload
+
+            if (isNull(email) && isNull(password1) && isNull(password2)) {
+                console.error('No or not enough credentials entered')
+                return false
+            }
+
             axios({
                 method: 'post',
                 url: urlJoin(rootState.baseUrls.api, 'signup'),
