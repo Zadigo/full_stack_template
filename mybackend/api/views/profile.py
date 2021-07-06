@@ -128,10 +128,12 @@ class ChangePersonalDetails(GenericAPIView):
             serializer_position = int(serializer_position)
         else:
             return Response({'error': 'An error occured - PF1'})
-        serializer = self._get_serializer(
-            serializer_position, 
-            request.data['content']
-        )
+            
+        content = request.data['content']
+        if not content or content is None:
+            return Response({}, status=status.HTTP_202_ACCEPTED)
+
+        serializer = self._get_serializer(serializer_position, content)
         serializer.update(request.user, serializer._validated_data)
         return Response(serializer.data)
 

@@ -63,6 +63,12 @@ class SerializerMixin:
         return instance
 
     def update(self, instance=None, validated_data=None):
+        # TODO: For whatever reason, myuser is present
+        # in the validated data. In which case, check
+        # for that and in order to get the true data
+        if 'myuser' in validated_data:
+            validated_data = validated_data['myuser']
+            
         instance = self._check_has_instance(instance)
         updated_instance = self.instance_iterator(instance, validated_data)
         return updated_instance
@@ -74,10 +80,6 @@ class UserValidationSerializer(SerializerMixin, Serializer):
     email = fields.EmailField(source='myuser.email', required=False)
     
     def update(self, instance=None, validated_data=None):
-        # for key, value in validated_data.items():
-        #     setattr(instance, key, value)
-        # instance.save()
-        # return instance
         updated_instance = super().update(instance, validated_data)
         return updated_instance.save()
 
