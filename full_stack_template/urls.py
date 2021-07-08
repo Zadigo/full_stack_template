@@ -3,7 +3,7 @@ from accounts.admin import admin_site
 from django.urls import path
 from django.urls.conf import include
 
-from mybackend.views import index
+from full_stack_template.views import index
 
 urlpatterns = [
     path('api/v1/', include('api.urls')),

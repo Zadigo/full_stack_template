@@ -48,9 +48,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mybackend.urls'
+ROOT_URLCONF = 'full_stack_template.urls'
 
-TEMPLATES = [
+TEMPLATES = [full_stack_templatefull_stack_template
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
@@ -63,12 +63,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+            ],full_stack_template
         },
     },
 ]
 
-WSGI_APPLICATION = 'mybackend.wsgi.application'
+WSGI_APPLICATION = 'full_stack_template.wsgi.application'
 
 
 # Database
