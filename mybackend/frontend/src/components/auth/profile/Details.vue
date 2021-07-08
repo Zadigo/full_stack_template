@@ -1,18 +1,18 @@
 <template>
-  <profile-card @validateAction="sendChanges" :position="0">
-      <fields-iterator @startAction="changeItems" :fields="fields" />
-  </profile-card>
+  <validation-card @validateAction="sendChanges" :position="0">
+    <fields-iterator @startAction="changeItems" :fields="fields" />
+  </validation-card>
 </template>
 
 <script>
 var _ = require('lodash')
 
-import ProfileCard from './ProfileCard.vue'
+import ValidationCard from './ValidationCard.vue'
 import FieldsIterator from "../../FieldsIterator.vue"
 
 export default {
   name: 'ProfileIndex',
-  components: { FieldsIterator, 'profile-card': ProfileCard },
+  components: { FieldsIterator, ValidationCard },
 
   data () {
     return {

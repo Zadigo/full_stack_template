@@ -1,3 +1,16 @@
+// var _ = require('lodash')
+
+// function buildSocials(socials) {
+//     var socialsArray = []
+//     _.forEach(socials, (social, index) => {
+//         socialsArray.push(
+//             { id: index, link: social[0], icon: social[1]}
+//         )
+//     })
+//     console.log(socialsArray)
+//     return socialsArray
+// }
+
 export default {
     data() {
         return {
@@ -21,8 +34,20 @@ export default {
                     { id: 3, link: '#', icon: 'fab fa-youtube' },
                     { id: 4, link: '#', icon: 'fab fa-instagram' },
                 ]
+                // socials: buildSocials(
+                //     [
+                //         ['#', 'fab-fa-facebook'],
+                //         ['#', 'fab-fa-twitter'],
+                //         ['#', 'fab-fa-youtube'],
+                //         ['#', 'fab-fa-instagram'],
+                //     ]
+                // )
             }
         }
+    },
+
+    beforeMount(vm) {
+        console.log(vm)
     },
 
     methods: {

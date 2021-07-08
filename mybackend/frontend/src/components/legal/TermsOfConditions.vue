@@ -740,9 +740,11 @@
 <script>
 export default {
   name: 'TermsAndConditions',
+  
   title () {
     return 'Conditions générales de vente'
   },
+
   filters: {
     formatEmail (value) {
       var link = document.createElement('a')
@@ -751,6 +753,7 @@ export default {
       console.log(link)
       return link
     },
+    
     formatUrl (value) {
       var link = document.createElement('a')
       link.href = value

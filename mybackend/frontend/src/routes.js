@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import store from './stores'
 
 // Global components
-import Navbar from './components/Navbar.vue'
-import Footer from './components/Footer.vue'
+import PageNavigation from './components/PageNavigation.vue'
+import PageFooter from './components/PageFooter.vue'
 
 // Admin
 import Admin from './pages/Admin.vue'
@@ -28,8 +28,6 @@ import Subscriptions from './components/auth/profile/Subscriptions.vue'
 
 // Legal
 import Legal from './pages/Legal.vue'
-import TermsOfConditions from './components/legal/TermsOfConditions.vue'
-import TermsOfUse from './components/legal/TermsOfUse.vue'
 
 // About
 import AboutUs from './pages/AboutUs.vue'
@@ -52,9 +50,9 @@ const routes = [
                 name: 'home',
                 path: '/',
                 components: {
-                    nav: Navbar,
-                    default: () => import('./components/hero/Intro.vue'),
-                    footer: Footer
+                    nav: PageNavigation,
+                    default: () => import(/* webpackChunkName: "home" */ './components/hero/Intro.vue'),
+                    footer: PageFooter
                 }
             }
         ]
@@ -70,21 +68,21 @@ const routes = [
                 name: 'signin',
                 path: '/signin',
                 components: {
-                    default: () => import('./components/auth/registration/Signin.vue')
+                    default: () => import(/* webpackChunkName: "registration" */ './components/auth/registration/Signin.vue')
                 }
             },
             {
                 name: 'signup',
                 path: '/signup',
                 components: {
-                    default: () => import('./components/auth/registration/Signup.vue')
+                    default: () => import(/* webpackChunkName: "registration" */'./components/auth/registration/Signup.vue')
                 }
             },
             {
                 name: 'forgot',
                 path: '/forgot-password',
                 components: {
-                    default: () => import('./components/auth/registration/Forgot.vue')
+                    default: () => import(/* webpackChunkName: "registration" */ './components/auth/registration/Forgot.vue')
                 }
             }
         ]
@@ -94,9 +92,9 @@ const routes = [
         path: '/pricing',
         name: 'pricing',
         components: {
-            nav: Navbar,
+            nav: PageNavigation,
             default: () => import('./pages/Pricing.vue'),
-            footer: Footer
+            footer: PageFooter
         }
     },
     {
@@ -114,27 +112,27 @@ const routes = [
         name: 'about',
         path: '/about-us',
         components: {
-            nav: Navbar,
+            nav: PageNavigation,
             default: AboutUs,
-            footer: Footer
+            footer: PageFooter
         }
     },
     {
         name: 'jobs',
         path: '/jobs',
         components: {
-            nav: Navbar,
+            nav: PageNavigation,
             default: () => import('./pages/Jobs.vue'),
-            footer: Footer
+            footer: PageFooter
         }
     },
     {
         name: 'contact',
         path: '/contact-us',
         components: {
-            nav: Navbar,
+            nav: PageNavigation,
             default: Contact,
-            footer: Footer
+            footer: PageFooter
         }
     },
 
@@ -148,7 +146,7 @@ const routes = [
                 name: 'terms_of_condition',
                 path: 'terms-of-condition',
                 components: {
-                    default: TermsOfConditions
+                    default: () => import(/* webpackChunkName: "legal" */ './components/legal/TermsOfConditions.vue')
                 },
                 meta: {
                     verboseName: 'Terms of condition'
@@ -158,7 +156,7 @@ const routes = [
                 name: 'terms_of_use',
                 path: 'terms-of-use',
                 components: {
-                    default: TermsOfUse
+                    default: () => import(/* webpackChunkName: "legal" */ './components/legal/TermsOfUse.vue')
                 },
                 meta: {
                     verboseName: 'Terms of use'
@@ -172,9 +170,9 @@ const routes = [
     {
         path: '/profile',
         components: {
-            nav: Navbar,
+            nav: PageNavigation,
             default: Profile,
-            footer: Footer
+            footer: PageFooter
         },
         children: [
             {
@@ -354,7 +352,10 @@ const routes = [
 
 var router = new Router({
     mode: 'history',
-    routes: routes
+    routes: routes,
+    scrollBehavior() {
+        return { x: 0, y: 0 }
+    }
 })
 
 export default router

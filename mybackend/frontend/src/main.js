@@ -13,6 +13,7 @@ import FieldsIterator from './components/FieldsIterator.vue'
 import PrivacyText from './components/PrivacyText.vue'
 import BannerCTA from './components/BannerCTA.vue'
 import SmallFAQ from './components/SmallFAQ.vue'
+import BaseJumbotron from './components/BaseJumbotron.vue'
 
 
 // Mixins
@@ -41,6 +42,7 @@ Vue.component('fields-iterator', FieldsIterator)
 Vue.component('privacy-text', PrivacyText)
 Vue.component('banner-cta', BannerCTA)
 Vue.component('small-faq', SmallFAQ)
+Vue.component('base-jumbotron', BaseJumbotron)
 
 
 new Vue({

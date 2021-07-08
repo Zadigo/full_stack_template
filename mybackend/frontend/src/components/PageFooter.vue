@@ -2,38 +2,7 @@
   <footer class="page-footer text-center font-small wow fadeIn">
     <div class="container pt-3">
       <div class="row text-left">
-        <!-- Company -->
-        <div class="col-3">
-          <p class="font-weight-bold text-white text-uppercase">Company info</p>
-          <ul class="p-0">
-            <li><router-link :to="{ name: 'home' }" role="link" aria-labelledby="Home">Home</router-link></li>
-            <!-- <li><router-link :to="{ name: 'products' }" role="link" aria-labelledby="Shop">Shop</router-link></li> -->
-            <li><router-link :to="{ name: 'about' }" role="link" aria-labelledby="About us">About us</router-link></li>
-            <li><router-link :to="{ name: 'jobs' }" role="link" aria-labelledby="Home">Career</router-link></li>
-          </ul>
-        </div>
-
-        <!-- Support -->
-        <div class="col-3">
-          <p class="font-weight-bold text-white text-uppercase">Help and support</p>
-          <ul class="p-0">
-            <!-- <li><router-link :to="{ name: 'products' }" role="link" aria-label="Home">Shipping info</router-link></li> -->
-            <!-- <li><router-link :to="{ name: 'faq' }" role="link" aria-label="Home">FAQ</router-link></li> -->
-            <li><router-link :to="{ name: 'pricing' }" role="link" aria-label="Home">Pricing</router-link></li>
-            <!-- <li><router-link :to="{ name: 'jobs' }" role="link" aria-label="Jobs">Jobs</router-link></li> -->
-          </ul>
-        </div>
-        
-        <!-- Customer care -->
-        <div class="col-3">
-          <p class="font-weight-bold text-white text-uppercase">Customer care</p>
-          <ul class="p-0">
-            <li><router-link :to="{ name: 'contact' }" role="link" aria-label="Home">Contact</router-link></li>
-            <!-- <li><router-link :to="{ name: 'products' }" role="link" aria-label="Home">Another link</router-link></li> -->
-            <!-- <li><router-link :to="{ name: 'products' }" role="link" aria-label="Home">Something to click</router-link></li> -->
-            <!-- <li><router-link :to="{ name: 'products' }" role="link" aria-label="Home">What</router-link></li> -->
-          </ul>
-        </div>
+        <page-footer-column v-for="section in sections" :key="section.id" :section="section" />
 
         <div class="col-3">
           <div class="row">
@@ -97,8 +66,15 @@
 </template>
 
 <script>
+import PageFooterData from '../data/PageFooter.json'
+import PageFooterColumn from './PageFooterColumn.vue'
+
 export default {
-  name: 'Footer',
+  name: 'PageFooter',
+  components: {
+    PageFooterColumn
+  },
+
   data () {
     return {
       newsletterEmail: null,
@@ -107,9 +83,10 @@ export default {
         type: 'alert-success',
         message: null 
       },
-      socials: []
+      sections: PageFooterData
     }
   },
+
   methods: {
     subscribeUser () {
       if (this._validateEmail(this.newsletterEmail)) {
@@ -119,28 +96,8 @@ export default {
         this._newMessage('alert-danger', 'Email is not valid')
         this.sent = true
       }
-      // var formData = new FormData()
-      // formData.append('email', this.newsletterEmail)
-
-      // Axios({
-      //   url: 'http://example.com',
-      //   method: 'post',
-      //   responseType: 'json',
-      //   data: formData
-      // })
-      // .then((response) => {
-      //   response.json().then((data) => {
-      //     this._newMessage('alert-success', 'An error occured')
-      //     console.log(data)
-      //     this.sent = true
-      //   })
-      // })
-      // .error((error) => {
-      //   this._newMessage('alert-danger', 'An error occured')
-      //   this.sent = true
-      //   console.error(error)
-      // })
     },
+
     _newMessage (type, message) {
       this.alertDetails['type'] = type
       this.alertDetails['message'] = message
@@ -158,27 +115,6 @@ export default {
 
   .page-footer {
       background-color: #1C2331;
-  }
-  
-  .page-footer ul {
-    list-style: none;
-  }
-
-  .page-footer ul li {
-    margin-bottom: .5rem;
-  }
-
-  .page-footer ul li a {
-    /* color: #b2b2b2 !important; */
-    text-decoration: none;
-  }
-
-  .page-footer-light {
-    color: white;
-  }
-  .page-footer-light a,
-  .page-footer-light i {
-    color: white;
   }
 </style>
 

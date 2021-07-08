@@ -9,7 +9,7 @@
 
         <div class="col-sm-12 col-md-5">
           <div class="form-group">
-            <input type="email" id="email" class="form-control" placeholder="Email" autocomplete="email">
+            <input v-model="email" type="email" id="email" class="form-control" placeholder="Email" autocomplete="email">
             <privacy-text class="mt-2" />
           </div>
         </div>
@@ -21,6 +21,12 @@
 <script>
 
 export default {
+  data() {
+    return {
+      email: null
+    }
+  },
+
   components: {
     
   }

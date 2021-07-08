@@ -1,15 +1,5 @@
 <template>
-  <section id="pricing">
-    <header>
-      <!-- Jumbotron -->
-      <div class="p-5 text-center bg-light" id="intro">
-        <h1 class="mb-3 font-weight-bold">We've got you covered</h1>
-        <p class="font-weight-bold">
-          Need a hand getting started or getting the most out of {{ companyDetails.name }}?
-        </p>
-      </div>
-    </header>
-
+  <base-jumbotron :pageTitle="pageTitle" :pageDescription="pageDescription" sectionId="contact">
     <div class="container">
       <!-- Contact-1 -->
       <div class="row mt-4">
@@ -82,7 +72,7 @@
         <banner-cta />
       </div>
     </div>
-  </section>
+  </base-jumbotron>
 </template>
 
 <script>
@@ -93,8 +83,21 @@ export default {
   components: {
     'contact-card': Card
   },
+
   title() {
     return 'Contact our friendly support'
+  },
+
+  data() {
+    return {
+      pageTitle: "We've got you covered",
+    }
+  },
+
+  computed: {
+    pageDescription() {
+      return `Need a hand getting started or getting the most out of ${this.companyDetails.name}?`
+    }
   }
 }
 </script>
