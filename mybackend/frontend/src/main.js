@@ -17,21 +17,25 @@ import BaseJumbotron from './components/BaseJumbotron.vue'
 
 
 // Mixins
-import TitleMixin from './titleMixin'
+// import TitleMixin from './titleMixin'
 import globalMixins from './globalMixins'
 
 // Plugins
 import Stripe from './plugins/stripe'
+// import Analytics from './plugins/analytics'
+// import Api from './api'
 
 Vue.config.productionTip = false
 
 
 // Mixins
-Vue.mixin(TitleMixin)
+// Vue.mixin(TitleMixin)
 Vue.mixin(globalMixins)
 
 
 // Plugins
+// Vue.use(Api)
+// Vue.use(Analytics)
 Vue.use(BootstrapVue)
 Vue.use(Stripe)
 Vue.use(Buefy)

@@ -21,7 +21,7 @@
 // import { isUndefined } from 'lodash'
 
 export default {
-  name: 'App',
+  name: 'App'
   // beforebRouteEnter (to, from, next) {
   //   next(vm => {
   //     var cachedToken = localStorage.getItem('tok')

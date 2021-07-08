@@ -57,7 +57,7 @@
 
     <div class="footer-copyright py-3">
       <div class="d-flex flex-direction-row justify-content-center">
-        <span>© 2018 Copyright: {{ companyDetails.name }}</span>
+        <span>© {{ currentYear }} Copyright: {{ companyDetails.name }}</span>
         <router-link :to="{ name: 'terms_of_condition' }" class="ml-3">CGV</router-link>
         <router-link :to="{ name: 'terms_of_use' }" class="ml-3">CGU</router-link>
       </div>

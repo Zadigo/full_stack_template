@@ -6,7 +6,7 @@ function pageTitle (vm) {
 }
 
 export default {
-    created () {
+    created() {
         const title = pageTitle(this)
         if (title) {
             document.title = `${ title } - ${ this.companyDetails.name }`
