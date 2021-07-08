@@ -50,7 +50,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'full_stack_template.urls'
 
-TEMPLATES = [full_stack_templatefull_stack_template
+TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
@@ -63,7 +63,7 @@ TEMPLATES = [full_stack_templatefull_stack_template
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],full_stack_template
+            ],
         },
     },
 ]

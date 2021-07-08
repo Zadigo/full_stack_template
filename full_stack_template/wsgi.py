@@ -1,5 +1,5 @@
 """
-WSGI config for mybackend project.
+WSGI config for full_stack_template project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

@@ -1,5 +1,5 @@
 """
-ASGI config for mybackend project.
+ASGI config for full_stack_template project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

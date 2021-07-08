@@ -7,7 +7,7 @@ module.exports = {
     projects: [
         './full_stack_website', // shorthand for only root.
         {
-            root: './mybackend/frontend',
+            root: './frontend',
             package: './package.json',
             globalComponents: [
                 './src/components/**/*.vue',

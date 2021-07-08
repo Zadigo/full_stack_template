@@ -8,7 +8,7 @@
             "name": "FullstackApp",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\mybackend\\manage.py",
+            "program": "${workspaceFolder}\\manage.py",
             "args": [
                 "runserver"
             ],
