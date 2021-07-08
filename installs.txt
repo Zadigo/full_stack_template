@@ -31,3 +31,9 @@ Imports
 @import '~mdb-ui-kit/css/mdb.min.css';
 @import url('https://use.fontawesome.com/releases/v5.15.3/js/all.js');
 @import url('https://cdn.jsdelivr.net/npm/mdbvue/lib/css/mdb.min.css');
+
+
+
+// Remove typescript in ionic
+
+npm uninstall --save typescript @types/jest @typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/cli-plugin-typescript @vue/eslint-config-typescript

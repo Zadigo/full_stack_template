@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import router from './routes'
+import router from '../routes'
 import { isNull } from 'lodash'
 // import Cookies from 'js-cookie'
 
 // Modules
 // import shopModule from './stores/shop'
+import Messages from './messagesModule'
 
 
 var _ = require('lodash')
@@ -20,10 +21,15 @@ function urlJoin (url, path) {
 Vue.use(Vuex)
 
 
-// Module that contains all the getters
-// actions and other state related to
-// the user profile 
+// Main store elements for all the application.
+// Contains a basic profile and authentication
+// module
+
+
 var profileModule = {
+    // Module that contains all the getters
+    // actions and other state related to
+    // the user profile 
     state: () => ({
         userDetails: {
             id: null,
@@ -195,7 +201,7 @@ var authenticationModule = {
     },
 
     actions: {
-        login({ commit, rootState }, payload) {
+        login({ commit, dispatch, rootState }, payload) {
             // Initiates a login request to Django
             let { email, username, password } = payload
             
@@ -226,6 +232,8 @@ var authenticationModule = {
                 }
             })
             .catch((error) => {
+                var msg = { app: 'auth', content: "Nous n'avons pas pu vous vous connecter" }
+                dispatch('newDangerMessage', msg, { root: true })
                 console.log(error)
             })
         },
@@ -293,11 +301,7 @@ var authenticationModule = {
 
         isAdmin(state) {
             return state.admin
-        },
-
-        // getAuthenticationToken (state) {
-        //     return state.token
-        // }
+        }
     }
 }
 
@@ -315,6 +319,7 @@ var store = new Vuex.Store({
 
         // Optional
         // shopModule: shopModule
+        Messages: Messages
     },
 
     getters: {

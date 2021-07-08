@@ -130,3 +130,5 @@ dmypy.json
 
 # node modules
 ./mybackend/frontend/node_modules
+./mybackend/mobile/node_modules
+node_modules

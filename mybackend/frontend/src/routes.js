@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from './store.js'
+import store from './stores'
 
 // Global components
 import Navbar from './components/Navbar.vue'
@@ -18,24 +18,12 @@ import AdminFooter from './components/admin/nav/Footer.vue'
 
 // Hero
 import Home from './pages/Home.vue'
-import Intro from './components/hero/Intro.vue'
 
 // Registration
 import RegistrationHero from './pages/RegistrationHero.vue'
-import Signin from './components/auth/registration/Signin.vue'
-import Signup from './components/auth/registration/Signup.vue'
-import Forgot from './components/auth/registration/Forgot.vue'
 
 // Profile
 import Profile from './pages/Profile.vue'
-import ProfileIndex from './components/auth/profile/Index.vue'
-import Details from './components/auth/profile/Details.vue'
-import Preferences from './components/auth/profile/Preferences.vue'
-import Password from './components/auth/profile/Password.vue'
-import SubscriptionPayment from './components/auth/profile/SubscriptionPayment.vue'
-import Payments from './components/auth/profile/Payments.vue'
-import Account from './components/auth/profile/Account.vue'
-import Address from './components/auth/profile/Address.vue'
 import Subscriptions from './components/auth/profile/Subscriptions.vue'
 
 // Legal
@@ -45,18 +33,13 @@ import TermsOfUse from './components/legal/TermsOfUse.vue'
 
 // About
 import AboutUs from './pages/AboutUs.vue'
-import Pricing from './pages/Pricing.vue'
 import Payment from './pages/Payment.vue'
-import Jobs from './pages/Jobs.vue'
 import Contact from './pages/Contact.vue'
 // import Press from './pages/Press.vue'
 
-// Errors
-import NotFound from './pages/NotFound.vue'
-import NotAuthorized from './pages/NotAuthorized.vue'
-
 
 Vue.use(Router)
+
 
 const routes = [
     {
@@ -70,7 +53,7 @@ const routes = [
                 path: '/',
                 components: {
                     nav: Navbar,
-                    default: Intro,
+                    default: () => import('./components/hero/Intro.vue'),
                     footer: Footer
                 }
             }
@@ -87,21 +70,21 @@ const routes = [
                 name: 'signin',
                 path: '/signin',
                 components: {
-                    default: Signin
+                    default: () => import('./components/auth/registration/Signin.vue')
                 }
             },
             {
                 name: 'signup',
                 path: '/signup',
                 components: {
-                    default: Signup
+                    default: () => import('./components/auth/registration/Signup.vue')
                 }
             },
             {
                 name: 'forgot',
                 path: '/forgot-password',
                 components: {
-                    default: Forgot
+                    default: () => import('./components/auth/registration/Forgot.vue')
                 }
             }
         ]
@@ -111,8 +94,8 @@ const routes = [
         path: '/pricing',
         name: 'pricing',
         components: {
-            default: Pricing,
             nav: Navbar,
+            default: () => import('./pages/Pricing.vue'),
             footer: Footer
         }
     },
@@ -141,7 +124,7 @@ const routes = [
         path: '/jobs',
         components: {
             nav: Navbar,
-            default: Jobs,
+            default: () => import('./pages/Jobs.vue'),
             footer: Footer
         }
     },
@@ -184,11 +167,13 @@ const routes = [
         ]
     },
 
+    // Routes for /profile
+
     {
         path: '/profile',
         components: {
-            default: Profile,
             nav: Navbar,
+            default: Profile,
             footer: Footer
         },
         children: [
@@ -196,7 +181,7 @@ const routes = [
                 name: 'profile_overview',
                 path: '/',
                 components: {
-                    default: ProfileIndex,
+                    default: () => import('./components/auth/profile/Index.vue')
                 },
                 meta: {
                     verboseName: 'Home',
@@ -207,7 +192,7 @@ const routes = [
                 name: 'profile_details',
                 path: 'details',
                 components: {
-                    default: Details,
+                    default: () => import('./components/auth/profile/Details.vue')
                 },
                 meta: {
                     verboseName: 'Details',
@@ -218,7 +203,7 @@ const routes = [
                 name: 'profile_preferences',
                 path: 'preferences',
                 components: {
-                    default: Preferences,
+                    default: () => import('./components/auth/profile/Preferences.vue')
                 },
                 meta: {
                     verboseName: 'Preferences',
@@ -229,7 +214,7 @@ const routes = [
                 name: 'profile_passwords',
                 path: 'password',
                 components: {
-                    default: Password,
+                    default: () => import('./components/auth/profile/Password.vue')
                 },
                 meta: {
                     verboseName: 'Passwords',
@@ -240,7 +225,7 @@ const routes = [
                 name: 'profile_addresses',
                 path: 'addresses',
                 components: {
-                    default: Address,
+                    default: () => import('./components/auth/profile/Address.vue'),
                 },
                 meta: {
                     verboseName: 'Addresses',
@@ -251,7 +236,7 @@ const routes = [
                 name: 'profile_payments',
                 path: 'payments',
                 components: {
-                    default: Payments,
+                    default: () => import('./components/auth/profile/Payments.vue')
                 },
                 meta: {
                     verboseName: 'Payments',
@@ -273,7 +258,7 @@ const routes = [
                         name: 'profile_subscription_payment',
                         path: 'payment',
                         components: {
-                            content: SubscriptionPayment
+                            content: () => import('./components/auth/profile/SubscriptionPayment.vue')
                         },
                         meta: {
                             verboseName: 'Payment',
@@ -286,7 +271,7 @@ const routes = [
                 name: 'profile_account',
                 path: 'account',
                 components: {
-                    default: Account
+                    default: () => import('./components/auth/profile/Account.vue')
                 },
                 meta: {
                     verboseName: 'Account',
@@ -356,14 +341,14 @@ const routes = [
     {
         path: '/506',
         name: 'not_authorized',
-        component: NotAuthorized
+        component: () => import('./pages/NotAuthorized.vue')
     },
 
     {
         path: '/404',
         name: 'not_found',
         alias: '*',
-        component: NotFound
+        component: () => import('./pages/NotFound.vue')
     }
 ]
 
