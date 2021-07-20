@@ -29,11 +29,12 @@
         </div>
 
         <button @click="sendChanges" v-if="createMode" class="btn btn-primary btn-md m-0 mt-4">
-          <i class="fa fa-check mr-3"></i>
+          <font-awesome-icon icon="check"></font-awesome-icon>
           Validate
         </button>
+
         <button @click="updateAddress" v-else class="btn btn-primary btn-md m-0 mt-4">
-          <i class="fa fa-check mr-3"></i>
+          <font-awesome-icon icon="check"></font-awesome-icon>
           Update
         </button>
       </b-card-body>
@@ -52,12 +53,12 @@
             
             <div class="row">
               <div class="col">
-                <button @click="deleteAddress(address.id)" class="btn btn btn-light">
-                  <i class="fa fa-trash mr-2"></i>
+                <button @click="deleteAddress(address.id)" class="btn btn-light">
+                  <font-awesome-icon icon="trash"></font-awesome-icon>
                 </button>
 
-                <button @click="startUpdateAddress(address.id)" class="btn btn btn-light">
-                  <i class="fa fa-create mr-2"></i>
+                <button @click="startUpdateAddress(address.id)" class="btn btn-light">
+                  <font-awesome-icon icon="pen"></font-awesome-icon>
                 </button>
               </div>
             </div>
@@ -74,6 +75,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 var _ = require('lodash')
 
 export default {
@@ -90,9 +93,9 @@ export default {
   },
   
   computed: {
-    addresses() {
-      return this.$store.state.profileModule.userDetails.addresses
-    }
+    ...mapState('profileModule', {
+      addresses: (state) => { return state.userDetails.addresses }
+    })
   },
   
   methods: {

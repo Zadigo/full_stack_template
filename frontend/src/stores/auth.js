@@ -1,7 +1,7 @@
 import axios from 'axios'
 import router from '../router/index'
 import { isNull } from 'lodash'
-
+// import TestAxios from '../axiosConfig'
 
 var _ = require('lodash')
 
@@ -18,6 +18,7 @@ var profileModule = {
     // Module that contains all the getters
     // actions and other state related to
     // the user profile 
+    namespaced: true, 
     state: () => ({
         userDetails: {
             id: null,
@@ -31,7 +32,7 @@ var profileModule = {
 
     mutations: {
         changeAddress(state, payload) {
-            var index = _.findIndex(state.updateUserDetails.addresses, ['id', payload.id])
+            var index = _.findIndex(state.userDetails.addresses, ['id', payload.id])
             state.userDetails.addresses[index] = payload
         },
 
@@ -66,14 +67,14 @@ var profileModule = {
     },
 
     actions: {
-        newAddress({ state, rootState }, payload) {
+        newAddress({ state, rootGetters, rootState }, payload) {
             axios({
                 method: 'post',
                 url: urlJoin(rootState.baseUrls.api, 'new-address').href,
                 data: payload,
                 responseType: 'json',
                 headers: {
-                    'Authorization': `Token ${state.token}`,
+                    'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
                     'Content-Type': 'application/json',
                 },
                 widthCredentials: true
@@ -90,17 +91,17 @@ var profileModule = {
             })
         },
 
-        updateAddress({ commit, getters }, payload) {
+        updateAddress({ commit, rootGetters }, payload) {
             // Update an address by sending a request
             // to the backend in order to implement
             // the change
             axios({
-                method: 'patch',
+                method: 'post',
                 url: `http://127.0.0.1:8000/api/v1/new-address`,
                 responseType: 'json',
                 data: payload,
                 headers: {
-                    'Authorization': `Token ${ getters.getAuthenticationToken }`,
+                    'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
                     'Content-Type': 'application/json',
                 },
                 withCredentials: true
@@ -120,16 +121,16 @@ var profileModule = {
         },
 
         // updatePersonalDetails({ dispatch, commit, getters, rootGetters }, payload) {
-        updatePersonalDetails({ commit, getters }, payload) {
+        updatePersonalDetails({ commit, rootGetters }, payload) {
             // Updates details from the /details page such as
             // firstname, lastname and email
             axios({
                 method: 'post',
-                url: urlJoin(getters.getApiUrl, 'update-details').href,
+                url: urlJoin(rootGetters.getApiUrl, 'update-details').href,
                 data: payload,
                 responseType: 'json',
                 headers: {
-                    'Authorization': `Token ${ getters.getAuthenticationToken }`,
+                    'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
                     'Content-Type': 'application/json',
                 },
                 widthCredentials: true
@@ -172,7 +173,7 @@ var authenticationModule = {
             // Updates the state in the profileModule
             // with the initial values for the userDetail
             // state
-            this.commit('initialUserDetails', payload.myuser)
+            this.commit('profileModule/initialUserDetails', payload.myuser)
             state.admin = payload.myuser.myuser.is_admin
             state.staff = payload.myuser.myuser.is_staff
             state.token = payload.token
@@ -226,23 +227,25 @@ var authenticationModule = {
             })
         },
 
-        logout({ state, commit, rootState }) {
-            axios({
-                url: urlJoin(rootState.baseUrls.api, 'logout').href,
-                method: 'post',
-                headers: {
-                    'Authorization': `Token ${state.token}`,
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
-            })
-            .then((response) => {
-                commit('performLogout', response.data)
-                router.push({ name: 'home' })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        // logout({ state, commit, rootState }) {
+        logout({ commit }, responseData) {
+            // axios({
+            //     url: urlJoin(rootState.baseUrls.api, 'logout').href,
+            //     method: 'post',
+            //     headers: {
+            //         'Authorization': `Token ${state.token}`,
+            //         'Content-Type': 'application/json'
+            //     },
+            //     withCredentials: true
+            // })
+            // .then((response) => {
+            //     commit('performLogout', response.data)
+            //     router.push({ name: 'home' })
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
+            commit('performLogout', responseData)
         },
 
         signUp({ rootState }, payload) {

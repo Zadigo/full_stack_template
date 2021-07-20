@@ -14,7 +14,7 @@ require('./assets/admin.css')
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global components
@@ -30,9 +30,12 @@ import globalMixins from './globalMixins'
 
 // Plugins
 import Stripe from './plugins/stripe'
+import Api from './plugins/api'
 
 // Font awesome
-library.add(faUserSecret)
+library.add(faTrash)
+library.add(faPen)
+library.add(faCheck)
 
 
 Vue.config.productionTip = false
@@ -44,7 +47,7 @@ Vue.mixin(globalMixins)
 
 
 // Plugins
-// Vue.use(Api)
+Vue.use(Api)
 // Vue.use(Analytics)
 Vue.use(BootstrapVue)
 Vue.use(Stripe)

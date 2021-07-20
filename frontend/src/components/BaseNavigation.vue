@@ -80,7 +80,18 @@ export default {
   methods: {
     ...mapActions('authenticationModule', [
       'logout'
-    ])
+    ]),
+
+    logoutUser() {
+      this.$api.auth.logout()
+      .then((response) => {
+        this.logout(response.data)
+        this.$router.push({ name: 'home' })
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+    }
   }
 }
 </script>

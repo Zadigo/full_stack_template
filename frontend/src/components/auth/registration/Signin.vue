@@ -21,6 +21,8 @@
 
 <script>
 import BaseLayout from './BaseLayout.vue'
+
+import { mapActions } from 'vuex'
 // import formFields from '../../../data/fields.json'
 
 export default {
@@ -49,8 +51,12 @@ export default {
   // },
 
   methods: {
+    ...mapActions('authenticationModule', [
+      'login'
+    ]),
     loginUser () {
-      this.$store.dispatch('authenticationModule/login', this.credentials)
+      // this.$store.dispatch('authenticationModule/login', this.credentials)
+      this.login(this.credentials)
     },
 
     setCredentials(payload) {

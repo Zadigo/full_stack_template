@@ -7,6 +7,7 @@
     <router-link :to="{ name: 'signin' }" class="btn btn-outline-light btn-lg m-2" role="button" rel="nofollow">
       Start tutorial
     </router-link>
+    <button @click="testFunction" class="btn btn-lg btn-primary">Test Api</button>
   </div>
 </template>
 
@@ -25,6 +26,12 @@ export default {
   },
   title () {
     return 'Home'
+  },
+
+  methods: {
+    testFunction() {
+      console.log('for testing')
+    }
   }
 }
 </script>

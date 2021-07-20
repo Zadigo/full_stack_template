@@ -1,17 +1,14 @@
 import AuthAPI from './auth'
-import Axios from 'axios'
+import profileAPI from './profile'
+
+import axiosClient from '../../axiosClient'
 
 export default {
     install: (Vue) => {
-        Axios.interceptors.response.use(function (response) {
-            return response
-        }, function (error) {
-            return Promise.reject(error)
-        })
-        
         const repositories = {
-            auth: AuthAPI(Axios)
+            auth: AuthAPI(axiosClient),
+            profile: profileAPI(axiosClient)
         }
-        Vue.prototype.$http = repositories
+        Vue.prototype.$api = repositories
     }
 }

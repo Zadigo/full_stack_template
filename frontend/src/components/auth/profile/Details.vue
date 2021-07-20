@@ -50,9 +50,10 @@ export default {
     
     sendChanges (position) {
       this.$store.dispatch(
-        'updatePersonalDetails', 
+      'profileModule/updatePersonalDetails', 
         { position: position, content: this.changedValues }
       )
+      
       this.changedValues = {}
       this.$buefy.snackbar.open({
         message: 'Données mis à jour',
