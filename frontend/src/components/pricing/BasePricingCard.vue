@@ -3,6 +3,7 @@
     <div :class="{ 'border border-primary':  subscription.highlight }" class="card">
       <div class="card-header bg-white py-3">
         <p class="text-uppercase small mb-2"><strong>{{ subscription.name }}</strong></p>
+        
         <h5 v-if="isMonthly" class="mb-0">{{ subscription.prices.monthly|currency }}/month</h5>
         <h5 v-else class="mb-0">{{ subscription.prices.yearly|currency }}/year</h5>
       </div>
@@ -16,15 +17,19 @@
       </div>
 
       <div class="card-footer bg-white py-3">
-        <button @click="goToPage" type="button" :class="{ 'btn-primary': subscription.highlight, 'btn-success': !subscription.highlight }" class="btn btn-sm">Get it</button>
+        <button @click="finalizeSubscription" type="button" :class="{ 'btn-primary': subscription.highlight, 'btn-success': !subscription.highlight }" class="btn btn-sm">
+          Get it
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
-  name: 'PricingCard',
+  name: 'BasePricingCard',
   props: {
     subscription: {
       type: Object,
@@ -36,18 +41,21 @@ export default {
     }
   },
   computed: {
-    buttonLink () {
-      var isAuthenticated = this.$store.getters['authenticationModule/isAuthenticated']
-      if (isAuthenticated) {
-        return 'profile_subscriptions'
-      } else {
-        return 'signin'
-      }
+    ...mapGetters('authenticationModule', [
+      'isAuthenticated'
+    ]),
+
+    buttonLink() {
+      return this.isAuthenticated ? 'profile_subscriptions' : 'signin'
     }
   },
   methods: {
-    goToPage() {
-      this.$store.commit('subscriptionsModule/selectSubscription', { subscription: this.subscription, isMonthly: this.isMonthly })
+    ...mapMutations('subscriptionsModule', [
+      'chooseSubscription'
+    ]),
+
+    finalizeSubscription() {
+      this.chooseSubscription({ subscription: this.subscription, isMonthly: this.isMonthly })
       this.$router.push({ name: this.buttonLink, query: { subscription: this.name, monthly: this.isMonthly } })
     }
   }

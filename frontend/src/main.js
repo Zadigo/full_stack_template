@@ -19,9 +19,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global components
 import FieldsIterator from './components/FieldsIterator.vue'
-import PrivacyText from './components/PrivacyText.vue'
-import BannerCTA from './components/BannerCTA.vue'
-import SmallFAQ from './components/SmallFAQ.vue'
+import BasePrivacyText from './components/BasePrivacyText.vue'
+import BaseSecondaryCTA from './components/BaseSecondaryCTA.vue'
+import BaseSmallFAQ from './components/BaseSmallFAQ.vue'
 import BaseJumbotron from './components/BaseJumbotron.vue'
 
 
@@ -53,9 +53,9 @@ Vue.use(Buefy)
 
 // Components
 Vue.component('fields-iterator', FieldsIterator)
-Vue.component('privacy-text', PrivacyText)
-Vue.component('banner-cta', BannerCTA)
-Vue.component('small-faq', SmallFAQ)
+Vue.component('base-privacy-text', BasePrivacyText)
+Vue.component('base-secondary-cta', BaseSecondaryCTA)
+Vue.component('base-small-faq', BaseSmallFAQ)
 Vue.component('base-jumbotron', BaseJumbotron)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

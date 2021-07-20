@@ -34,7 +34,7 @@
             </router-link>
           </li>
           <li v-show="isAuthenticated" class="nav-item">
-            <a @click.prevent="logoutUser" id="logout" class="nav-link" role="link">
+            <a @click.prevent="logout" id="logout" class="nav-link" role="link">
               Logout
             </a>
           </li>
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Navbar',
   data() {
@@ -71,18 +72,15 @@ export default {
   },
 
   computed: {
-    isAuthenticated () {
-      return this.$store.getters['authenticationModule/isAuthenticated']
-    },
-    isAdmin () {
-      return this.$store.getters['authenticationModule/isAdmin']
-    }
+    ...mapGetters('authenticationModule', [
+      'isAuthenticated', 'isAdmin'
+    ])
   },
   
   methods: {
-    logoutUser () {
-      this.$store.dispatch('authenticationModule/logout')
-    }
+    ...mapActions('authenticationModule', [
+      'logout'
+    ])
   }
 }
 </script>

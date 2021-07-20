@@ -6,12 +6,11 @@ import Vuex from 'vuex'
 // import Cookies from 'js-cookie'
 
 // Modules
-// import shopModule from './stores/shop'
 import { authenticationModule, profileModule } from './auth'
+import subscriptionsModule from './subscriptions'
 import Messages from './messages'
 
 Vue.use(Vuex)
-
 
 var store = new Vuex.Store({
     state: () => ({
@@ -23,10 +22,11 @@ var store = new Vuex.Store({
     modules: {
         authenticationModule,
         profileModule,
-        Messages
-
+        Messages,
+        
         // Optional
-        // shopModule: shopModule
+        subscriptionsModule,
+        // shopModule
     },
 
     getters: {

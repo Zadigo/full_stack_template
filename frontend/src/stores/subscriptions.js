@@ -1,4 +1,6 @@
-export default subscriptionsModule = {
+import { lengthOfDict } from '../utils'
+
+var subscriptionsModule = {
     // This module deals with everything
     // related to the pricing page and
     // the user's actual subscription
@@ -16,25 +18,19 @@ export default subscriptionsModule = {
     }),
 
     mutations: {
-        selectSubscription(state, payload) {
+        chooseSubscription(state, payload) {
             state.selectedSubscription = payload
         }
     },
 
     getters: {
         hasSubscription(state) {
-            if (Object.keys(state.currentSubscription).length === 0) {
-                return false
-            } else {
-                return true
-            }
+            return lengthOfDict(state.currentSubscription) > 0
         },
         hasSelectedSubscription(state) {
-            if (Object.keys(state.selectedSubscription).length === 0) {
-                return false
-            } else {
-                return true
-            }
+            return lengthOfDict(state.selectedSubscription) > 0
         }
     }
 }
+
+export default subscriptionsModule

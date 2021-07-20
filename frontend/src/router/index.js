@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import store from '../stores'
 
 // Global components
-import PageNavigation from '@/components/PageNavigation.vue'
-import PageFooter from '@/components/PageFooter.vue'
+import PageNavigation from '@/components/BaseNavigation.vue'
+import PageFooter from '@/components/BaseFooter.vue'
 
 // Admin
 import Admin from '@/pages/Admin.vue'

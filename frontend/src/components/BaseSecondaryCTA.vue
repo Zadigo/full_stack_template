@@ -9,8 +9,8 @@
 
         <div class="col-sm-12 col-md-5">
           <div class="form-group">
-            <input v-model="email" type="email" id="email" class="form-control" placeholder="Email" autocomplete="email">
-            <privacy-text class="mt-2" />
+            <input v-model="email" type="email" id="email" class="form-control" aria-label="Email" placeholder="Email" autocomplete="email">
+            <base-privacy-text class="mt-2" />
           </div>
         </div>
       </div>

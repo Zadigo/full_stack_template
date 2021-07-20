@@ -5,6 +5,16 @@ var incrementIdFromLast = (items) => {
     return lastItem == undefined ? 0 : lastItem.id + 1
 }
 
-export default {
-    lastItemIdOf
+
+var lengthOfDict = (item) => {
+    if (_.isUndefined(item)) {
+        return 0
+    }
+    return Object.keys(item).length
+}
+
+
+export {
+    incrementIdFromLast,
+    lengthOfDict
 }

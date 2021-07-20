@@ -69,7 +69,7 @@
 
       <!-- Banner -->
       <div class="col-12">
-        <banner-cta />
+        <base-secondary-cta />
       </div>
     </div>
   </base-jumbotron>

@@ -38,8 +38,8 @@
       <!-- Details -->
       <Boxes />
 
-      <!-- Cta -->
-      <banner-cta />
+      <!-- CTA -->
+      <base-secondary-cta />
     </div>
 
     <router-view name="footer" class="mt-4" />

@@ -20,8 +20,11 @@
 
     <b-card v-else>
       <b-card-body>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sed, aliquid debitis nemo aspernatur veniam itaque iusto! Excepturi laudantium commodi cupiditate, delectus repudiandae suscipit, quis quidem odio nostrum rem nam?
-        <button class="btn btn-sm btn-danger">Delete account</button>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sed, aliquid debitis 
+        nemo aspernatur veniam itaque iusto! Excepturi laudantium commodi cupiditate, 
+        delectus repudiandae suscipit, quis quidem odio nostrum rem nam?
+        
+        <button class="btn btn-sm btn-danger">Delete subscription</button>
       </b-card-body>
     </b-card>
 
@@ -30,28 +33,23 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
+
 export default {
   name: 'Subscriptions',
   computed: {
-    hasSubscription() {
-      return this.$store.getters['subscriptionsModule/hasSubscription']
-    },
+    ...mapGetters('subscriptionsModule', [
+      'hasSubscription', 'hasSelectedSubscription'
+    ]),
 
-    selectedSubscription() {
-      return this.$store.state.subscriptionsModule.selectedSubscription
-    },
-    
-    hasSelectedSubscription() {
-      return this.$store.getters['subscriptionsModule/hasSelectedSubscription']
-    },
-    
+    ...mapState('subscriptionsModule', [
+      'selectedSubscription'
+    ]),
+
     subscriptionPrice() {
       if (this.hasSelectedSubscription) {
-        if (this.selectedSubscription.isMonthly) {
-          return this.selectedSubscription.subscription.prices.monthly
-        } else {
-          return this.selectedSubscription.subscription.prices.yearly
-        }
+        let { monthly, yearly } = this.selectedSubscription.subscription.prices
+        return this.selectedSubscription.isMonthly ? monthly : yearly
       } else {
         return 0
       }

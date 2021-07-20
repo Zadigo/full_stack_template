@@ -14,7 +14,7 @@
         </div>
 
         <div class="row gx-lg-5">
-          <PricingCard v-for="subscription in subscriptions" :key="subscription.id" :subscription="subscription" :isMonthly="isMonthly" />
+          <base-pricing-card v-for="subscription in subscriptions" :key="subscription.id" :subscription="subscription" :isMonthly="isMonthly" />
         </div>
       </section>
 
@@ -23,7 +23,8 @@
       <!-- FAQ -->
       <section class="mb-4" id="faq">
         <div class="row">
-          <small-faq />
+          <!-- FAQ -->
+          <base-small-faq />
         </div>
       </section>
     </div>
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-import PricingCard from '@/components/pricing/Card.vue'
+import BasePricingCard from '@/components/pricing/BasePricingCard.vue'
 import SubscriptionsData from '../data/subscriptions.json'
 
 export default {
@@ -42,7 +43,7 @@ export default {
   },
 
   components: {
-    PricingCard
+    BasePricingCard
   },
 
   data() {
