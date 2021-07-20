@@ -12,6 +12,7 @@ var axiosClient = axios.create({
     responseType: 'json',
     headers: {
         'Accept': 'application/json, text/plain, */*',
+        // 'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
     },
     withCredentials: true
@@ -24,9 +25,9 @@ axiosClient.interceptors.request.use(
     // inject the Authorization Token header
     // to the request.
     function (request) {
-        if (request.method == 'post') {
-            request.headers['Authorization'] = `Token ${store.state.authenticationModule.token}`
-        }
+        request.headers['Authorization'] = `Token ${store.state.authenticationModule.token}`
+        // if (request.method == 'post') {
+        // }
         return request
     },
     function (error) {

@@ -67,57 +67,61 @@ var profileModule = {
     },
 
     actions: {
-        newAddress({ state, rootGetters, rootState }, payload) {
-            axios({
-                method: 'post',
-                url: urlJoin(rootState.baseUrls.api, 'new-address').href,
-                data: payload,
-                responseType: 'json',
-                headers: {
-                    'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
-                    'Content-Type': 'application/json',
-                },
-                widthCredentials: true
-            })
-            .then((response) => {
-                if (response.status >= 200 | response.status <= 201) {
-                    state.userDetails.addresses.push(response.data)
-                } else {
-                    console.log(response.data)
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        newAddress({ state }, response) {
+            state.userDetails.addresses.push(response.data)
+            // axios({
+            //     method: 'post',
+            //     url: urlJoin(rootState.baseUrls.api, 'new-address').href,
+            //     data: payload,
+            //     responseType: 'json',
+            //     headers: {
+            //         'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
+            //         'Content-Type': 'application/json',
+            //     },
+            //     widthCredentials: true
+            // })
+            // .then((response) => {
+            //     if (response.status >= 200 | response.status <= 201) {
+            //         state.userDetails.addresses.push(response.data)
+            //     } else {
+            //         console.log(response.data)
+            //     }
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
         },
 
-        updateAddress({ commit, rootGetters }, payload) {
+        updateAddress({ commit }, response) {
+            commit('changeAddress', response.data)
             // Update an address by sending a request
             // to the backend in order to implement
             // the change
-            axios({
-                method: 'post',
-                url: `http://127.0.0.1:8000/api/v1/new-address`,
-                responseType: 'json',
-                data: payload,
-                headers: {
-                    'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true
-            })
-            .then((response) => {
-                if (response.status >= 200) {
-                    commit('changeAddress', response.data)
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+            // axios({
+            //     method: 'post',
+            //     url: `http://127.0.0.1:8000/api/v1/new-address`,
+            //     responseType: 'json',
+            //     data: payload,
+            //     headers: {
+            //         'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
+            //         'Content-Type': 'application/json',
+            //     },
+            //     withCredentials: true
+            // })
+            // .then((response) => {
+            //     if (response.status >= 200) {
+            //         commit('changeAddress', response.data)
+            //     }
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
         },
 
-        deleteAddress(state) {
-            state
+        deleteAddress(state, id) {
+            console.log(id)
+            var itemId = _.findIndex(state.userDetails.addresses, ['id', id])
+            state.userDetails.addresses.splice(itemId, 1)
         },
 
         // updatePersonalDetails({ dispatch, commit, getters, rootGetters }, payload) {

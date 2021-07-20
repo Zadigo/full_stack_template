@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from django.urls.conf import path
+from django.views.generic import base
 from rest_framework.routers import DefaultRouter
 
 from api.views import authentication, profile, admin
@@ -9,14 +10,14 @@ app_name = 'api'
 router = DefaultRouter()
 router.register(r'profile', profile.ProfileDetails)
 router.register(r'users', admin.UsersViewset, basename='users')
-router.register(r'addresses', profile.UserAddresses, basename='addresses')
-
+router.register(r'addresses', profile.AddressesApi, basename='address')
+# router.register(r'addresses', profile.UserAddresses, basename='addresses')
+# router.register(r'delete-address', profile.DeleteAddress, basename='delete_address')
 
 urlpatterns = [
     # Tests
     url(r'^test', admin.TestEndpoint.as_view(), name='test'),
-    url(r'^new-address', profile.AddressesViewset.as_view(), name='new_address'),
-    # url(r'^new-address', profile.AddNewAddress.as_view(), name='new_address'),
+    # url(r'^new-address', profile.AddressesViewset.as_view(), name='new_address'),
 
 
 

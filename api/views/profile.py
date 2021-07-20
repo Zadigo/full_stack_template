@@ -7,10 +7,12 @@ from django.contrib.auth import (authenticate, get_user_model,
                                  update_session_auth_hash)
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, get_object_or_404
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from django.db.transaction import atomic
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
 
 USER_MODEL = get_user_model()
 
@@ -51,65 +53,69 @@ class ChangePassword(mixins.GlobalAPIMixins, GenericAPIView):
         return Response({'state': True})
 
 
-class AddNewAddress(GenericAPIView):
-    queryset = USER_PROFILE_MODEL.objects.all()
-    serializer_class = serializers.AddressSerializer
+# class AddNewAddress(GenericAPIView):
+#     queryset = USER_PROFILE_MODEL.objects.all()
+#     serializer_class = serializers.AddressSerializer
 
-    def post(self, request, **kwargs):
-        user = request.user
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        try:
-            address = user.myuserprofile.addresses.create(**serializer.data)
-        except:
-            return Response({'error': 'Address was not created'}, status=status.HTTP_501_NOT_IMPLEMENTED)
-        serializer = self.get_serializer(instance=address)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-class UserAddresses(GenericViewSet, ListModelMixin):
-    queryset = Address.objects.all()
-    serializer_class = serializers.AddressSerializer
+#     def post(self, request, **kwargs):
+#         user = request.user
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         try:
+#             address = user.myuserprofile.addresses.create(**serializer.data)
+#         except:
+#             return Response({'error': 'Address was not created'}, status=status.HTTP_501_NOT_IMPLEMENTED)
+#         serializer = self.get_serializer(instance=address)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+# class UserAddresses(GenericViewSet, ListModelMixin):
+#     queryset = Address.objects.all()
+#     serializer_class = serializers.AddressSerializer
 
 
-class AddressesViewset(GenericAPIView):
-    http_method_names = ['post', 'patch', 'options']
-    queryset = Address.objects.all()
-    serializer_class = serializers.AddressValidationSerializer
-
-    def post(self, request, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.create(
-            user=request.user, 
-            validated_data=serializer.validated_data
-        )
-        return Response(serializer.data)
+# class DeleteAddress(GenericViewSet, DestroyModelMixin):
+#     queryset = Address.objects.all()
+#     serializer_class = serializers.AddressSerializer
 
 
-    # def update(self, request, **kwargs):
-    #     pass
 
-    def patch(self, request, **kwargs):
-        user = request.user
-        candidates = user.myuserprofile.addresses.filter(
-            id=request.data['id']
-        )
-        try:
-            address = candidates.get()
-        except:
-            return Response({'error': 'Change was not made'})
+# class AddressesViewset(GenericAPIView):
+#     http_method_names = ['post', 'patch', 'options']
+#     queryset = Address.objects.all()
+#     serializer_class = serializers.AddressValidationSerializer
 
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        new_address = serializer.update(
-            instance=address, 
-            validated_data=serializer.validated_data
-        )
-        serialized_address = self.get_serializer(instance=new_address)
-        return Response(serialized_address.data)
+#     def post(self, request, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.create(
+#             user=request.user, 
+#             validated_data=serializer.validated_data
+#         )
+#         return Response(serializer.data)
+
+
+#     # def update(self, request, **kwargs):
+#     #     pass
+
+#     def patch(self, request, **kwargs):
+#         user = request.user
+#         candidates = user.myuserprofile.addresses.filter(
+#             id=request.data['id']
+#         )
+#         try:
+#             address = candidates.get()
+#         except:
+#             return Response({'error': 'Change was not made'})
+
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         new_address = serializer.update(
+#             instance=address, 
+#             validated_data=serializer.validated_data
+#         )
+#         serialized_address = self.get_serializer(instance=new_address)
+#         return Response(serialized_address.data)
 
 
 
@@ -142,3 +148,54 @@ class ChangePersonalDetails(GenericAPIView):
         instance = serializer(data=data)
         instance.is_valid(raise_exception=True)
         return instance
+
+
+
+
+
+
+
+
+
+class AddressesApi(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, DestroyModelMixin, UpdateModelMixin):
+    queryset = Address.objects.all()
+    serializer_class = serializers.AddressSerializer
+    permission_classes = [IsAuthenticated]
+
+    def _user_addresses(self, request):
+        return self.queryset.filter(myuserprofile__id=request.user.id)
+
+    def get_object(self):
+        # Overrides the default get_object() to ensure that
+        # a person viewing an address is well his own
+        queryset = self.filter_queryset(self.get_queryset())
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        if lookup_url_kwarg not in self.kwargs:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        filter_kwargs = {
+            self.lookup_field: int(self.kwargs[lookup_url_kwarg]),
+            'myuserprofile__id': self.request.user.id
+        }
+        print(filter_kwargs)
+        address = get_object_or_404(queryset, **filter_kwargs)
+        self.check_object_permissions(self.request, address)
+        return address
+
+    def list(self, request, *args, **kwargs):
+        queryset = self._user_addresses(request)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def perform_create(self, serializer, request):
+        new_address = serializer.save()
+        user_profile = get_object_or_404(USER_PROFILE_MODEL, id=request.user.id)
+        user_profile.addresses.add(new_address)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer, request)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

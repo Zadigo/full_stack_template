@@ -70,7 +70,8 @@ class MyUserProfile(models.Model):
         upload_to=upload_avatar_directory,
         processors=[ResizeToCover(100, 100)],
         format='JPEG',
-        options={'quality': 80}
+        options={'quality': 80},
+        blank=True
     )
 
     customer_id = models.CharField(max_length=100, validators=[stripe_token_validator], blank=True, null=True)

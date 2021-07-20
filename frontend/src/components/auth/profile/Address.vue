@@ -37,6 +37,11 @@
           <font-awesome-icon icon="check"></font-awesome-icon>
           Update
         </button>
+
+        <button @click="$router.go(-1)" class="btn btn-outline-primary btn-md m-0 mt-4 ml-2">
+          <font-awesome-icon icon="check"></font-awesome-icon>
+          Cancel
+        </button>
       </b-card-body>
     </b-card>
     
@@ -50,19 +55,17 @@
             <b-checkbox @change="mainAddress(address.id)" :id="`address_${address.id}`" :checked="address.is_main">
               <span class="ml-2">Use as main address</span>
             </b-checkbox>
-            
-            <div class="row">
-              <div class="col">
-                <button @click="deleteAddress(address.id)" class="btn btn-light">
-                  <font-awesome-icon icon="trash"></font-awesome-icon>
-                </button>
-
-                <button @click="startUpdateAddress(address.id)" class="btn btn-light">
-                  <font-awesome-icon icon="pen"></font-awesome-icon>
-                </button>
-              </div>
-            </div>
           </b-card-body>
+
+          <footer class="card-footer">
+            <button @click="deleteAddress(address.id)" class="card-footer-item">
+              <font-awesome-icon icon="trash"></font-awesome-icon>
+            </button>
+
+            <button @click="retriveAddressToUpdate(address.id)" class="card-footer-item">
+              <font-awesome-icon icon="pen"></font-awesome-icon>
+            </button>
+          </footer>
         </b-card>
 
         <!-- Creation -->
@@ -101,17 +104,32 @@ export default {
   methods: {
     sendChanges () {
       this.addNew = false
-      this.$store.dispatch('profileModule/newAddress', this.newAddress)
+      this.$api.profile.createAddress(this.newAddress)
+      .then((response) => {
+        this.$store.dispatch('profileModule/newAddress', response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+      // this.$store.dispatch('profileModule/newAddress', this.newAddress)
       this.newAddress = {}
     },
 
     deleteAddress (id) {
-      this.$store.commit('profileModule/deleteAddress', id)
+      // this.$store.commit('profileModule/deleteAddress', id)
+      this.$api.profile.removeAddress({ id: id })
+      .then((response) => {
+        response
+        this.$store.dispatch('profileModule/deleteAddress', id)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
     },
 
-    startUpdateAddress(id) {
+    retriveAddressToUpdate(id) {
       // Initiates the updating of the address by
-      // showing the update fields with the the
+      // prefilling the update fields with the the
       // address details
       var address = this.$store.getters['profileModule/getAddress'](id)
       _.forEach(Object.keys(address), (key) => {
@@ -124,9 +142,16 @@ export default {
     updateAddress() {
       // Finalizes the updating of the address
       // by sending the request to the server
-      this.$store.dispatch('profileModule/updateAddress', this.newAddress)
-      this.createMode = true
-      this.addNew = false
+      // this.$store.dispatch('profileModule/updateAddress', this.newAddress)
+      this.$api.profile.modifyAddress(this.newAddress)
+      .then((response) => {
+        this.$store.dispatch('profileModule/updateAddress', response)
+        this.createMode = true
+        this.addNew = false
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
