@@ -7,10 +7,8 @@ import Vuex from 'vuex'
 
 // Modules
 // import shopModule from './stores/shop'
-import profileModule from './auth'
-import authenticationModule from './auth'
+import { authenticationModule, profileModule } from './auth'
 import Messages from './messages'
-
 
 Vue.use(Vuex)
 

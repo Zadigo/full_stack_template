@@ -17,11 +17,4 @@
     background-image: url("https://images.unsplash.com/photo-1516575150278-77136aed6920?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fG1vZGVsfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=60");
     height: 100vh;
   }
-
-  /* Height for devices larger than 576px */
-  /* @media (min-width: 992px) {
-    #intro {
-      margin-top: -58.59px;
-    }
-  } */
 </style>

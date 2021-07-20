@@ -5,8 +5,17 @@ import store from './stores'
 
 import BootstrapVue from 'bootstrap-vue'
 import Buefy from 'buefy'
-// import 'buefy/dist/buefy.css'
 
+// CSS
+// require('buefy/dist/buefy.css')
+require('../node_modules/bootstrap/dist/css/bootstrap.css')
+require('./assets/style.css')
+require('./assets/admin.css')
+
+// Font awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global components
 import FieldsIterator from './components/FieldsIterator.vue'
@@ -17,13 +26,14 @@ import BaseJumbotron from './components/BaseJumbotron.vue'
 
 
 // Mixins
-// import TitleMixin from './titleMixin'
 import globalMixins from './globalMixins'
 
 // Plugins
 import Stripe from './plugins/stripe'
-// import Analytics from './plugins/analytics'
-// import Api from './api'
+
+// Font awesome
+library.add(faUserSecret)
+
 
 Vue.config.productionTip = false
 
@@ -47,6 +57,8 @@ Vue.component('privacy-text', PrivacyText)
 Vue.component('banner-cta', BannerCTA)
 Vue.component('small-faq', SmallFAQ)
 Vue.component('base-jumbotron', BaseJumbotron)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
 new Vue({

@@ -1,0 +1,72 @@
+{
+    "authentication": {
+        "signup": [
+            {
+                "id": 1,
+                "name": "email",
+                "type": "email",
+                "autocomplete": "email",
+                "placeholder": "Email",
+                "label": "Email"
+            },
+            {
+                "id": 2,
+                "name": "username",
+                "type": "text",
+                "autocomplete": "username",
+                "placeholder": "User name",
+                "label": "User name"
+            },
+            {
+                "id": 3,
+                "name": "first_name",
+                "type": "text",
+                "autocomplete": "given-name",
+                "placeholder": "First name",
+                "label": "First name"
+            },
+            {
+                "id": 4,
+                "name": "last_name",
+                "type": "text",
+                "autocomplete": "family-name",
+                "placeholder": "Last name",
+                "label": "Last name"
+            },
+            {
+                "id": 5,
+                "name": "password1",
+                "type": "password",
+                "autocomplete": "new-password",
+                "placeholder": "Password",
+                "label": "Password"
+            },
+            {
+                "id": 6,
+                "name": "password2",
+                "type": "password",
+                "autocomplete": "new-password",
+                "placeholder": "Confirm password",
+                "label": null
+            }
+        ],
+        "signin": [
+            {
+                "id": 1,
+                "name": "email",
+                "type": "email",
+                "autocomplete": "email",
+                "placeholder": "Email",
+                "label": "Email"
+            },
+            {
+                "id": 2,
+                "name": "password",
+                "type": "password",
+                "autocomplete": "new-password",
+                "placeholder": "Password",
+                "label": "Password"
+            }
+        ]
+    }
+}

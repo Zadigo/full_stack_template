@@ -45,9 +45,6 @@ export default {
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
-  @import '~bootstrap/dist/css/bootstrap.css';
+  /* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'); */
   @import url('https://cdn.jsdelivr.net/npm/mdbvue/lib/css/mdb.min.css');
-  @import './assets/style.css';
-  @import './assets/admin.css';
 </style>

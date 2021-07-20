@@ -11,8 +11,6 @@
         <div class="form-group">
           <label class="font-weight-bold" for="email">Email</label>
           <input v-model="credentials['email']" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email">
-          <!-- <label class="font-weight-bold" for="username">Username</label>
-          <input v-model="credentials['username']" type="username" class="form-control" id="username" autocomplete="username" placeholder="Username"> -->
         </div>
         
         <div class="form-group mt-3">
@@ -53,9 +51,9 @@ export default {
     }
   },
 
-  beforeRouteLeave (to, from, next) {
-    next()
-  },
+  // beforeRouteLeave (to, from, next) {
+  //   next()
+  // },
 
   computed: {
     messages() {

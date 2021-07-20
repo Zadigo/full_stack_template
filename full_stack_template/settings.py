@@ -143,20 +143,17 @@ CORS_ALLOW_CREDENTIALS = True
 # to use `CORS_ORIGIN_ALLOW_ALL = True`
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
-    'http://192.168.0.104:8080',
-    'http://192.168.0.11:8080',
+    'http://192.168.0.103:8080',
 ]
 
 CORS_ORIGIN_REGEX_WHITELIST = [
     'http://localhost:8080',
-    'http://192.168.0.104:8080',
-    'http://192.168.0.11:8080',
+    'http://192.168.0.103:8080',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
-    'http://192.168.0.104:8080',
-    'http://192.168.0.11:8080',
+    'http://192.168.0.103:8080',
 ]
 
 REST_FRAMEWORK = {

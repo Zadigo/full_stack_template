@@ -293,7 +293,7 @@ var authenticationModule = {
     }
 }
 
-export default {
+export {
     profileModule,
     authenticationModule
 }

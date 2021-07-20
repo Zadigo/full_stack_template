@@ -8,19 +8,16 @@ npm install --save datejs
 npm install --save vue-chartjs chart.js
 npm install --save mdb-ui-kit
 
-npm install --save @fortawesome/vue-fontawesome@latest
-npm install --save @fortawesome/fontawesome-svg-core
+1. npm install --save @fortawesome/fontawesome-svg-core
+2. npm install --save @fortawesome/free-solid-svg-icons
+3. npm install --save @fortawesome/vue-fontawesome@latest
+// npm install --save @fortawesome/fontawesome-free-solid
 
 npm install buefy
 
 npm install js-cookie
 
 npm install -g @ionic/cli
-
-// npm install --save @fortawesome/fontawesome-free-solid
-// npm install --save @fortawesome/free-brands-svg-icons
-// npm install --save @fortawesome/free-regular-svg-icons
-
 
 Imports
 -------

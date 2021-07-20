@@ -11,12 +11,14 @@
 
 <script>
 export default {
+  name: 'FieldsIterator',
   props: {
     fields: {
       type: Array,
       required: true
     }
   },
+  
   filters: {
     defaulType (value) {
       if (value === null | value === undefined) {
