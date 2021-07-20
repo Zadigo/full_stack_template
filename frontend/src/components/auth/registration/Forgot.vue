@@ -1,35 +1,28 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-xl-5">
-      <b-card class="mt-5">
-        <b-card-body>
-          <div class="form-group">
-            <label class="font-weight-bold" for="email">Email</label>
-            <input v-model="email" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email">
-          </div>
-        </b-card-body>
-
-        <b-card-footer class="text-center">
-          <button @click="sendRequest" :disabled="hasEmail" type="submit" class="btn btn-primary">
-            Send me a password reset email
-          </button>
-        </b-card-footer>
-      </b-card>
+  <base-layout @startAction="sendRequest" :buttonName="'Send me a password reset email'">
+    <div class="form-group">
+      <label class="font-weight-bold" for="email">Email</label>
+      <input v-model="email" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email">
     </div>
 
-    <div class="col-md-12 col-xl-12">
+    <template v-slot:registrationTexts>
       <p class="mt-3 mb-3">Actually, I remember my password <router-link :to="{ name: 'signin' }" class="font-weight-bold">Login here</router-link></p>
-    </div>
-  </div>
+    </template>
+  </base-layout>
 </template>
 
 <script>
+import BaseLayout from './BaseLayout.vue'
+
 import { isNull } from 'lodash'
 
 export default {
   name: 'ForgotPassword',
   title () {
     return 'Forgot password'
+  },
+  components: {
+    BaseLayout
   },
   data () {
     return {

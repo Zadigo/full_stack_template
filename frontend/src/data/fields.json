@@ -57,15 +57,17 @@
                 "type": "email",
                 "autocomplete": "email",
                 "placeholder": "Email",
-                "label": "Email"
+                "label": "Email",
+                "aria": "Email"
             },
             {
                 "id": 2,
                 "name": "password",
                 "type": "password",
-                "autocomplete": "new-password",
+                "autocomplete": "current-password",
                 "placeholder": "Password",
-                "label": "Password"
+                "label": "Password",
+                "aria": "Password"
             }
         ]
     }

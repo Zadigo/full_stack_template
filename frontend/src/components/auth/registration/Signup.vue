@@ -1,34 +1,30 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-xl-5 col-md-8">
-      <b-card class="mt-5">
-        <div v-for="(field, index) in fields" :key="field.id" :class="{ 'mt-2': index > 0 }" class="form-group">
-          <label v-if="field.label !== null" :for="field.name" class="font-weight-bold">
-            {{ field.label }}
-            </label>
-          <input v-model="credentials[field.name]" :type="field.type" :name="field.name" :id="field.name" :placeholder="field.placeholder" :autocomplete="field.autocomplete" class="form-control">
-        </div>
-        
-        <p>By using {{ companyDetails.name }} you agree to our <router-link :to="{ name: 'terms_of_use' }" class="font-weight-bold">Terms of service</router-link> and our <router-link :to="{ name: 'terms_of_condition' }" class="font-weight-bold">Privacy policy</router-link></p>
-
-        <p class="mt-3 mb-3">Already using {{ companyDetails.name }}? <router-link :to="{ name: 'signin' }">Login here</router-link></p>
-
-        <!-- Submit button -->
-        <div class="form-group text-center">
-          <button @click.prevent="signupUser" :disabled="!isValid" type="submit" class="btn btn-primary">
-            Sign up
-          </button>
-        </div>
-      </b-card>
+  <base-layout @startAction="signupUser" :buttonName="'Sign up'">
+    <div v-for="(field, index) in fields" :key="field.id" :class="{ 'mt-2': index > 0 }" class="form-group">
+      <label v-if="field.label !== null" :for="field.name" class="font-weight-bold">
+        {{ field.label }}
+        </label>
+      <input v-model="credentials[field.name]" :type="field.type" :name="field.name" :id="field.name" :placeholder="field.placeholder" :autocomplete="field.autocomplete" class="form-control">
     </div>
-  </div>
+
+    <p>By using {{ companyDetails.name }} you agree to our <router-link :to="{ name: 'terms_of_use' }" class="font-weight-bold">Terms of service</router-link> and our <router-link :to="{ name: 'terms_of_condition' }" class="font-weight-bold">Privacy policy</router-link></p>
+
+    <template v-slot:registrationTexts>
+      <p class="mt-3 mb-3">Already using {{ companyDetails.name }}? <router-link :to="{ name: 'signin' }">Login here</router-link></p>
+    </template>
+  </base-layout>
 </template>
 
 <script>
+import BaseLayout from './BaseLayout.vue'
+
 export default {
   name: 'Signup',
   title () {
     return 'Signup'
+  },
+  components: {
+    BaseLayout
   },
   data () {
     return {

@@ -22,6 +22,7 @@
 
 <script>
 export default {
+  name: 'ProfileIndex',
   computed: {
     firstName() {
       return this.$store.state.profileModule.userDetails.firstname
