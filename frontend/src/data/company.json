@@ -1,0 +1,38 @@
+{
+    "name": "Example Website",
+    "domain": "http://example.com",
+    "address": "4, rue example, 75001",
+    "email": "example@gmail.com",
+    "emails": {
+        "default": "example@gmail.com",
+        "contact": null,
+        "sales": null
+    },
+    "telephone": "+33000000",
+    "sales": {
+        "validityDate": ""
+    },
+    "availableDays": 14,
+    "shippingDelay": 13,
+    "shippingCompany": "Example Company",
+    "returnDelay": 14,
+    "services": [],
+    "socials": [
+        {
+            "link": "#",
+            "icon": "fab fa-facebook-f"
+        },
+        {
+            "link": "#",
+            "icon": "fab fa-twitter"
+        },
+        {
+            "link": "#",
+            "icon": "fab fa-youtube"
+        },
+        {
+            "link": "#",
+            "icon": "fab fa-instagram"
+        }
+    ]
+}

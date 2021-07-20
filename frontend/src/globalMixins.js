@@ -1,34 +1,10 @@
 import { isUndefined } from 'lodash'
+import company from './data/company.json'
 
 var _ = require('lodash')
 
 class Company {
-    details = {
-        name: 'Example Website',
-        domain: 'http://example.com',
-        address: '4, rue example, 75001',
-        email: 'example@gmail.com',
-        emails: {
-            default: 'example@gmail.com',
-            contact: null,
-            sales: null
-        },
-        telephone: '+33000000',
-        sales: {
-            validityDate: ''
-        },
-        availableDays: 14,
-        shippingDelay: 13,
-        shippingCompany: 'Example Company',
-        returnDelay: 14,
-        services: [],
-        socials: [
-            { link: '#', icon: 'fab fa-facebook-f' },
-            { link: '#', icon: 'fab fa-twitter' },
-            { link: '#', icon: 'fab fa-youtube' },
-            { link: '#', icon: 'fab fa-instagram' },
-        ]
-    }
+    details = company
 
     constructor(name, domain) {
         if (!isUndefined(name)) {
@@ -83,7 +59,7 @@ export default {
         // Sets the page titles
         const title = pageTitle(this)
         if (title) {
-            document.title = `${title} - ${this.companyDetails.name}`
+            document.title = `${ title } - ${ this.companyDetails.name }`
         }
     },
 

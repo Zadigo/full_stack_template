@@ -21,7 +21,6 @@ export default {
             state.messages = []
         },
 
-
         addMessage(state, message) {
             // Adds a message to the stack. A message
             // should be like the following:
