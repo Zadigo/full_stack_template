@@ -51,12 +51,15 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     undefined,
     error => {
+        // Intercept request errors and those that
+        // return a 401 Unautorized will automatically
+        // logout the user to prevent any issues
         return new Promise(() => {
             // if (error.response.status === 401 && error.config && !error.config.__isRetryRequest) {
             if (error.response.status === 401) {
                 console.log('Axios', error.response)
                 store.dispatch('authenticationModule/logout')
-                // window.location.reload()
+                window.location.reload()
             }
             throw error
         })

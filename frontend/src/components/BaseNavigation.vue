@@ -114,6 +114,10 @@ export default {
 
   /* navbar-light bg-light */
 
+  .navbar.navbar-dark {
+    background-color: transparent;
+  }
+
   .navbar.navbar-dark .breadcrumb .nav-item.active>.nav-link, .navbar.navbar-dark .navbar-nav .nav-item.active>.nav-link {
     background-color: rgba(255,255,255,0.1);
   }

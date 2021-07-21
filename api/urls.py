@@ -2,7 +2,6 @@ from django.conf.urls import include, url
 from django.urls.conf import path
 from django.views.generic import base
 from rest_framework.routers import DefaultRouter
-
 from api.views import authentication, profile, admin
 
 app_name = 'api'
@@ -19,14 +18,16 @@ urlpatterns = [
     url(r'^test', admin.TestEndpoint.as_view(), name='test'),
 
 
-    url(r'^user-token', authentication.GetUserToken.as_view(), name='token'),
+    url(r'^tokens/retrieve', authentication.get_user_token),
 
     url(r'^update-details', profile.change_personal_details),
     url(r'^preferences', profile.update_preferences),
 
     url(r'^profile', profile.refresh_user_details),
 
-    url(r'^change-password', profile.ChangePassword.as_view(), name='change_password'),
+    url(r'^password/reset', authentication.reset_password),
+    url(r'^change-password', profile.ChangePassword.as_view()),
+
     url(r'^logout', authentication.Logout.as_view()),
     url(r'^login', authentication.Login.as_view()),
     url(r'^signup', authentication.Signup.as_view()),

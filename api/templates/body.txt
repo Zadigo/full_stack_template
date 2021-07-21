@@ -1,0 +1,9 @@
+Hi,
+
+Reset Password
+
+A password reset event has been triggered. The password reset window is limited to two hours.
+
+If you do not reset your password within two hours, you will need to submit a new request.
+
+To complete the password reset process, visit the following link:
