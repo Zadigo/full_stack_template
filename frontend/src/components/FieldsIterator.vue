@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div v-for="field in fields" :key="field.id" class="form-group mt-2">
+      <div v-for="field in formFields" :key="field.id" class="form-group mt-2">
         <label v-if="field.label !== null" :for="field.name" class="mt-3 mb-2 font-weight-bold">
           {{ field.label }}
         </label>
@@ -15,7 +15,7 @@
 export default {
   name: 'FieldsIterator',
   props: {
-    fields: {
+    formFields: {
       type: Array,
       required: true
     }

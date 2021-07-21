@@ -89,13 +89,16 @@ export default {
 
   methods: {
     subscribeUser () {
-      if (this._validateEmail(this.newsletterEmail)) {
+      this.$api.subscribe(this.newsletterEmail)
+      .then((response) => {
+        console.log(response)
+        this.newsletterEmail = null
         this._newMessage('alert-success', 'Subscription validated')
-        this.sent = true
-      } else {
+      })
+      .catch((error) => {
+        console.error(error)
         this._newMessage('alert-danger', 'Email is not valid')
-        this.sent = true
-      }
+      })
     },
 
     _newMessage (type, message) {

@@ -294,12 +294,13 @@ var authenticationModule = {
             // keep the current state as logged in
             const currentToken = localStorage.getItem('ttk')
             console.log('Local storage token', currentToken)
-            if (!_.isNull(currentToken)) {
+            if (_.isNull(currentToken)) {
+                // return state.authenticated && !_.isNull(state.token)
+                return state.authenticated
+            } else {
                 state.token = currentToken
                 return true
             }
-            // return state.authenticated && !_.isNull(state.token)
-            return state.authenticated
         },
 
         isAdmin(state) {

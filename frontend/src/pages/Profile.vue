@@ -5,15 +5,13 @@
         <!-- Sidebar -->
         <div class="col-sm-12 col-md-3 offset-md-2">
           <aside role="navigation">
-            <div class="card">
-              <div class="card-body">
-                <b-list-group v-for="link in sideBarLinks" :key="link.id">
-                  <b-list-group-item :to="{ name: link.link }">
-                    {{ link.name }}
-                  </b-list-group-item>
-                </b-list-group>
-              </div>
-            </div>
+            <base-card>
+              <b-list-group>
+                <b-list-group-item v-for="link in sideBarLinks" :key="link.id" :to="{ name: link.link }">
+                  {{ link.name }}
+                </b-list-group-item>
+              </b-list-group>
+            </base-card>
           </aside>
         </div>
 

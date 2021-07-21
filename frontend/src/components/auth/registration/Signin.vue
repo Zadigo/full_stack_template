@@ -69,7 +69,6 @@ export default {
       'login'
     ]),
     loginUser() {
-      // this.login(response)
       this.$api.auth.login(this.credentials.email, this.credentials.password)
       .then((response) => {
         this.login(response)
@@ -79,11 +78,6 @@ export default {
         console.log(error)
         // this.$store.commit('addMessage', error.error)
       })
-    },
-
-    setCredentials(payload) {
-      console.log(payload)
-      // this.credentials[payload[0]] = payload[1]
     }
   }
 }

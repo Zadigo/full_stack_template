@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.urls.conf import path
 from django.views.generic import base
 from rest_framework.routers import DefaultRouter
-from api.views import authentication, profile, admin
+from api.views import authentication, profile, admin, base
 
 app_name = 'api'
 
@@ -23,8 +23,10 @@ urlpatterns = [
     url(r'^update-details', profile.change_personal_details),
     url(r'^preferences', profile.update_preferences),
 
-    url(r'^profile', profile.refresh_user_details),
+    url(r'^subscribe', base.subscribe_user),
 
+    url(r'^profile', profile.refresh_user_details),
+    
     url(r'^password/reset', authentication.reset_password),
     url(r'^change-password', profile.ChangePassword.as_view()),
 

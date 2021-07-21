@@ -1,20 +1,26 @@
 <template>
   <section>
-    <validation-card @validateAction="sendChanges" :position="0">
-      <fields-iterator @startAction="changeItems" :fields="fields" />
-    </validation-card>
+    <base-validation-card @validateAction="sendChanges" :position="0">
+      <template v-slot:cardHeader>
+        <header class="card-header">
+          <b-image :src="'https://images.pexels.com/photos/1447885/pexels-photo-1447885.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=100&w=100'" alt="avatar" ratio="1by1" :rounded="true"></b-image>
+        </header>
+      </template>
+
+      <fields-iterator @startAction="changeItems" :formFields="fields" />
+    </base-validation-card>
   </section>
 </template>
 
 <script>
 var _ = require('lodash')
 
-import ValidationCard from './ValidationCard.vue'
+import BaseValidationCard from './BaseValidationCard.vue'
 import FieldsIterator from "../../FieldsIterator.vue"
 
 export default {
   name: 'ProfileIndex',
-  components: { FieldsIterator, ValidationCard },
+  components: { FieldsIterator, BaseValidationCard },
 
   data () {
     return {
@@ -38,8 +44,6 @@ export default {
     var userDetails = this.$store.state.profileModule.userDetails
     _.forEach(this.fields, (field) => {
       if (field.prefilled) {
-        // field['value'] = userDetails[field['name']]
-        // this.changedValues[field.name] = userDetails[field.name]
         field['value'] = userDetails[field.name]
       }
     })
@@ -54,19 +58,19 @@ export default {
       this.$api.profile.updateDetails({ position: position, content: this.changedValues }) 
       .then((response) => {
         this.changedValues = {}
-        this.$buefy.snackbar.open({
-            message: 'Yellow button and positioned on top, click to close',
-            type: 'is-warning',
-            position: 'is-top',
-            actionText: 'Cancel',
-            indefinite: true,
-            onAction: () => {
-                this.$buefy.toast.open({
-                    message: 'Action pressed',
-                    queue: false
-                })
-            }
-        })
+        // this.$buefy.snackbar.open({
+        //     message: 'Yellow button and positioned on top, click to close',
+        //     type: 'is-warning',
+        //     position: 'is-top',
+        //     actionText: 'Cancel',
+        //     indefinite: true,
+        //     onAction: () => {
+        //         this.$buefy.toast.open({
+        //             message: 'Action pressed',
+        //             queue: false
+        //         })
+        //     }
+        // })
         this.$store.dispatch('profileModule/updatePersonalDetails', { response: response, data: this.changedValues})
       })
       .catch((error) => {

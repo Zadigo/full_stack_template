@@ -23,10 +23,12 @@ import BasePrivacyText from './components/BasePrivacyText.vue'
 import BaseSecondaryCTA from './components/BaseSecondaryCTA.vue'
 import BaseSmallFAQ from './components/BaseSmallFAQ.vue'
 import BaseJumbotron from './components/BaseJumbotron.vue'
+import BaseCard from './components/BaseCard.vue'
 
 
 // Mixins
 import globalMixins from './globalMixins'
+import formFields from './mixins/formFields'
 
 // Plugins
 import Stripe from './plugins/stripe'
@@ -44,6 +46,7 @@ Vue.config.productionTip = false
 // Mixins
 // Vue.mixin(TitleMixin)
 Vue.mixin(globalMixins)
+Vue.mixin(formFields)
 
 
 // Plugins
@@ -60,6 +63,7 @@ Vue.component('base-privacy-text', BasePrivacyText)
 Vue.component('base-secondary-cta', BaseSecondaryCTA)
 Vue.component('base-small-faq', BaseSmallFAQ)
 Vue.component('base-jumbotron', BaseJumbotron)
+Vue.component('base-card', BaseCard)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

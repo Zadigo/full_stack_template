@@ -1,20 +1,22 @@
 <template>
-  <b-card>
-    <b-card-body>
+  <div class="card">
+    <slot name="cardHeader"></slot>
+
+    <div class="card-content">
       <div class="row">
         <div class="col-12">
           <slot></slot>
         </div>
       </div>
-    </b-card-body>
+    </div>
 
-    <template class="bg-white text-right" #footer>
+    <footer class="card-footer bg-white text-right">
       <button @click="$emit('validateAction', position)" class="btn btn-primary mr-2">
         <font-awesome-icon icon="check"></font-awesome-icon>
         Validate
       </button>
-    </template>
-  </b-card>
+    </footer>
+  </div>
 </template>
 
 <script>

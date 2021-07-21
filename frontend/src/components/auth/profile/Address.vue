@@ -1,54 +1,54 @@
 <template>
   <section id="addresses">
     <!-- Add new -->
-    <b-card v-if="addresses.length===0 && !addNew">
+    <base-card v-if="addresses.length===0 && !addNew">
       <b-card-body class="text-center">
         <h2 class="mb-4">You have no addresses</h2>
         <img src="../../../assets/hello.svg" alt="addresses" class="img-fluid">
         <button @click="addNew=true" class="btn btn-primary btn-lg m-0 mt-4">Add new</button>
       </b-card-body>
-    </b-card>
+    </base-card>
 
     <!-- Update/Creation form -->
-    <b-card v-else-if="addNew">
-      <b-card-body>
-        <div class="form-group">
-          <input v-model="newAddress['street_address']" type="text" class="form-control" id="street-address" placeholder="1 rue de Rivoli" autocomplete="address-line1">
-        </div>
+    <base-card v-else-if="addNew">
+      <div class="form-group">
+        <input v-model="newAddress['street_address']" type="text" class="form-control" id="street-address" placeholder="1 rue de Rivoli" autocomplete="address-line1">
+      </div>
 
-        <div class="form-group mt-2">
-          <input v-model="newAddress['city']" type="text" class="form-control" id="address2" placeholder="City" autocomplete="address-level2">
-        </div>
+      <div class="form-group mt-2">
+        <input v-model="newAddress['city']" type="text" class="form-control" id="address2" placeholder="City" autocomplete="address-level2">
+      </div>
 
-        <div class="form-group mt-2">
-          <input v-model="newAddress['zip_code']" type="text" class="form-control" id="postal-code" placeholder="75001" autocomplete="postal-code">
-        </div>
+      <div class="form-group mt-2">
+        <input v-model="newAddress['zip_code']" type="text" class="form-control" id="postal-code" placeholder="75001" autocomplete="postal-code">
+      </div>
 
-        <div class="form-group mt-2">
-          <input v-model="newAddress['country']" type="text" class="form-control" id="country" placeholder="France" autocomplete="country-name">
-        </div>
+      <div class="form-group mt-2">
+        <input v-model="newAddress['country']" type="text" class="form-control" id="country" placeholder="France" autocomplete="country-name">
+      </div>
 
-        <button @click="sendChanges" v-if="createMode" class="btn btn-primary btn-md m-0 mt-4">
+      <template v-slot:cardFooter>
+        <button @click="sendChanges" v-if="createMode" class="btn btn-primary btn-md">
           <font-awesome-icon icon="check"></font-awesome-icon>
           Validate
         </button>
 
-        <button @click="updateAddress" v-else class="btn btn-primary btn-md m-0 mt-4">
+        <button @click="updateAddress" v-else class="btn btn-primary btn-md">
           <font-awesome-icon icon="check"></font-awesome-icon>
           Update
         </button>
 
-        <button @click="$router.go(-1)" class="btn btn-outline-primary btn-md m-0 mt-4 ml-2">
+        <button @click="$router.go(-1)" class="btn btn-outline-primary btn-md">
           <font-awesome-icon icon="check"></font-awesome-icon>
           Cancel
         </button>
-      </b-card-body>
-    </b-card>
+      </template>
+    </base-card>
     
     <!-- Cards -->
     <div v-else class="row">
       <div class="col-12">
-        <b-card v-for="(address, index) in addresses" :key="address.id" :class="{ 'mt-2': index >= 1 }">
+        <base-card v-for="(address, index) in addresses" :key="address.id" :class="{ 'mt-2': index >= 1 }">
           <b-card-body>
             {{ address.street_address }}, {{ address.zip_code }}
 
@@ -57,21 +57,25 @@
             </b-checkbox>
           </b-card-body>
 
-          <footer class="card-footer">
-            <button @click="deleteAddress(address.id)" class="card-footer-item">
-              <font-awesome-icon icon="trash"></font-awesome-icon>
-            </button>
+          <template v-slot:cardFooter>
+            <footer class="card-footer">
+              <button @click="deleteAddress(address.id)" class="card-footer-item">
+                <font-awesome-icon icon="trash"></font-awesome-icon>
+              </button>
 
-            <button @click="retriveAddressToUpdate(address.id)" class="card-footer-item">
-              <font-awesome-icon icon="pen"></font-awesome-icon>
-            </button>
-          </footer>
-        </b-card>
+              <button @click="retriveAddressToUpdate(address.id)" class="card-footer-item">
+                <font-awesome-icon icon="pen"></font-awesome-icon>
+              </button>
+            </footer>
+          </template>
+        </base-card>
 
         <!-- Creation -->
-        <b-card class="text-center mt-2">
-          <button @click="addNew=true" class="btn btn-lg btn-primary">Create new</button>
-        </b-card>
+        <base-card class="text-center mt-2">
+          <button @click="addNew=true" class="btn btn-lg btn-primary">
+            Create new
+          </button>
+        </base-card>
       </div>
     </div>
   </section>

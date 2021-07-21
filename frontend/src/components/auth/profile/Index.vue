@@ -2,19 +2,15 @@
   <section>
     <div class="row">
       <div class="col-12">
-        <b-card>
-          <b-card-body>
-            <h2>Welcome <strong>{{ firstName }},</strong></h2>
-          </b-card-body>
-        </b-card>
+        <base-card>
+          <h2>Welcome <strong>{{ firstName }},</strong></h2>
+        </base-card>
       </div>
       
       <div class="col-12">
-        <b-card class="mt-2">
-          <b-card-body>
-            <img src="../../../assets/hello.svg" class="img-fluid" alt="overview" role="img" aria-label="Account overview">
-          </b-card-body>
-        </b-card>
+        <base-card class="mt-2">
+          <img src="../../../assets/hello.svg" class="img-fluid" alt="overview" role="img" aria-label="Account overview">
+        </base-card>
       </div>
     </div>
   </section>

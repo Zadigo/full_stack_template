@@ -1,7 +1,6 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <b-list-group>
+  <base-card>
+    <b-list-group>
         <b-list-group-item>
           <b-form-checkbox @change="updatePreferences" v-model="userOptions['newsletter']" id="newsletter">
             <span class="m-2">I would like to get updates related to newsletters</span>
@@ -20,8 +19,7 @@
           </b-form-checkbox>
         </b-list-group-item>
       </b-list-group>
-    </div>
-  </div>
+  </base-card>
 </template>
 
 <script>
