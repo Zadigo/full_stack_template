@@ -20,6 +20,7 @@
 </template>
 
 <script>
+// var _ = require('lodash')
 import BaseLayout from './BaseLayout.vue'
 
 import { mapActions } from 'vuex'
@@ -47,16 +48,37 @@ export default {
   },
 
   // beforeRouteLeave (to, from, next) {
-  //   next()
+  //   var nextPage = from.query['next']
+  //   console.log(this.$router.routes)
+  //   if (!_.isNull(nextPage)) {
+  //     next(vm => {
+  //       var route = _.filter(vm.$router.routes, (route) => {
+  //         return route.fullPath === nextPage
+  //       })
+  //       if (!_.isUndefined(route)) {
+  //         return route.name
+  //       }
+  //     })
+  //   } else {
+  //     next('home')
+  //   }
   // },
 
   methods: {
     ...mapActions('authenticationModule', [
       'login'
     ]),
-    loginUser () {
-      // this.$store.dispatch('authenticationModule/login', this.credentials)
-      this.login(this.credentials)
+    loginUser() {
+      // this.login(response)
+      this.$api.auth.login(this.credentials.email, this.credentials.password)
+      .then((response) => {
+        this.login(response)
+        this.$router.push({ name: 'home' })
+      })
+      .catch((error) => {
+        console.log(error)
+        // this.$store.commit('addMessage', error.error)
+      })
     },
 
     setCredentials(payload) {

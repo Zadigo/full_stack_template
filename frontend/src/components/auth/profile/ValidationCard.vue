@@ -9,8 +9,8 @@
     </b-card-body>
 
     <template class="bg-white text-right" #footer>
-      <button @click="$emit('validateAction', position)" class="btn btn-primary">
-        <i class="fa fa-check mr-3"></i>
+      <button @click="$emit('validateAction', position)" class="btn btn-primary mr-2">
+        <font-awesome-icon icon="check"></font-awesome-icon>
         Validate
       </button>
     </template>
@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  name: 'ValidationCard',
   props: {
     position: {
       type: Number,

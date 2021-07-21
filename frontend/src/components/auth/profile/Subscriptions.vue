@@ -1,5 +1,5 @@
 <template>
-  <section class="section" id="subscriptions">
+  <section id="subscriptions">
     <b-card v-if="!hasSubscription" class="text-center">
       <b-card-body>
         <h2 v-if="!hasSelectedSubscription" class="mb-4">You have no subscriptions</h2>
@@ -27,8 +27,10 @@
         <button class="btn btn-sm btn-danger">Delete subscription</button>
       </b-card-body>
     </b-card>
-
-    <router-view name="content"></router-view>
+    
+    <transition name="general"> 
+      <router-view name="content"></router-view>
+    </transition>
   </section>
 </template>
 

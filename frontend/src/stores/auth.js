@@ -27,7 +27,8 @@ var profileModule = {
             email: null,
             payments: [],
             addresses: []
-        }
+        },
+        hasUserDetails: false
     }),
 
     mutations: {
@@ -42,18 +43,17 @@ var profileModule = {
             // the email address. P.S. Might also update
             // the date of birth
             _.forEach(Object.keys(payload.myuser), (key) => {
-                // if (Object.keys(state.userDetails).includes(key)) {
-                //     state.userDetails[key] = values[key]
-                // }
                 state.userDetails[key] = payload.myuser[key]
             })
             state.userDetails.addresses = payload.addresses
+            state.hasUserDetails = true
         },
 
         updateUserDetails(state, payload) {
             _.forEach(Object.keys(payload), (key) => {
                 state.userDetails[key] = payload[key]
             })
+            state.hasUserDetails = true
         },
 
         chooseMainAddress(state, id) {
@@ -119,32 +119,32 @@ var profileModule = {
         },
 
         deleteAddress(state, id) {
-            console.log(id)
             var itemId = _.findIndex(state.userDetails.addresses, ['id', id])
             state.userDetails.addresses.splice(itemId, 1)
         },
 
         // updatePersonalDetails({ dispatch, commit, getters, rootGetters }, payload) {
-        updatePersonalDetails({ commit, rootGetters }, payload) {
+        updatePersonalDetails({ commit }, returnData) {
+            commit('updateUserDetails', returnData.response.data)
             // Updates details from the /details page such as
             // firstname, lastname and email
-            axios({
-                method: 'post',
-                url: urlJoin(rootGetters.getApiUrl, 'update-details').href,
-                data: payload,
-                responseType: 'json',
-                headers: {
-                    'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
-                    'Content-Type': 'application/json',
-                },
-                widthCredentials: true
-            })
-            .then((response) => {
-                commit('updateUserDetails', response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+            // axios({
+            //     method: 'post',
+            //     url: urlJoin(rootGetters.getApiUrl, 'update-details').href,
+            //     data: payload,
+            //     responseType: 'json',
+            //     headers: {
+            //         'Authorization': `Token ${rootGetters.getAuthenticationToken}`,
+            //         'Content-Type': 'application/json',
+            //     },
+            //     widthCredentials: true
+            // })
+            // .then((response) => {
+            //     commit('updateUserDetails', response.data)
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
         }
     },
 
@@ -168,71 +168,76 @@ var authenticationModule = {
         authenticated: false,
         admin: false,
         staff: false,
-        token: null
+        token: null,
+        active: true,
     }),
 
     mutations: {
         performLogin(state, payload) {
+            let { token, details } = payload
             state.authenticated = true
             // Updates the state in the profileModule
-            // with the initial values for the userDetail
-            // state
-            this.commit('profileModule/initialUserDetails', payload.myuser)
-            state.admin = payload.myuser.myuser.is_admin
-            state.staff = payload.myuser.myuser.is_staff
-            state.token = payload.token
+            // with the initial values in the userDetails state
+            this.commit('profileModule/initialUserDetails', details)
+
+            state.admin = details.myuser.is_admin
+            state.staff = details.myuser.is_staff
+            state.active = details.myuser.is_active
+
+            state.token = token
             localStorage.setItem('ttk', state.token)
-            router.push({ name: 'home' })
         },
 
         performLogout(state) {
+            localStorage.removeItem('ttk')
             state.token = null
             state.admin = false
             state.staff = false
+            state.active = false
             state.authenticated = false
         }
     },
 
     actions: {
-        login({ commit, dispatch, rootState }, payload) {
+        login({ commit }, response) {
             // Initiates a login request to Django
-            let { email, username, password } = payload
+            // let { email, username, password } = payload
             
             // When a person just presses the button without
             // entering anykind of credentials, we should
             // not be continuing the process
-            if (isNull(email) | isNull(username) && isNull(password)) {
-                console.error('No crendentials entered')
-                return false
-            }
-            
-            axios({
-                method: 'post',
-                url: urlJoin(rootState.baseUrls.api, 'login').href,
-                responseType: 'json',
-                data: { email: email, username: username, password: password},
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
-            })
-            .then((response) => {
-                if (response.status >= 200) {
-                    commit('performLogin', response.data)
-                } else {
-                    // TODO: Find a way to show message
-                    console.error(response.data)
-                }
-            })
-            .catch((error) => {
-                var msg = { app: 'auth', content: "Nous n'avons pas pu vous vous connecter" }
-                dispatch('newDangerMessage', msg, { root: true })
-                console.log(error)
-            })
+            // if (isNull(email) | isNull(username) && isNull(password)) {
+            //     console.error('No crendentials entered')
+            //     return false
+            // }
+            commit('performLogin', response.data)
+            // axios({
+            //     method: 'post',
+            //     url: urlJoin(rootState.baseUrls.api, 'login').href,
+            //     responseType: 'json',
+            //     data: { email: email, username: username, password: password},
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     withCredentials: true
+            // })
+            // .then((response) => {
+            //     if (response.status >= 200) {
+            //         commit('performLogin', response.data)
+            //     } else {
+            //         // TODO: Find a way to show message
+            //         console.error(response.data)
+            //     }
+            // })
+            // .catch((error) => {
+            //     var msg = { app: 'auth', content: "Nous n'avons pas pu vous vous connecter" }
+            //     dispatch('newDangerMessage', msg, { root: true })
+            //     console.log(error)
+            // })
         },
 
         // logout({ state, commit, rootState }) {
-        logout({ commit }, responseData) {
+        logout({ commit }, response) {
             // axios({
             //     url: urlJoin(rootState.baseUrls.api, 'logout').href,
             //     method: 'post',
@@ -249,7 +254,7 @@ var authenticationModule = {
             // .catch((error) => {
             //     console.log(error)
             // })
-            commit('performLogout', responseData)
+            commit('performLogout', response)
         },
 
         signUp({ rootState }, payload) {
@@ -287,11 +292,14 @@ var authenticationModule = {
             // If the user has already been logged in
             // with a token that was stored in the local storage
             // keep the current state as logged in
-            // const currentToken = localStorage.getItem('ttk')
-            // if (currentToken !== undefined) {
-            //     return true
-            // }
-            return state.authenticated && state.token !== null
+            const currentToken = localStorage.getItem('ttk')
+            console.log('Local storage token', currentToken)
+            if (!_.isNull(currentToken)) {
+                state.token = currentToken
+                return true
+            }
+            // return state.authenticated && !_.isNull(state.token)
+            return state.authenticated
         },
 
         isAdmin(state) {

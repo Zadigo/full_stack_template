@@ -27,9 +27,7 @@ class MyUserAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['username', 'password']}),
         (_('Personal info'), {'fields': ['firstname', 'lastname', 'email']}),
-        (_('Permissions'), {
-            'fields': ['is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'],
-        }),
+        (_('Permissions'), {'fields': ['is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions']}),
         (_('Important dates'), {'fields': ['last_login']}),
     ]
     
@@ -44,7 +42,7 @@ class MyUserProfileAdmin(admin.ModelAdmin):
 
 
 class PaymentsAdmin(admin.ModelAdmin):
-    list_display = ['reference']
+    list_display = ['reference', 'card']
 
 
 class AddressAdmin(admin.ModelAdmin):

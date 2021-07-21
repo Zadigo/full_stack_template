@@ -1,5 +1,5 @@
 from django import http
-from accounts.models import Address
+from accounts.models import Address, MyUserProfile
 from accounts import get_userprofile_model
 from api import serializers
 from api.views import mixins
@@ -11,8 +11,10 @@ from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveMode
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from django.db.transaction import atomic
+from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-
+from api import check_user_token
+from api.views.mixins import CustomIsAuthenticated
 
 USER_MODEL = get_user_model()
 
@@ -22,6 +24,7 @@ USER_PROFILE_MODEL = get_userprofile_model()
 class ProfileDetails(GenericViewSet, RetrieveModelMixin):
     queryset = USER_PROFILE_MODEL.objects.all()
     serializer_class = serializers.MyUserProfileSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ChangePassword(mixins.GlobalAPIMixins, GenericAPIView):
@@ -121,6 +124,7 @@ class ChangePassword(mixins.GlobalAPIMixins, GenericAPIView):
 
 
 class ChangePersonalDetails(GenericAPIView):
+    http_method_names = ['post', 'patch']
     # Dynamically update the data depending 
     # on the incoming position that was
     # included in the incoming POST data
@@ -152,15 +156,14 @@ class ChangePersonalDetails(GenericAPIView):
 
 
 
-
-
-
+def not_authorized_response(request):
+    return Response({'error': 'Not authorized'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class AddressesApi(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, DestroyModelMixin, UpdateModelMixin):
     queryset = Address.objects.all()
     serializer_class = serializers.AddressSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [CustomIsAuthenticated]
 
     def _user_addresses(self, request):
         return self.queryset.filter(myuserprofile__id=request.user.id)
@@ -178,7 +181,6 @@ class AddressesApi(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateMod
             self.lookup_field: int(self.kwargs[lookup_url_kwarg]),
             'myuserprofile__id': self.request.user.id
         }
-        print(filter_kwargs)
         address = get_object_or_404(queryset, **filter_kwargs)
         self.check_object_permissions(self.request, address)
         return address
@@ -199,3 +201,50 @@ class AddressesApi(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateMod
         self.perform_create(serializer, request)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+@api_view(['post', 'patch'])
+def change_personal_details(request):
+    if not check_user_token(request):
+        return not_authorized_response(request)
+
+    serializer_classes = [
+        serializers.UserValidationSerializer
+    ]
+
+    def _get_serializer(position, data):
+        serializer = serializer_classes[position]
+        instance = serializer(data=data)
+        instance.is_valid(raise_exception=True)
+        return instance
+
+    serializer_position = request.data.get('position', None)
+    if serializer_position is not None:
+        serializer_position = int(serializer_position)
+    else:
+        return Response({'error': 'An error occured - PF1'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    content = request.data['content']
+    if not content or content is None:
+        return Response({}, status=status.HTTP_202_ACCEPTED)
+
+    serializer = _get_serializer(serializer_position, content)
+    serializer.update(request.user, serializer._validated_data)
+    return Response(serializer.data)
+
+
+@api_view(['post'])
+def update_preferences(request):
+    if not check_user_token(request):
+        return not_authorized_response(request)
+    return Response({'status': 'Great'})
+
+
+@api_view(['get'])
+def refresh_user_details(request):
+    if not check_user_token(request):
+        return not_authorized_response(request)
+    
+    user_profile = get_object_or_404(MyUserProfile.objects.all(), id=request.user.id)
+    serializer = serializers.MyUserProfileSerializer(instance=user_profile)
+    return Response(serializer.data)

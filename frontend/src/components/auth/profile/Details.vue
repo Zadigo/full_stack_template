@@ -1,7 +1,9 @@
 <template>
-  <validation-card @validateAction="sendChanges" :position="0">
-    <fields-iterator @startAction="changeItems" :fields="fields" />
-  </validation-card>
+  <section>
+    <validation-card @validateAction="sendChanges" :position="0">
+      <fields-iterator @startAction="changeItems" :fields="fields" />
+    </validation-card>
+  </section>
 </template>
 
 <script>
@@ -18,9 +20,9 @@ export default {
     return {
       changedValues: {},
       fields: [
-        { id: 1, type: 'text', name: 'firstname', placeholder: 'Firstname', autocomplete: 'given-name', value: null, prefilled: true },
-        { id: 2, type: 'text', name: 'lastname', placeholder: 'Lastname', autocomplete: 'family-name', value: null, prefilled: true },
-        { id: 3, type: 'email', name: 'email', placeholder: 'Email', autocomplete: 'email', value: null, prefilled: true },
+        { id: 1, type: 'text', name: 'firstname', placeholder: 'Firstname', label: 'Firstname', autocomplete: 'given-name', value: null, prefilled: true },
+        { id: 2, type: 'text', name: 'lastname', placeholder: 'Lastname', label: 'Lastname', autocomplete: 'family-name', value: null, prefilled: true },
+        { id: 3, type: 'email', name: 'email', placeholder: 'Email', label: 'Email', autocomplete: 'email', value: null, prefilled: true },
       ]
     }
   },
@@ -49,26 +51,26 @@ export default {
     },
     
     sendChanges (position) {
-      this.$store.dispatch(
-      'profileModule/updatePersonalDetails', 
-        { position: position, content: this.changedValues }
-      )
-      
-      this.changedValues = {}
-      this.$buefy.snackbar.open({
-        message: 'Données mis à jour',
-        type: 'is-warning',
-        position: 'is-top-right',
-        actionText: 'Cancel',
-        indefinite: false,
-        duration: 3500,
-        onAction: () => {
-          // this.$buefy.toast.open({
-          //   message: 'Action pressed',
-          //   queue: false
-          // })
-          console.log('This message')
-        } 
+      this.$api.profile.updateDetails({ position: position, content: this.changedValues }) 
+      .then((response) => {
+        this.changedValues = {}
+        this.$buefy.snackbar.open({
+            message: 'Yellow button and positioned on top, click to close',
+            type: 'is-warning',
+            position: 'is-top',
+            actionText: 'Cancel',
+            indefinite: true,
+            onAction: () => {
+                this.$buefy.toast.open({
+                    message: 'Action pressed',
+                    queue: false
+                })
+            }
+        })
+        this.$store.dispatch('profileModule/updatePersonalDetails', { response: response, data: this.changedValues})
+      })
+      .catch((error) => {
+        console.error(error)
       })
     }
   }

@@ -29,6 +29,8 @@
 <script>
 var _ = require('lodash')
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'Profile',
 
@@ -46,13 +48,31 @@ export default {
     })
   },
   
-  _checkCredentials () {
-      var { email, password } = this.credentials
-      if (!this._validateEmail(email)) {
-        console.log('Email is not valid')
-      }
-      password
+  mounted() {
+    if (!this.hasUserDetails) {
+      this.$api.profile.getUserDetails()
+      .then((response) => {
+        this.$store.commit('profileModule/updateUserDetails', response.data.myuser)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
     }
+  },
+
+  computed: {
+    ...mapState('profileModule', [
+      'hasUserDetails'
+    ])
+  }
+
+  // _checkCredentials () {
+  //   var { email, password } = this.credentials
+  //   if (!this._validateEmail(email)) {
+  //     console.log('Email is not valid')
+  //   }
+  //   password
+  // }
 }
 </script>
 

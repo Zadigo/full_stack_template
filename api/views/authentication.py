@@ -36,9 +36,9 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
     def post(self, request, *args, **kwargs):
         token, serializer, user = self.perform_login(request.data)
         if not serializer:
-            return Response({'error': "User does not exist"}, status=status.HTTP_202_ACCEPTED)
+            return Response({'error': 'The email and/or password were not correct'}, status=status.HTTP_202_ACCEPTED)
         profile_serializer = serializers.MyUserProfileSerializer(instance=user.myuserprofile)
-        return Response({'token': token.key, 'myuser': profile_serializer.data})
+        return Response({'token': token.key, 'details': profile_serializer.data})
 
 
 class Logout(mixins.GlobalAPIMixins, GenericAPIView):

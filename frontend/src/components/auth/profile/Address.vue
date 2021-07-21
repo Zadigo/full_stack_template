@@ -1,5 +1,5 @@
 <template>
-  <section class="section" id="addresses">
+  <section id="addresses">
     <!-- Add new -->
     <b-card v-if="addresses.length===0 && !addNew">
       <b-card-body class="text-center">

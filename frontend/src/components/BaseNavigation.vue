@@ -34,7 +34,7 @@
             </router-link>
           </li>
           <li v-show="isAuthenticated" class="nav-item">
-            <a @click.prevent="logout" id="logout" class="nav-link" role="link">
+            <a @click.prevent="logoutUser" id="logout" class="nav-link" role="link">
               Logout
             </a>
           </li>
@@ -85,7 +85,7 @@ export default {
     logoutUser() {
       this.$api.auth.logout()
       .then((response) => {
-        this.logout(response.data)
+        this.logout(response)
         this.$router.push({ name: 'home' })
       })
       .catch((error) => {

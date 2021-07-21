@@ -7,7 +7,7 @@ import BootstrapVue from 'bootstrap-vue'
 import Buefy from 'buefy'
 
 // CSS
-// require('buefy/dist/buefy.css')
+require('buefy/dist/buefy.css')
 require('../node_modules/bootstrap/dist/css/bootstrap.css')
 require('./assets/style.css')
 require('./assets/admin.css')

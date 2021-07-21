@@ -2,7 +2,7 @@ export default ($axios) => ({
     login: (email, password) => {
         return $axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/signin',
+            url: 'http://127.0.0.1:8000/api/v1/login',
             data: { email: email, password: password },
         })
     },

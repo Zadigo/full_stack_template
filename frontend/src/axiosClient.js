@@ -1,5 +1,8 @@
+var _ = require('lodash')
+
 import axios from 'axios'
 import store from './stores'
+// import router from './router'
 
 // Create a new axios instance with
 // default parameters such headers with
@@ -18,20 +21,45 @@ var axiosClient = axios.create({
     withCredentials: true
 })
 
+// var authToken = store.state.authenticationModule.token
+// if (authToken) {
+//     axiosClient.defaults.headers.common['Autorization'] = authToken
+// }
+
 axiosClient.interceptors.request.use(
     // Before sending any POST requests,
     // especially those that requrie
     // Authorization header, intercep and
     // inject the Authorization Token header
     // to the request.
-    function (request) {
-        request.headers['Authorization'] = `Token ${store.state.authenticationModule.token}`
-        // if (request.method == 'post') {
-        // }
+    request => {
+        // There are cases where the user might not
+        // be logged in. In which case this can cause
+        // an error on the request
+        var token = store.state.authenticationModule.token
+        if (!_.isNull(token)) {
+            request.headers['Authorization'] = `Token ${token}`
+        }
         return request
     },
-    function (error) {
+
+    error => {
         return Promise.reject(error)
+    }
+)
+
+axiosClient.interceptors.response.use(
+    undefined,
+    error => {
+        return new Promise(() => {
+            // if (error.response.status === 401 && error.config && !error.config.__isRetryRequest) {
+            if (error.response.status === 401) {
+                console.log('Axios', error.response)
+                store.dispatch('authenticationModule/logout')
+                // window.location.reload()
+            }
+            throw error
+        })
     }
 )
 
