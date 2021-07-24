@@ -1,6 +1,6 @@
 from api import check_user_token, serializers
 from api.views import mixins
-from api.views.base import base_error_response
+from api.views.base import base_bad_request_response, base_error_response
 from django.contrib.auth import (login, logout, password_validation,
                                  update_session_auth_hash)
 from django.contrib.auth.tokens import default_token_generator
@@ -17,86 +17,72 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import (CreateAPIView, GenericAPIView,
                                      get_object_or_404)
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 
 USER_MODEL = get_user_model()
 
 
 class Login(mixins.GlobalAPIMixins, GenericAPIView):
-    # http_method_names = ['post']
+    http_method_names = ['post']
     serializer_class = serializers.LoginSerializer
     queryset = USER_MODEL.objects.all()
 
-    def perform_authentication(self, request, credentials: dict={}):
-        if not credentials:
+    def _perform_authentication(self, request, serializer: Serializer):
+        if not serializer:
             return request.user
-
-        email = credentials['email']
-        password = credentials['password']
+        email = serializer.validated_data['email']
+        password = serializer.validated_data['password']
         return authenticate(request, email=email, password=password)
 
-    def perform_login(self, credentials: dict):
-        user = self.perform_authentication(self.request, credentials=credentials)
+    def _perform_login(self, credentials: dict):
+        serialized_credentials = self.get_serializer(data=credentials)
+        serialized_credentials.is_valid()
+
+        user = self._perform_authentication(self.request, serializer=serialized_credentials)
         if not user:
             return False, False, False
         login(self.request, user)
-        return Token.objects.get(user=user), serializers.UserSerializer(instance=user), user
+        return Token.objects.get_or_create(user=user), serializers.UserSerializer(instance=user), user
 
     def post(self, request, *args, **kwargs):
-        token, serializer, user = self.perform_login(request.data)
-        if not serializer:
-            return Response({'error': 'The email and/or password were not correct'}, status=status.HTTP_202_ACCEPTED)
+        result, serializer, user = self._perform_login(request.data)
+        if not result or not serializer:
+            return Response({'error': 'The email and/or password were not correct'}, status=status.HTTP_404_NOT_FOUND)
+        token, _ = result
         profile_serializer = serializers.MyUserProfileSerializer(instance=user.myuserprofile)
         return Response({'token': token.key, 'details': profile_serializer.data})
 
 
 class Logout(mixins.GlobalAPIMixins, GenericAPIView):
     def post(self, request, **kwargs):
+        request.user.auth_token.delete()
         logout(request)
-        return Response({'state': True})
+        return Response({'message': 'User logged out'})
 
 
-class Signup(mixins.GlobalAPIMixins, CreateAPIView):
-    queryset = USER_MODEL.objects.all()
-    serializer_class = serializers.UserSerializer
+@api_view(['post'])
+def signup(request, **kwargs):
+    refixed_credentials = {
+        'email': request.data.get('email'),
+        'password': request.data.get('password1'),
+        'firstname': request.data.get('firstname'),
+        'lastname': request.data.get('lastname')
+    }
+    serialized_credentials = serializers.SignupSerializer(data=refixed_credentials)
+    serialized_credentials.is_valid(raise_exception=True)
 
-    def get_user(self, username: str):
-        try:
-            return self.queryset.get(username__iexact=username)
-        except:
-            return False
+    password1 = request.data.get('password1')
+    password2 = request.data.get('password2')
 
-    def create(self, request, *args, **kwargs):
-        credentials = request.data
+    if password1 != password2:
+        return base_bad_request_response(request, 'Passwords do not match')
 
-        if self.get_user(credentials['username']):
-            return Response({'error': 'User exists'}, status=status.HTTP_501_NOT_IMPLEMENTED)
+    new_user = serialized_credentials.save()
+    new_user.is_active = True
+    new_user.save()
 
-        password1 = credentials.pop('password1')
-        password2 = credentials.pop('password2')
-
-        if password1 != password2:
-            return Response({'error': 'Passwords do not match'}, status=status.HTTP_501_NOT_IMPLEMENTED)
-
-        user = USER_MODEL.objects.create_user(**credentials, password=password1)
-        _ = Token.objects.create(user=user)
-        
-        return Response({'state': 'created'}, status=status.HTTP_201_CREATED)
-
-
-# class GetUserToken(ObtainAuthToken):
-#     pass
-
-
-# class GetUserToken(GenericAPIView):
-#     http_method_names = ['get']
-
-#     def get(self, request, **kwargs):
-#         user = request.user
-#         if user.is_authenticated:
-#             user = get_object_or_404(USER_MODEL, username=user.username)
-#             token = Token.objects.get(user=user)
-#             return Response({'token': token.key})
-#         return Response({'token': None})
+    serialized_user_profile = serializers.MyUserProfileSerializer(instance=new_user.myuserprofile)
+    return Response(data=serialized_user_profile.data)
 
 
 @api_view(['post'])
@@ -112,6 +98,9 @@ def get_user_token(request):
 @api_view(['post'])
 def reset_password(request):
     email_field_name = USER_MODEL.get_email_field_name()
+
+    if request.user.is_authenticated:
+        return base_bad_request_response(request, 'User authenticated')
 
     def send_mail(user, email, current_site, use_https=False):
         context = {
@@ -149,25 +138,8 @@ def reset_password(request):
         return base_error_response(request)
 
     single_link_generator(email)
-    return Response({})
+    return Response({'message': 'Email sent'})
 
 
-@api_view(['post'])
-def change_password(request):
-    if not check_user_token(request):
-        return base_error_response(request)
-
-    old_password = request.data.get('old_password')
-    password1 = request.data.get('password1')
-    password2 = request.data.get('password2')
-
-    if password1 and password2:
-        if password1 != password2:
-            return base_error_response(request)
-
-    user = get_object_or_404(USER_MODEL.objects.all(), id=request.user.id)
-    password_validation.validate_password(old_password, request.user, password_validators=[])
-
-    user.set_password(password1)
-    update_session_auth_hash(request, user)
-    return Response()
+def confirm_password_reset(request, **kwargs):
+    pass

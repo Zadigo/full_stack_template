@@ -5,9 +5,9 @@ def check_user_token(request):
     from rest_framework.authtoken.models import Token
 
     token = request.META.get('HTTP_AUTHORIZATION', None)
-    _, token = token.split(' ', maxsplit=1)
     if token is None:
         return False
+    _, token = token.split(' ', maxsplit=1)
 
     queryset = Token.objects.filter(key=token)
     if queryset.exists():

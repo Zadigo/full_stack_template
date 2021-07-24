@@ -1,7 +1,6 @@
 from uuid import uuid4
 
-from django.contrib.auth.models import (AbstractBaseUser, Group, Permission,
-                                        User)
+from django.contrib.auth.models import AbstractBaseUser, Group, Permission
 from django.core.mail import send_mail
 from django.db import models
 from django.db.models.signals import post_save

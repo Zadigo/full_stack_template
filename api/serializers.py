@@ -1,9 +1,13 @@
+from typing import Tuple, Type, Union
+
 from accounts import get_userprofile_model
+from accounts.models import Address, Payment
 from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.db.transaction import atomic
 from rest_framework import fields
 from rest_framework.serializers import ModelSerializer, Serializer
-from django.db.transaction import atomic
-from accounts.models import Address, Payment
+
+from api.validators import password_validator
 
 USER_MODEL = get_user_model()
 
@@ -11,20 +15,34 @@ USER_PROFILE_MODEL = get_userprofile_model()
 
 
 class LoginSerializer(Serializer):
-    username = fields.CharField()
+    email = fields.EmailField()
     password = fields.CharField()
 
+    # def save(self, firstname=None, lastname=None):
+    #     new_user = USER_MODEL.objects.create(**self.validated_data)
+    #     new_user.myuserprofile_set.lastname = lastname
+    #     new_user.myuserprofile_set.firstname = firstname
+    #     new_user.myuserprofile_set.save()
+    #     return new_user
 
-class PaymentSerializer(ModelSerializer):
+
+class SignupSerializer(ModelSerializer):
     class Meta:
-        model = Payment
-        fields = ['reference', 'card', 'iban']
+        model = USER_MODEL
+        fields = ['username', 'firstname', 'lastname', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
 
-
-class AddressSerializer(ModelSerializer):
-    class Meta:
-        model = Address
-        fields = ['id', 'street_address', 'zip_code', 'country']
+    def create(self, validated_data):
+        new_user = USER_MODEL.objects.create_user(
+            username=validated_data.get('username'),
+            firstname=validated_data.get('firstname'),
+            lastname=validated_data.get('lastname'),
+            email=validated_data['email'],
+            password=validated_data['password'],
+        )
+        new_user.is_active = True
+        new_user.save()
+        return new_user
 
 
 class UserSerializer(ModelSerializer):    
@@ -32,6 +50,12 @@ class UserSerializer(ModelSerializer):
         model = USER_MODEL
         fields = ['id', 'username', 'firstname', 'lastname', 'email',
                   'is_admin', 'is_staff', 'is_active','is_superuser']
+
+
+class AddressSerializer(ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['id', 'street_address', 'zip_code', 'country']
 
 
 class MyUserProfileSerializer(ModelSerializer):
@@ -43,12 +67,32 @@ class MyUserProfileSerializer(ModelSerializer):
         fields = ['id', 'customer_id', 'myuser', 'addresses']
 
 
+
+
+
+
+
+
+
+
+
+
+
+class PaymentSerializer(ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ['reference', 'card', 'iban']
+
+
+
+
+
 # Serializers created in order to specifically
 # update or create incoming data on their
 # respective models
 
 class SerializerMixin:
-    def instance_iterator(self, instance, data):
+    def _instance_iterator(self, instance, data):
         for key, value in data.items():
             setattr(instance, key, value)
         return instance
@@ -70,11 +114,11 @@ class SerializerMixin:
             validated_data = validated_data['myuser']
             
         instance = self._check_has_instance(instance)
-        updated_instance = self.instance_iterator(instance, validated_data)
+        updated_instance = self._instance_iterator(instance, validated_data)
         return updated_instance
 
 
-class UserValidationSerializer(SerializerMixin, Serializer):
+class PersonalDetailsValidationSerializer(SerializerMixin, Serializer):
     firstname = fields.CharField(source='myuser.firstname', max_length=50, required=False)
     lastname = fields.CharField(source='myuser.lastname', max_length=50, required=False)
     email = fields.EmailField(source='myuser.email', required=False)
@@ -102,28 +146,29 @@ class AddressValidationSerializer(SerializerMixin, Serializer):
         return updated_instance
 
 
-class PasswordValidationSerializer(Serializer):
+class PasswordChangeValidationSerializer(SerializerMixin, Serializer):
     old_password = fields.CharField()
-    password1 = fields.CharField()
-    password2 = fields.CharField()
+    password1 = fields.CharField(validators=[password_validator])
+    password2 = fields.CharField(validators=[password_validator])
 
-    def update(self, request, instance=None, validated_data=None):
+    def update(self, request, instance=None, validated_data=None) -> Union[Tuple[bool, str]]:
         if validated_data is None:
             validated_data = self._validated_data
+
         old_password = validated_data['old_password']
         password1 = validated_data['password1']
         password2 = validated_data['password2']
 
         if password1 != password2:
-            pass
+            return False, 'Passwords do not match'
 
-        if len(password1) < 5:
-            pass
+        # if len(password1) < 5:
+        #     return False, 'Password have 5 characters or more'
         
         if old_password == password1:
-            pass
+            return False, 'New password and old password are similar'
 
         instance.set_password(password1)
         instance.save()
         update_session_auth_hash(request, instance)
-        return instance
+        return True, instance
