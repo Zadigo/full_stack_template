@@ -44,6 +44,7 @@
 <script>
 export default {
   name: 'SubscriptionPayment',
+  props: ['price'],
   data() {
     return {
       completed: false

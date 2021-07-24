@@ -21,9 +21,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import FieldsIterator from './components/FieldsIterator.vue'
 import BasePrivacyText from './components/BasePrivacyText.vue'
 import BaseSecondaryCTA from './components/BaseSecondaryCTA.vue'
-import BaseSmallFAQ from './components/BaseSmallFAQ.vue'
-import BaseJumbotron from './components/BaseJumbotron.vue'
-import BaseCard from './components/BaseCard.vue'
+import BaseSmallFAQ from './layouts/BaseSmallFAQ.vue'
+import BaseJumbotron from './layouts/BaseJumbotron.vue'
+import BaseCard from './layouts/BaseCard.vue'
 
 
 // Mixins
@@ -44,7 +44,6 @@ Vue.config.productionTip = false
 
 
 // Mixins
-// Vue.mixin(TitleMixin)
 Vue.mixin(globalMixins)
 Vue.mixin(formFields)
 

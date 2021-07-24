@@ -80,9 +80,7 @@ import Card from '@/components/contact/Card.vue'
 
 export default {
   name: 'ContactUs',
-  components: {
-    'contact-card': Card
-  },
+  components: { 'contact-card': Card },
 
   title() {
     return 'Contact our friendly support'

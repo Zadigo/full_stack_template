@@ -14,7 +14,7 @@
 
 <style scoped>
   #intro {
-    background-image: url("https://images.unsplash.com/photo-1516575150278-77136aed6920?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fG1vZGVsfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=60");
+    background-image: url("https://images.unsplash.com/photo-1619785690726-89c6b3bd3849?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80");
     height: 100vh;
   }
 </style>

@@ -48,4 +48,12 @@ export default {
   /* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'); */
   @import url('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css');
   @import url('https://cdn.jsdelivr.net/npm/mdbvue/lib/css/mdb.min.css');
+
+  html, body {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  #app {
+    font-family: 'Roboto', sans-serif;
+  }
 </style>

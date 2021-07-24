@@ -1,34 +1,26 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <transition name="alert-transition">
-        <div v-if="!isValid" class="alert alert-danger">
-          Passwords do not match
-        </div>
-      </transition>
-      
-      <div v-for="field in fields" :key="field.id" class="form-group mt-2">
-        <label v-if="field.name==='password1'" :for="field.name" class="mt-3 mb-2">
-          Enter your new password here. It should be different from your old password
-          and should contain at least one.
-        </label>
-        <input v-model="credentials[field.name]" :id="field.name" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
+  <base-validation-card @validateAction="updatePassword" :buttonName="'Reset password'">
+    <transition name="alert-transition">
+      <div v-if="!isValid" class="alert alert-danger">
+        Passwords do not match
       </div>
+    </transition>
+    
+    <div v-for="field in fields" :key="field.id" class="form-group mt-2">
+      <label v-if="field.name==='password1'" :for="field.name" class="mt-3 mb-2">
+        Enter your new password here. It should be different from your old password
+        and should contain at least one.
+      </label>
+      <input v-model="credentials[field.name]" :id="field.name" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
     </div>
-
-    <div class="card-footer bg-white text-right">
-      <button @click="updatePassword" class="btn btn-primary">
-        <i class="fa fa-check-mark"></i>
-        Validate
-      </button>
-    </div>
-  </div>
+  </base-validation-card>
 </template>
 
 <script>
-var axios = require('axios')
-
+import { mapState } from 'vuex'
+import BaseValidationCard from './BaseValidationCard.vue'
 export default {
+  components: { BaseValidationCard },
   data () {
     return {
       credentials: {},
@@ -41,6 +33,10 @@ export default {
   },
 
   computed: {
+    ...mapState('profileModule', {
+      userId: (state) => { return state.userDetails.id }
+    }),
+    
     isValid () {
       let { password1, password2 } = this.credentials
       if (password2 !== undefined && password1 !== password2) {
@@ -53,26 +49,33 @@ export default {
   
   methods: {
     updatePassword () {
-      axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/api/v1/change-password',
-        data: this.credentials,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${this.$store.getters['authenticationModule/getToken']}`
-        },
-        withCredentials: true
+      this.$api.profile.changePassword(this.credentials)
+      .then(() => {
+
       })
-      .then((response) => {
-        if (response.status === 200) {
-          this.credentials = {}
-        } else {
-          console.log('Could not reset password')
-        }
+      .catch(() => {
+
       })
-      .error((error) => {
-        console.log(error)
-      })
+      // axios({
+      //   method: 'post',
+      //   url: 'http://127.0.0.1:8000/api/v1/change-password',
+      //   data: this.credentials,
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Token ${this.$store.getters['authenticationModule/getToken']}`
+      //   },
+      //   withCredentials: true
+      // })
+      // .then((response) => {
+      //   if (response.status === 200) {
+      //     this.credentials = {}
+      //   } else {
+      //     console.log('Could not reset password')
+      //   }
+      // })
+      // .error((error) => {
+      //   console.log(error)
+      // })
     }
   }
 }

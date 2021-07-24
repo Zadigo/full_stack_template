@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-xl-5 col-md-8">
-      <b-card class="mt-5">
+      <base-card class="mt-5">
         <transition-group name="general-transition">
           <div v-for="message in messages" :key="message.id" :class="message.type" class="alert alert-danger" role="alert">
             {{ message.content }}
@@ -10,12 +10,12 @@
 
         <slot></slot>
 
-        <template class="text-center" #footer>
-          <button @click="$emit('startAuthentication')" class="btn btn-primary">
+        <template v-slot:cardFooter class="card-footer text-center">
+          <button @click="$emit('startAuthentication')" :aria-label="buttonName" class="btn btn-primary" role="button">
             {{ buttonName }}
           </button>
         </template>
-      </b-card>
+      </base-card>
 
       <slot name="registrationTexts"></slot>
     </div>
@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'BaseLayout',
+  name: 'BaseRegistrationLayout',
   props: {
     buttonName: {
       type: String,

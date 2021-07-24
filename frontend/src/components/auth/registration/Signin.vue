@@ -1,5 +1,5 @@
 <template>
-  <base-layout @startAuthentication="loginUser" :buttonName="'Sign in to your account'">
+  <base-registration-layout @startAuthentication="loginUser" :buttonName="'Sign in to your account'">
     <div class="form-group">
       <label class="font-weight-bold" for="email">Email</label>
       <input v-model="credentials['email']" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email">
@@ -16,15 +16,14 @@
         <p class="mt-3 mb-3">Forgot your password? <router-link :to="{ name: 'forgot' }" class="font-weight-bold text-muted">Send yourself a new one</router-link></p>
       </div>
     </template>
-  </base-layout>
+  </base-registration-layout>
 </template>
 
 <script>
 // var _ = require('lodash')
-import BaseLayout from './BaseLayout.vue'
+import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
 
 import { mapActions } from 'vuex'
-// import formFields from '../../../data/fields.json'
 
 export default {
   name: 'Signin',
@@ -32,7 +31,7 @@ export default {
     return 'Signin'
   },
   components: {
-    BaseLayout
+    BaseRegistrationLayout
   },
 
   data() {

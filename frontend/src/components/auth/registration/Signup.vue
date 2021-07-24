@@ -1,5 +1,5 @@
 <template>
-  <base-layout @startAction="signupUser" :buttonName="'Sign up'">
+  <base-registration-layout @startAction="signupUser" :buttonName="'Sign up'">
     <div v-for="(field, index) in fields" :key="field.id" :class="{ 'mt-2': index > 0 }" class="form-group">
       <label v-if="field.label !== null" :for="field.name" class="font-weight-bold">
         {{ field.label }}
@@ -12,11 +12,11 @@
     <template v-slot:registrationTexts>
       <p class="mt-3 mb-3">Already using {{ companyDetails.name }}? <router-link :to="{ name: 'signin' }">Login here</router-link></p>
     </template>
-  </base-layout>
+  </base-registration-layout>
 </template>
 
 <script>
-import BaseLayout from './BaseLayout.vue'
+import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
 
 export default {
   name: 'Signup',
@@ -24,7 +24,7 @@ export default {
     return 'Signup'
   },
   components: {
-    BaseLayout
+    BaseRegistrationLayout
   },
   data () {
     return {

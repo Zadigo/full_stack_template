@@ -9,6 +9,14 @@ export default ($axios) => ({
         })
     },
 
+    changePassword: (userId, credentials) => {
+        return $axios({
+            method: 'post',
+            url: `/profile/${userId}/password/change`,
+            data: credentials
+        })
+    },
+
     getUserDetails: () => {
         return $axios({
             method: 'get',

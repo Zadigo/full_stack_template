@@ -1,5 +1,6 @@
 <template>
   <section id="subscriptions">
+    <!-- New subscription -->
     <b-card v-if="!hasSubscription" class="text-center">
       <b-card-body>
         <h2 v-if="!hasSelectedSubscription" class="mb-4">You have no subscriptions</h2>
@@ -18,6 +19,7 @@
       </b-card-body>
     </b-card>
 
+    <!-- Active subscriptions -->
     <b-card v-else>
       <b-card-body>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sed, aliquid debitis 
@@ -27,9 +29,10 @@
         <button class="btn btn-sm btn-danger">Delete subscription</button>
       </b-card-body>
     </b-card>
-    
+
+      <!-- Stripe -->
     <transition name="general"> 
-      <router-view name="content"></router-view>
+      <router-view :price="subscriptionPrice" name="content"></router-view>
     </transition>
   </section>
 </template>

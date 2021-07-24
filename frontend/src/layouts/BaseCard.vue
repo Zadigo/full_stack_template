@@ -16,7 +16,7 @@
 <script>
 export default {
   // A base card in order to unify all the
-  // cards on the application as once
+  // cards on the application at once
   name: 'BaseCard'
 }
 </script>

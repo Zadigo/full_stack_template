@@ -1,7 +1,6 @@
 <template>
-  <section id="press">
+  <!-- <section id="press">
     <header>
-      <!-- Jumbotron -->
       <div id="intro" class="p-5 text-center bg-light">
         <h1 class="mb-3 font-weight-bold">Press Resources</h1>
         <p class="font-weight-bold">
@@ -11,5 +10,13 @@
         <button class="btn btn-lg btn-primary">Contact us</button>
       </div>
     </header>
-  </section>
+  </section> -->
+  <base-jumbotron>
+    <div class="container">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+      Eius ea voluptas, modi fugit deserunt expedita excepturi ipsa 
+      cumque omnis iure saepe similique reiciendis assumenda vel minus 
+      dolore vero! Fuga, corrupti?
+    </div>
+  </base-jumbotron>
 </template>

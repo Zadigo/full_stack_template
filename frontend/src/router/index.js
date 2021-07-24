@@ -75,7 +75,7 @@ const routes = [
                 name: 'signup',
                 path: '/signup',
                 components: {
-                    default: () => import(/* webpackChunkName: "registration" */'@/components/auth/registration/Signup.vue')
+                    default: () => import(/* webpackChunkName: "registration" */ '@/components/auth/registration/Signup.vue')
                 }
             },
             {
@@ -93,7 +93,7 @@ const routes = [
         name: 'pricing',
         components: {
             nav: PageNavigation,
-            default: () => import('@/pages/Pricing.vue'),
+            default: () => import(/* webpackChunkName: "pricing" */ '@/pages/Pricing.vue'),
             footer: PageFooter
         }
     },
@@ -119,7 +119,7 @@ const routes = [
         path: '/jobs',
         components: {
             nav: PageNavigation,
-            default: () => import('@/pages/Jobs.vue'),
+            default: () => import(/* webpackChunkName: "jobs" */ '@/pages/Jobs.vue'),
             footer: PageFooter
         }
     },
@@ -176,7 +176,7 @@ const routes = [
                 name: 'profile_overview',
                 path: '/',
                 components: {
-                    default: () => import('@/components/auth/profile/Index.vue')
+                    default: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/Index.vue')
                 },
                 meta: {
                     verboseName: 'Home',
@@ -187,7 +187,7 @@ const routes = [
                 name: 'profile_details',
                 path: 'details',
                 components: {
-                    default: () => import('@/components/auth/profile/Details.vue')
+                    default: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/Details.vue')
                 },
                 meta: {
                     verboseName: 'Details',
@@ -198,7 +198,7 @@ const routes = [
                 name: 'profile_preferences',
                 path: 'preferences',
                 components: {
-                    default: () => import('@/components/auth/profile/Preferences.vue')
+                    default: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/Preferences.vue')
                 },
                 meta: {
                     verboseName: 'Preferences',
@@ -209,7 +209,7 @@ const routes = [
                 name: 'profile_passwords',
                 path: 'password',
                 components: {
-                    default: () => import('@/components/auth/profile/Password.vue')
+                    default: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/Password.vue')
                 },
                 meta: {
                     verboseName: 'Passwords',
@@ -220,7 +220,7 @@ const routes = [
                 name: 'profile_addresses',
                 path: 'addresses',
                 components: {
-                    default: () => import('@/components/auth/profile/Address.vue'),
+                    default: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/Address.vue'),
                 },
                 meta: {
                     verboseName: 'Addresses',
@@ -231,7 +231,7 @@ const routes = [
                 name: 'profile_payments',
                 path: 'payments',
                 components: {
-                    default: () => import('@/components/auth/profile/Payments.vue')
+                    default: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/Payments.vue')
                 },
                 meta: {
                     verboseName: 'Payments',
@@ -253,12 +253,13 @@ const routes = [
                         name: 'profile_subscription_payment',
                         path: 'payment',
                         components: {
-                            content: () => import('@/components/auth/profile/SubscriptionPayment.vue')
+                            content: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/SubscriptionPayment.vue')
                         },
                         meta: {
                             verboseName: 'Payment',
                             requiresAuthentication: true
-                        }
+                        },
+                        props: true
                     }
                 ]
             },
@@ -266,7 +267,7 @@ const routes = [
                 name: 'profile_account',
                 path: 'account',
                 components: {
-                    default: () => import('@/components/auth/profile/Account.vue')
+                    default: () => import(/* webpackChunkName: "profile" */ '@/components/auth/profile/Account.vue')
                 },
                 meta: {
                     verboseName: 'Account',

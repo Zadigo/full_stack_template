@@ -116,12 +116,10 @@ export default {
       .catch((error) => {
         console.log(error)
       })
-      // this.$store.dispatch('profileModule/newAddress', this.newAddress)
       this.newAddress = {}
     },
 
     deleteAddress (id) {
-      // this.$store.commit('profileModule/deleteAddress', id)
       this.$api.profile.removeAddress({ id: id })
       .then((response) => {
         response

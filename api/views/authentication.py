@@ -55,6 +55,9 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
 
 class Logout(mixins.GlobalAPIMixins, GenericAPIView):
     def post(self, request, **kwargs):
+        if not request.user.is_anonymous:
+            return Response({'message': 'User not authenticated'})
+            
         request.user.auth_token.delete()
         logout(request)
         return Response({'message': 'User logged out'})
