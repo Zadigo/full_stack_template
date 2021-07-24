@@ -17,12 +17,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ProfileIndex',
   computed: {
-    firstName() {
-      return this.$store.state.profileModule.userDetails.firstname
-    }
+    ...mapState('profileModule', {
+      firstName: (state) => { return state.userDetails.myuser.firstname }
+    })
   }
 }
 </script>

@@ -63,7 +63,7 @@
                 <font-awesome-icon icon="trash"></font-awesome-icon>
               </button>
 
-              <button @click="retriveAddressToUpdate(address.id)" class="card-footer-item">
+              <button @click="retrieveAddressToUpdate(address.id)" class="card-footer-item">
                 <font-awesome-icon icon="pen"></font-awesome-icon>
               </button>
             </footer>
@@ -91,6 +91,7 @@ export default {
   title () {
     return 'Addresses'
   },
+
   data () {
     return {
       addNew: false,
@@ -131,7 +132,7 @@ export default {
       })
     },
 
-    retriveAddressToUpdate(id) {
+    retrieveAddressToUpdate(id) {
       // Initiates the updating of the address by
       // prefilling the update fields with the the
       // address details
@@ -156,6 +157,10 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    },
+
+    mainAddress(id) {
+      this.$store.commit('profileModule/chooseMainAddress', id)
     }
   }
 }

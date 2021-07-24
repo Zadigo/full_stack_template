@@ -50,7 +50,8 @@ export default {
     if (!this.hasUserDetails) {
       this.$api.profile.getUserDetails()
       .then((response) => {
-        this.$store.commit('profileModule/updateUserDetails', response.data.myuser)
+        console.log(response.data)
+        this.$store.commit('profileModule/updateUserDetails', response.data)
       })
       .catch((error) => {
         console.error(error)

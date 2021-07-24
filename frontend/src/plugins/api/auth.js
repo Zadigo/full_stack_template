@@ -2,7 +2,7 @@ export default ($axios) => ({
     login: (email, password) => {
         return $axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/login',
+            url: '/auth/login',
             data: { email: email, password: password },
         })
     },
@@ -10,14 +10,14 @@ export default ($axios) => ({
     logout: () => {
         return $axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/logout',
+            url: '/auth/logout',
         })
     },
 
     signup: (credentials) => {
         return $axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/signup',
+            url: '/auth/signup',
             data: credentials,
         })
     }

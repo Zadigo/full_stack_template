@@ -11,11 +11,10 @@ import store from './stores'
 // from having to repeat this in each
 // and every requests
 var axiosClient = axios.create({
-    baseUrl: 'http://127.0.0.1:8000/api/v1/',
+    baseURL: 'http://127.0.0.1:8000/api/v1/',
     responseType: 'json',
     headers: {
         'Accept': 'application/json, text/plain, */*',
-        // 'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
     },
     withCredentials: true

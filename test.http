@@ -68,33 +68,24 @@
 #     "password2": "touparette"
 # }
 
-POST http://127.0.0.1:8000/api/v1/password/reset HTTP/1.1
-Content-Type: application/json; charset=utf8
+# POST http://127.0.0.1:8000/api/v1/password/reset HTTP/1.1
+# Content-Type: application/json; charset=utf8
 
-{
-    "email": "pendenquejohn@gmail.com"
-}
-
-
+# {
+#     "email": "pendenquejohn@gmail.com"
+# }
 
 
 
-
-
-
-
-
-
-
-
-# GET http://127.0.0.1:8000/api/v1/profile/1 HTTP/1.1
-
-
-# GET http://127.0.0.1:8000/api/v1/user-token HTTP/1.1
+# GET http://127.0.0.1:8000/api/v1/addresses HTTP/1.1
 # Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
+# Content-Type: application/json; charset=utf8
 
+# GET http://127.0.0.1:8000/api/v1/addresses/24 HTTP/1.1
+# Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
+# Content-Type: application/json; charset=utf8
 
-# POST http://127.0.0.1:8000/api/v1/new-address HTTP/1.1
+# POST http://127.0.0.1:8000/api/v1/addresses/ HTTP/1.1
 # Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
 # Content-Type: application/json; charset=utf8
 
@@ -104,52 +95,13 @@ Content-Type: application/json; charset=utf8
 #     "country": "France"
 # }
 
-
-# PATCH http://127.0.0.1:8000/api/v1/new-address/1 HTTP/1.1
+# PATCH http://127.0.0.1:8000/api/v1/addresses/27/ HTTP/1.1
 # Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
 # Content-Type: application/json; charset=utf8
 # Access-Control-Allow-Credentials: true
 
 # {
-#     "id": 2,
 #     "street_address": "1 rue de la vue",
 #     "zip_code": "59000",
-#     "country": "France"
-# }
-
-
-
-
-
-# Addresses
-
-# GET http://127.0.0.1:8000/api/v1/addresses HTTP/1.1
-# Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
-
-# GET http://127.0.0.1:8000/api/v1/addresses/20 HTTP/1.1
-# Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
-
-# POST http://127.0.0.1:8000/api/v1/addresses/ HTTP/1.1
-# Content-Type: application/json; charset=utf8
-# Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
-
-# {
-#     "street_address": "124 rue de la Père",
-#     "zip_code": 24555,
-#     "country": "France"
-# }
-
-# DELETE http://127.0.0.1:8000/api/v1/addresses/20 HTTP/1.1
-# Content-Type: application/json; charset=utf8
-# Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
-
-
-# PATCH http://127.0.0.1:8000/api/v1/addresses/20/ HTTP/1.1
-# Content-Type: application/json; charset=utf8
-# Authorization: Token 725b467f15e819b15784756564da1e91500b2fb1
-
-# {
-#     "street_address": "29 rue de la Père",
-#     "zip_code": 24555,
 #     "country": "France"
 # }

@@ -62,11 +62,11 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Navbar',
+
   data() {
     return {
       links: [
-        { id: 1, name: 'pricing', title: 'Pricing', authentication: false, admin: false },
-        // { id: 2, name: 'products', title: 'Products', authentication: false, admin: false },
+        { id: 1, name: 'pricing', title: 'Pricing', authentication: false, admin: false }
       ]
     }
   },
@@ -84,8 +84,8 @@ export default {
 
     logoutUser() {
       this.$api.auth.logout()
-      .then((response) => {
-        this.logout(response)
+      .then(() => {
+        this.logout()
         this.$router.push({ name: 'home' })
       })
       .catch((error) => {

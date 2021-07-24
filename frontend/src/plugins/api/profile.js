@@ -1,18 +1,18 @@
 export default ($axios) => ({
     // Profile
 
-    updateDetails: (data) => {
+    updateDetails: (position, details) => {
         return $axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/update-details/',
-            data: data,
+            url: '/profile/update/personal-details',
+            data: { position: position, details: details },
         })
     },
 
     getUserDetails: () => {
         return $axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/api/v1/profile'
+            url: '/profile/'
         })
     },
 
@@ -21,7 +21,7 @@ export default ($axios) => ({
     modifyAddress: (data) => {
         return $axios({
             method: 'patch',
-            url: `http://127.0.0.1:8000/api/v1/addresses/${data.id}/`,
+            url: `/addresses/${data.id}/`,
             data: data
         })
     },
@@ -29,14 +29,14 @@ export default ($axios) => ({
     getAddresses: () => {
         return $axios({
             method: 'get',
-            url: `http://127.0.0.1:8000/api/v1/addresses/`
+            url: `/addresses/`
         })
     },
 
     createAddress: (data) => {
         return $axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/addresses/',
+            url: '/addresses/',
             data: data
         })
     },
@@ -44,7 +44,7 @@ export default ($axios) => ({
     removeAddress: (data) => {
         return $axios({
             method: 'delete',
-            url: `http://127.0.0.1:8000/api/v1/addresses/${data.id}/`,
+            url: `/addresses/${data.id}/`,
             data: data
         })
     },
@@ -54,7 +54,7 @@ export default ($axios) => ({
     updatePreferences: (data) => {
         return $axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/preferences/',
+            url: '/profile/update/preferences',
             data: data,
         })
     },

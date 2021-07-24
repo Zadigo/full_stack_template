@@ -41,11 +41,11 @@ export default {
   },
   
   mounted () {
-    var userDetails = this.$store.state.profileModule.userDetails
+    // Prefills the form fields with their respective
+    // values from the backend database
+    var userDetails = this.$store.state.profileModule.userDetails.myuser
     _.forEach(this.fields, (field) => {
-      if (field.prefilled) {
-        field['value'] = userDetails[field.name]
-      }
+      field['value'] = userDetails[field.name]
     })
   },
   
@@ -55,7 +55,7 @@ export default {
     },
     
     sendChanges (position) {
-      this.$api.profile.updateDetails({ position: position, content: this.changedValues }) 
+      this.$api.profile.updateDetails(position, this.changedValues) 
       .then((response) => {
         this.changedValues = {}
         // this.$buefy.snackbar.open({
@@ -71,7 +71,7 @@ export default {
         //         })
         //     }
         // })
-        this.$store.dispatch('profileModule/updatePersonalDetails', { response: response, data: this.changedValues})
+        this.$store.dispatch('profileModule/updatePersonalDetails', response)
       })
       .catch((error) => {
         console.error(error)
