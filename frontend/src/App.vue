@@ -1,14 +1,12 @@
 <template>
   <div id="app">
-    <!-- <keep-alive> -->
       <!-- Nav -->
       <router-view name="nav" class="navbar-light" />
-    <!-- </keep-alive> -->
 
-    <!-- <transition name="general-transition" mode="out-in"> -->
+    <transition name="general-transition" mode="out-in">
       <!-- Content -->
       <router-view :key="$route.name"></router-view>
-    <!-- </transition> -->
+    </transition>
 
     <!-- <keep-alive> -->
       <!-- Footer -->

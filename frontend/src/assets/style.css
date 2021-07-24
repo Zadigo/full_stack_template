@@ -19,10 +19,12 @@ html {
 }
 .general-transition-enter,
 .general-transition-leave-to {
+    opacity: 0;
     transform: scale(.99, .99);
 }
 .general-transition-enter-to,
 .general-transition-leave {
+    opacity: 1;
     transform: scale(1, 1);
 }
 

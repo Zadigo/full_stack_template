@@ -4,7 +4,7 @@
     <!-- Jumbotron -->
     <div id="intro" class="p-5 text-center bg-light">
       <h1 class="mb-3 font-weight-bold">{{ pageTitle }}</h1>
-      <p class="font-weight-bold">
+      <p>
         {{ pageDescription }}
       </p>
     </div>
