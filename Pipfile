@@ -11,6 +11,7 @@ psycopg2 = "*"
 django = "*"
 django-imagekit = "*"
 boto3 = "*"
+pillow = "*"
 
 [dev-packages]
 

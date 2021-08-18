@@ -73,7 +73,12 @@ class MyUserProfile(models.Model):
         blank=True
     )
 
-    customer_id = models.CharField(max_length=100, validators=[stripe_token_validator], blank=True, null=True)
+    customer_id = models.CharField(
+        max_length=100, 
+        validators=[stripe_token_validator],
+        blank=True,
+        null=True
+    )
 
     payments = models.ManyToManyField('Payment', blank=True)
     addresses = models.ManyToManyField('Address', blank=True)
