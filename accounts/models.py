@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.contrib.auth.models import AbstractBaseUser, Group, Permission
 from django.core.mail import send_mail
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToCover
@@ -13,7 +13,8 @@ from accounts.managers import MyUserManager
 from accounts.utils import upload_avatar_directory
 from accounts.validators import (stripe_card_validator, stripe_iban_validator,
                                  stripe_token_validator)
-
+from django.conf import settings
+import os
 
 class PermissionMixin(models.Model):
     is_superuser = models.BooleanField(default=False)
@@ -137,3 +138,32 @@ def create_user_profile(sender, instance, created, **kwargs):
         # token that will be used by the user
         # via the api
         Token.objects.create(user=user_profile.myuser)
+
+
+@receiver(post_delete, sender=MyUserProfile)
+def delete_avatar(sender, instance, **kwargs):
+    is_s3_backend = getattr(settings, 'USE_S3', False)
+    if not is_s3_backend:
+        if instance.url:
+            if os.path.isfile(instance.url.path):
+                os.remove(instance.url.path)
+    else:
+        instance.url.delete(save=False)
+
+
+@receiver(pre_save, sender=MyUserProfile)
+def delete_avatar_on_update(sender, instance, **kwargs):
+    is_s3_backend = getattr(settings, 'USE_S3', False)
+    if not is_s3_backend:
+        if instance.pk:
+            try:
+                old_avatar = MyUserProfile.objects.get(pk=instance.pk)
+            except:
+                return False
+            else:
+                new_avatar = instance.url
+                if old_avatar and old_avatar != new_avatar:
+                    if os.path.isfile(old_avatar.url.path):
+                        os.remove(old_avatar.url.path)
+    else:
+        instance.url.delete(save=False)

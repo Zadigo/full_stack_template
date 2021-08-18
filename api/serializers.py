@@ -1,9 +1,8 @@
-from typing import Tuple, Type, Union
+from typing import Tuple, Union
 
 from accounts import get_userprofile_model
 from accounts.models import Address, Payment
 from django.contrib.auth import get_user_model, update_session_auth_hash
-from django.db.transaction import atomic
 from rest_framework import fields
 from rest_framework.serializers import ModelSerializer, Serializer
 
