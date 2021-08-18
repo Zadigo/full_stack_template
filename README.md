@@ -1,2 +1,3 @@
-# full_stack_template
-A full stack website with Vue and Django
+# Full stack template
+
+A full stack website created with Vue and Django as a base template for a website project
