@@ -29,6 +29,7 @@ export default {
       email: null
     }
   },
+  
   beforeRouteEnter (to, from, next) {
     next(vm => {
       if (vm.$store.getters['authenticationModule/isAuthenticated']) {
@@ -38,11 +39,13 @@ export default {
       }
     })
   },
+  
   computed: {
     hasEmail () {
       return isNull(this.email)
     }
   },
+  
   methods: {
     sendRequest () {
       if (this._validateEmail(this.email)) {

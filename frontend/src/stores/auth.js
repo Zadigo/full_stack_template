@@ -8,7 +8,7 @@
 // }
 
 
-import { isNull } from 'lodash'
+// import { isNull } from 'lodash'
 
 var _ = require('lodash')
 
@@ -168,14 +168,15 @@ var authenticationModule = {
             commit('performLogout')
         },
 
-        signUp({ rootState }, payload) {
-            let { email, password1, password2 } = payload
+        signUp({ rootState }, response) {
+            rootState, response
+            // let { email, password1, password2 } = payload
 
-            if (isNull(email) && isNull(password1) && isNull(password2)) {
-                console.error('No or not enough credentials entered')
-                return false
-            }
-            rootState
+            // if (isNull(email) && isNull(password1) && isNull(password2)) {
+            //     console.error('No or not enough credentials entered')
+            //     return false
+            // }
+            // rootState
             // axios({
             //     method: 'post',
             //     url: urlJoin(rootState.baseUrls.api, 'signup'),

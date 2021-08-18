@@ -25,6 +25,6 @@ def subscribe_user(request):
     email = request.data.get('email')
     if email is None:
         return base_error_response(request)
-    return Response({})
+    return Response({'message': 'Subscribed'})
 
 

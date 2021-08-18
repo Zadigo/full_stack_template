@@ -1,3 +1,5 @@
+import { isUndefined } from 'lodash'
+
 var _ = require('lodash')
 
 export default {
@@ -26,7 +28,7 @@ export default {
             // should be like the following:
             // { type: 'alert-danger', app: 'auth', content: null, title: null }
             var lastMessage = _.last(state.messages)
-            if (lastMessage === undefined) {
+            if (isUndefined(lastMessage)) {
                 message['id'] = 0
             } else {
                 message['id'] = lastMessage.id + 1

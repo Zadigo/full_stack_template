@@ -113,6 +113,14 @@ class Address(models.Model):
         return f'{self.street_address}, {self.zip_code}, {self.country}'
 
 
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True, blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+
 @receiver(post_save, sender=MyUser)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

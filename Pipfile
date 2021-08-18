@@ -12,6 +12,7 @@ django = "*"
 django-imagekit = "*"
 boto3 = "*"
 pillow = "*"
+mailchimp-marketing = {git = "https://github.com/mailchimp/mailchimp-marketing-python.git"}
 
 [dev-packages]
 

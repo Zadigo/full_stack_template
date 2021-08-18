@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,13 +75,23 @@ WSGI_APPLICATION = 'full_stack_template.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'full_stack_website'),
+        'USER': os.environ.get('DB_USER', 'zadigo'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'zadigo'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -141,19 +152,21 @@ CORS_ALLOW_CREDENTIALS = True
 
 # If this is used, then not need 
 # to use `CORS_ORIGIN_ALLOW_ALL = True`
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',
-    'http://192.168.0.103:8080',
-]
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:8080',
+#     'http://192.168.0.103:8080',
+# ]
 
 CORS_ORIGIN_REGEX_WHITELIST = [
-    'http://localhost:8080',
-    'http://192.168.0.103:8080',
+    # 'http://localhost:8080',
+    # 'http://192.168.0.103:8080',
+    r'^https?\:\/\/localhost\:808\d{1}$',
+    r'^https?\:\/\/192\.168\.0\.\d{3}\:8080$'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8080',
-    'http://192.168.0.103:8080',
+    'localhost:8080',
+    '192.168.0.103:8080',
 ]
 
 REST_FRAMEWORK = {
@@ -180,9 +193,9 @@ AUTH_USER_PROFILE_MODEL = 'accounts.MyUserProfile'
 
 EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_HOST_USER = ''
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', None)
 
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
 
 EMAIL_USE_TLS = True
 
@@ -196,3 +209,6 @@ EMAIL_USE_LOCALTIME = True
 INTERNAL_IPS = [
     '127.0.0.1'
 ]
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

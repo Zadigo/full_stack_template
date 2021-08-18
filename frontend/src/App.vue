@@ -1,17 +1,17 @@
 <template>
   <div id="app">
+    <!-- <v-app> -->
       <!-- Nav -->
       <router-view name="nav" class="navbar-light" />
 
-    <transition name="general-transition" mode="out-in">
       <!-- Content -->
-      <router-view :key="$route.name"></router-view>
-    </transition>
+      <transition name="general-transition" mode="out-in">
+        <router-view :key="$route.name"></router-view>
+      </transition>
 
-    <!-- <keep-alive> -->
       <!-- Footer -->
       <router-view name="footer" />
-    <!-- </keep-alive> -->
+    <!-- </v-app> -->
   </div>
 </template>
 
@@ -42,8 +42,8 @@ export default {
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
-  /* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'); */
+  @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+  @import url('https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
   @import url('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css');
   @import url('https://cdn.jsdelivr.net/npm/mdbvue/lib/css/mdb.min.css');
 

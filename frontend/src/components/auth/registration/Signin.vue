@@ -67,6 +67,7 @@ export default {
     ...mapActions('authenticationModule', [
       'login'
     ]),
+    
     loginUser() {
       this.$api.auth.login(this.credentials.email, this.credentials.password)
       .then((response) => {
@@ -75,7 +76,7 @@ export default {
       })
       .catch((error) => {
         console.log(error)
-        // this.$store.commit('addMessage', error.error)
+        this.$store.dispatch('newDangerMessage', { content: error.response.error })
       })
     }
   }

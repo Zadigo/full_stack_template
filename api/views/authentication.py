@@ -36,7 +36,8 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
 
     def _perform_login(self, credentials: dict):
         serialized_credentials = self.get_serializer(data=credentials)
-        serialized_credentials.is_valid()
+        if not serialized_credentials.is_valid():
+            return False, False, False
 
         user = self._perform_authentication(self.request, serializer=serialized_credentials)
         if not user:
@@ -50,6 +51,8 @@ class Login(mixins.GlobalAPIMixins, GenericAPIView):
             return Response({'error': 'The email and/or password were not correct'}, status=status.HTTP_404_NOT_FOUND)
         token, _ = result
         profile_serializer = serializers.MyUserProfileSerializer(instance=user.myuserprofile)
+        # TODO: For whatever reasons, this creates an error
+        # when trying to retrieve the person's profile
         return Response({'token': token.key, 'details': profile_serializer.data})
 
 
@@ -69,7 +72,8 @@ def signup(request, **kwargs):
         'email': request.data.get('email'),
         'password': request.data.get('password1'),
         'firstname': request.data.get('firstname'),
-        'lastname': request.data.get('lastname')
+        'lastname': request.data.get('lastname'),
+        'username': request.data.get('username', None)
     }
     serialized_credentials = serializers.SignupSerializer(data=refixed_credentials)
     serialized_credentials.is_valid(raise_exception=True)
