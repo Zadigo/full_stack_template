@@ -8,6 +8,8 @@ npm install --save datejs
 npm install --save vue-chartjs chart.js
 npm install --save mdb-ui-kit
 
+npm install --vuetify @mdi/font
+
 1. npm install --save @fortawesome/fontawesome-svg-core
 2. npm install --save @fortawesome/free-solid-svg-icons
 3. npm install --save @fortawesome/vue-fontawesome@latest
