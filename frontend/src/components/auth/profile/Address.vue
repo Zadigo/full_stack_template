@@ -1,5 +1,6 @@
 <template>
   <section id="addresses">
+    
     <!-- Add new -->
     <base-card v-if="addresses.length===0 && !addNew">
       <b-card-body class="text-center">
@@ -78,13 +79,14 @@
         </base-card>
       </div>
     </div>
+
   </section>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 var _ = require('lodash')
+
+import { mapState } from 'vuex'
 
 export default {
   name: 'Addresses',
@@ -120,9 +122,10 @@ export default {
     },
 
     deleteAddress (id) {
+      // Allows the user to delete an address
+      // from the backend
       this.$api.profile.removeAddress({ id: id })
-      .then((response) => {
-        response
+      .then(() => {
         this.$store.dispatch('profileModule/deleteAddress', id)
       })
       .catch((error) => {

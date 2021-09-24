@@ -126,44 +126,38 @@ class Subscriber(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         user_profile = MyUserProfile.objects.create(myuser=instance)
-        
-        # Automatically create a Stripe
-        # customer and save it to the
-        # profile
+        # Stripe customer ID
         user_profile.customer_id = 'some_id'
         user_profile.save()
 
 
-        # Finally, create the authentication
-        # token that will be used by the user
-        # via the api
-        Token.objects.create(user=user_profile.myuser)
+# @receiver(post_delete, sender=MyUserProfile)
+# def delete_avatar(sender, instance, **kwargs):
+#     if str(instance.avatar) == '':
+#         return False
+
+#     is_s3_backend = getattr(settings, 'USE_S3', False)
+#     if not is_s3_backend:
+#         if instance.avatar.url:
+#             if os.path.isfile(instance.avatar.url.path):
+#                 os.remove(instance.avatar.url.path)
+#     else:
+#         instance.url.delete(save=False)
 
 
-@receiver(post_delete, sender=MyUserProfile)
-def delete_avatar(sender, instance, **kwargs):
-    is_s3_backend = getattr(settings, 'USE_S3', False)
-    if not is_s3_backend:
-        if instance.url:
-            if os.path.isfile(instance.url.path):
-                os.remove(instance.url.path)
-    else:
-        instance.url.delete(save=False)
-
-
-@receiver(pre_save, sender=MyUserProfile)
-def delete_avatar_on_update(sender, instance, **kwargs):
-    is_s3_backend = getattr(settings, 'USE_S3', False)
-    if not is_s3_backend:
-        if instance.pk:
-            try:
-                old_avatar = MyUserProfile.objects.get(pk=instance.pk)
-            except:
-                return False
-            else:
-                new_avatar = instance.url
-                if old_avatar and old_avatar != new_avatar:
-                    if os.path.isfile(old_avatar.url.path):
-                        os.remove(old_avatar.url.path)
-    else:
-        instance.url.delete(save=False)
+# @receiver(pre_save, sender=MyUserProfile)
+# def delete_avatar_on_update(sender, instance, **kwargs):
+#     is_s3_backend = getattr(settings, 'USE_S3', False)
+#     if not is_s3_backend:
+#         if instance.pk:
+#             try:
+#                 old_avatar = MyUserProfile.objects.get(pk=instance.pk)
+#             except:
+#                 return False
+#             else:
+#                 new_avatar = instance.avatar.url
+#                 if old_avatar and old_avatar != new_avatar:
+#                     if os.path.isfile(old_avatar.avatar.url.path):
+#                         os.remove(old_avatar.avatar.url.path)
+#     else:
+#         instance.avatar.url.delete(save=False)

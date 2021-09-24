@@ -1,5 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg d-lg-block" style="z-index: 2000;">
+
     <div class="container-fluid">
       <!-- Navbar brand -->
       <router-link :to="{ name: 'home' }" class="navbar-brand nav-link">
@@ -23,21 +24,25 @@
               Profile
             </router-link>
           </li>
+
           <li v-show="!isAuthenticated" class="nav-item">
             <router-link :to="{ name: 'signin' }" id="signin" class="nav-link" role="link">
               Signin
             </router-link>
           </li>
+          
           <li v-show="!isAuthenticated" class="nav-item">
             <router-link :to="{ name: 'signup' }" id="signup" class="nav-link" role="link">
               Signup
             </router-link>
           </li>
+
           <li v-show="isAuthenticated" class="nav-item">
             <a @click.prevent="logoutUser" id="logout" class="nav-link" role="link">
               Logout
             </a>
           </li>
+          
           <li v-show="isAuthenticated && isAdmin" class="nav-item">
             <router-link :to="{ name: 'admin_home' }" id='admin' class="nav-link" role="link">
               Admin
@@ -55,6 +60,7 @@
         </ul>
       </div>
     </div>
+    
   </nav>
 </template>
 

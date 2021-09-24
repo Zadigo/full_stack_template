@@ -158,8 +158,6 @@ CORS_ALLOW_CREDENTIALS = True
 # ]
 
 CORS_ORIGIN_REGEX_WHITELIST = [
-    # 'http://localhost:8080',
-    # 'http://192.168.0.103:8080',
     r'^https?\:\/\/localhost\:808\d{1}$',
     r'^https?\:\/\/192\.168\.0\.\d{3}\:8080$'
 ]

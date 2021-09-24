@@ -1,5 +1,6 @@
 <template>
   <section id="subscriptions">
+
     <!-- New subscription -->
     <b-card v-if="!hasSubscription" class="text-center">
       <b-card-body>
@@ -34,6 +35,7 @@
     <transition name="general"> 
       <router-view :price="subscriptionPrice" name="content"></router-view>
     </transition>
+    
   </section>
 </template>
 

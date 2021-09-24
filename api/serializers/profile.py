@@ -2,79 +2,13 @@ from typing import Tuple, Union
 
 from accounts import get_userprofile_model
 from accounts.models import Address, Payment
+from api.validators import password_validator
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from rest_framework import fields
 from rest_framework.serializers import ModelSerializer, Serializer
-
-from api.validators import password_validator
+from accounts.models import MyUserProfile
 
 USER_MODEL = get_user_model()
-
-USER_PROFILE_MODEL = get_userprofile_model()
-
-
-class LoginSerializer(Serializer):
-    email = fields.EmailField()
-    password = fields.CharField()
-
-    # def save(self, firstname=None, lastname=None):
-    #     new_user = USER_MODEL.objects.create(**self.validated_data)
-    #     new_user.myuserprofile_set.lastname = lastname
-    #     new_user.myuserprofile_set.firstname = firstname
-    #     new_user.myuserprofile_set.save()
-    #     return new_user
-
-
-class SignupSerializer(ModelSerializer):
-    class Meta:
-        model = USER_MODEL
-        fields = ['username', 'firstname', 'lastname', 'email', 'password']
-        extra_kwargs = {'password': {'write_only': True}}
-
-    def create(self, validated_data):
-        new_user = USER_MODEL.objects.create_user(
-            username=validated_data.get('username'),
-            firstname=validated_data.get('firstname'),
-            lastname=validated_data.get('lastname'),
-            email=validated_data['email'],
-            password=validated_data['password'],
-        )
-        new_user.is_active = True
-        new_user.save()
-        return new_user
-
-
-class UserSerializer(ModelSerializer):    
-    class Meta:
-        model = USER_MODEL
-        fields = ['id', 'username', 'firstname', 'lastname', 'email',
-                  'is_admin', 'is_staff', 'is_active','is_superuser']
-
-
-class AddressSerializer(ModelSerializer):
-    class Meta:
-        model = Address
-        fields = ['id', 'street_address', 'zip_code', 'country']
-
-
-class MyUserProfileSerializer(ModelSerializer):
-    myuser = UserSerializer()
-    addresses = AddressSerializer(many=True)
-
-    class Meta:
-        model = USER_PROFILE_MODEL
-        fields = ['id', 'customer_id', 'myuser', 'addresses']
-
-
-
-
-
-
-
-
-
-
-
 
 
 class PaymentSerializer(ModelSerializer):
@@ -83,7 +17,26 @@ class PaymentSerializer(ModelSerializer):
         fields = ['reference', 'card', 'iban']
 
 
+class AddressSerializer(ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['id', 'street_address', 'zip_code', 'country']
 
+
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = USER_MODEL
+        fields = ['id', 'username', 'firstname', 'lastname', 'email',
+                  'is_admin', 'is_staff', 'is_active', 'is_superuser']
+
+
+class MyUserProfileSerializer(ModelSerializer):
+    myuser = UserSerializer()
+    addresses = AddressSerializer(many=True)
+
+    class Meta:
+        model = MyUserProfile
+        fields = ['id', 'customer_id', 'myuser', 'addresses']
 
 
 # Serializers created in order to specifically

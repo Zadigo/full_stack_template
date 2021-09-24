@@ -5,10 +5,14 @@ npm install --save axios router vue-router vuex lodash
 
 npm install --save sass-loader sass
 npm install --save datejs
+
+# NOTE: The latest chartjs is not yet compatible with
+# the newest Vue so use "npm install chart.js@2.9.4"
 npm install --save vue-chartjs chart.js
+
 npm install --save mdb-ui-kit
 
-npm install --vuetify @mdi/font
+npm install --save vuetify @mdi/font
 
 1. npm install --save @fortawesome/fontawesome-svg-core
 2. npm install --save @fortawesome/free-solid-svg-icons

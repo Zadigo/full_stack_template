@@ -1,6 +1,7 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-xl-5 col-md-8">
+      
       <base-card class="mt-5">
         <transition-group name="general-transition">
           <div v-for="message in messages" :key="message.id" :class="message.type" class="alert alert-danger" role="alert">

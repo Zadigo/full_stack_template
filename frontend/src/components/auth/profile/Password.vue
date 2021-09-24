@@ -1,5 +1,6 @@
 <template>
   <base-validation-card @validateAction="updatePassword" :buttonName="'Reset password'">
+    
     <transition name="alert-transition">
       <div v-if="!isValid" class="alert alert-danger">
         Passwords do not match
@@ -13,6 +14,7 @@
       </label>
       <input v-model="credentials[field.name]" :id="field.name" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
     </div>
+    
   </base-validation-card>
 </template>
 

@@ -1,13 +1,17 @@
 <template>
   <base-registration-layout @startAction="sendRequest" :buttonName="'Send me a password reset email'">
+    
     <div class="form-group">
       <label class="font-weight-bold" for="email">Email</label>
       <input v-model="email" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email">
     </div>
 
     <template v-slot:registrationTexts>
-      <p class="mt-3 mb-3">Actually, I remember my password <router-link :to="{ name: 'signin' }" class="font-weight-bold">Login here</router-link></p>
+      <p class="mt-3 mb-3">
+        Actually, I remember my password <router-link :to="{ name: 'signin' }" class="font-weight-bold">Login here</router-link>
+      </p>
     </template>
+  
   </base-registration-layout>
 </template>
 
@@ -24,6 +28,7 @@ export default {
   components: {
     BaseRegistrationLayout
   },
+  
   data () {
     return {
       email: null

@@ -1,24 +1,26 @@
 <template>
   <base-card>
+
     <b-list-group>
-        <b-list-group-item>
-          <b-form-checkbox @change="updatePreferences" v-model="userOptions['newsletter']" id="newsletter">
-            <span class="m-2">I would like to get updates related to newsletters</span>
-          </b-form-checkbox>
-        </b-list-group-item>
+      <b-list-group-item>
+        <b-form-checkbox @change="updatePreferences" v-model="userOptions['newsletter']" id="newsletter">
+          <span class="m-2">I would like to get updates related to newsletters</span>
+        </b-form-checkbox>
+      </b-list-group-item>
 
-        <b-list-group-item>
-          <b-form-checkbox v-model="userOptions['another']"  id="another">
-            <span class="m-2">I would like to get updates related to newsletters</span>
-          </b-form-checkbox>
-        </b-list-group-item>
+      <b-list-group-item>
+        <b-form-checkbox v-model="userOptions['another']"  id="another">
+          <span class="m-2">I would like to get updates related to newsletters</span>
+        </b-form-checkbox>
+      </b-list-group-item>
 
-        <b-list-group-item>
-          <b-form-checkbox v-model="userOptions['other']" id="other">
-            <span class="m-2">I would like to get updates related to newsletters</span>
-          </b-form-checkbox>
-        </b-list-group-item>
-      </b-list-group>
+      <b-list-group-item>
+        <b-form-checkbox v-model="userOptions['other']" id="other">
+          <span class="m-2">I would like to get updates related to newsletters</span>
+        </b-form-checkbox>
+      </b-list-group-item>
+    </b-list-group>
+    
   </base-card>
 </template>
 

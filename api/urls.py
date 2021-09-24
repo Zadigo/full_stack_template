@@ -17,8 +17,8 @@ token_url_patterns = [
 ]
 
 authentication_url_patterns = [
-    url(r'^login', authentication.Login.as_view()),
-    url(r'^logout', authentication.Logout.as_view()),
+    url(r'^login', authentication.login_user),
+    url(r'^logout', authentication.logout_user),
     url(r'^signup', authentication.signup),
 ]
 

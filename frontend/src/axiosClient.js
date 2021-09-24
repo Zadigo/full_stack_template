@@ -10,7 +10,7 @@ import store from './stores'
 // withCredentials parameter. This prevents
 // from having to repeat this in each
 // and every requests
-var axiosClient = axios.create({
+var client = axios.create({
     baseURL: 'http://127.0.0.1:8000/api/v1/',
     responseType: 'json',
     headers: {
@@ -25,7 +25,7 @@ var axiosClient = axios.create({
 //     axiosClient.defaults.headers.common['Autorization'] = authToken
 // }
 
-axiosClient.interceptors.request.use(
+client.interceptors.request.use(
     // Before sending any POST requests,
     // especially those that requrie
     // Authorization header, intercep and
@@ -47,7 +47,7 @@ axiosClient.interceptors.request.use(
     }
 )
 
-axiosClient.interceptors.response.use(
+client.interceptors.response.use(
     undefined,
     error => {
         // Intercept request errors and those that
@@ -65,4 +65,4 @@ axiosClient.interceptors.response.use(
     }
 )
 
-export default axiosClient
+export default client

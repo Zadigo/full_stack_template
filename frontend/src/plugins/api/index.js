@@ -1,6 +1,6 @@
 import authAPI from './auth'
 import profileAPI from './profile'
-import axiosClient from '../../axiosClient'
+import client from '../../axiosclient'
 
 var subscribeUser = ($axios) => {
     return (email) => {
@@ -15,9 +15,9 @@ var subscribeUser = ($axios) => {
 export default {
     install: (Vue) => {
         const repositories = {
-            auth: authAPI(axiosClient),
-            profile: profileAPI(axiosClient),
-            subscribe: subscribeUser(axiosClient)
+            auth: authAPI(client),
+            profile: profileAPI(client),
+            subscribe: subscribeUser(client)
         }
         Vue.prototype.$api = repositories
     }

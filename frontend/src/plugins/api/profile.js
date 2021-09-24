@@ -65,5 +65,5 @@ export default ($axios) => ({
             url: '/profile/update/preferences',
             data: data,
         })
-    },
+    }
 })

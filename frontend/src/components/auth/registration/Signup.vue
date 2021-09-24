@@ -1,9 +1,11 @@
 <template>
   <base-registration-layout @startAuthentication="signupUser" :buttonName="'Sign up'">
+    
     <div v-for="(field, index) in fields" :key="field.id" :class="{ 'mt-2': index > 0 }" class="form-group">
       <label v-if="field.label !== null" :for="field.name" class="font-weight-bold">
         {{ field.label }}
-        </label>
+      </label>
+
       <input v-model="credentials[field.name]" :type="field.type" :name="field.name" :id="field.name" :placeholder="field.placeholder" :autocomplete="field.autocomplete" class="form-control">
     </div>
 
@@ -16,6 +18,7 @@
     <template v-slot:registrationTexts>
       <p class="mt-3 mb-3">Already using {{ companyDetails.name }}? <router-link :to="{ name: 'signin' }">Login here</router-link></p>
     </template>
+  
   </base-registration-layout>
 </template>
 
@@ -27,9 +30,8 @@ export default {
   title () {
     return 'Signup'
   },
-  components: {
-    BaseRegistrationLayout
-  },
+  components: { BaseRegistrationLayout },
+
   data () {
     return {
       fields: [
@@ -40,9 +42,17 @@ export default {
         { id: 5, name: 'password1', type: 'password', autocomplete: 'new-password', placeholder: 'Password', label: 'Password' },
         { id: 6, name: 'password2', type: 'password', autocomplete: 'new-password', placeholder: 'Confirm password', label: null },
       ],
-      credentials: {}
+      credentials: {
+        email: null,
+        username: null,
+        firstname: null,
+        lastname: null,
+        password1: null,
+        password2: null
+      }
     }
   },
+
   computed: {
     isValid () {
       let { password1, password2 } = this.credentials
@@ -52,12 +62,12 @@ export default {
       return true
     }
   },
+
   methods: {
     signupUser () {
       this.$api.auth.signup(this.credentials)
       .then(() => {
-        // this.$store.dispatch('authenticationModule/signUp', this.credentials)
-        this.$router.push({ to: 'signin' })
+        this.$router.push({ name: 'signin' })
       })
       .catch((error) => {
         console.error(error)

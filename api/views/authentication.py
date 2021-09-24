@@ -1,95 +1,55 @@
-from api import check_user_token, serializers
+from django.utils import http
+from rest_framework import status
+from api.serializers.authentication import LoginSerializer, SignupSerializer
+from api.serializers.profile import MyUserProfileSerializer
 from api.views import mixins
 from api.views.base import base_bad_request_response, base_error_response
-from django.contrib.auth import (login, logout, password_validation,
-                                 update_session_auth_hash)
+from django.contrib.auth import login, logout
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from rest_framework import status
-from rest_framework.authentication import authenticate, get_user_model
-from rest_framework.authtoken.models import Token
+from rest_framework.authentication import get_user_model
 # from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view
-from rest_framework.generics import (CreateAPIView, GenericAPIView,
-                                     get_object_or_404)
+from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
 
 USER_MODEL = get_user_model()
 
 
-class Login(mixins.GlobalAPIMixins, GenericAPIView):
-    http_method_names = ['post']
-    serializer_class = serializers.LoginSerializer
-    queryset = USER_MODEL.objects.all()
-
-    def _perform_authentication(self, request, serializer: Serializer):
-        if not serializer:
-            return request.user
-        email = serializer.validated_data['email']
-        password = serializer.validated_data['password']
-        return authenticate(request, email=email, password=password)
-
-    def _perform_login(self, credentials: dict):
-        serialized_credentials = self.get_serializer(data=credentials)
-        if not serialized_credentials.is_valid():
-            return False, False, False
-
-        user = self._perform_authentication(self.request, serializer=serialized_credentials)
-        if not user:
-            return False, False, False
-        login(self.request, user)
-        return Token.objects.get_or_create(user=user), serializers.UserSerializer(instance=user), user
-
-    def post(self, request, *args, **kwargs):
-        result, serializer, user = self._perform_login(request.data)
-        if not result or not serializer:
-            return Response({'error': 'The email and/or password were not correct'}, status=status.HTTP_404_NOT_FOUND)
-        token, _ = result
-        profile_serializer = serializers.MyUserProfileSerializer(instance=user.myuserprofile)
-        # TODO: For whatever reasons, this creates an error
-        # when trying to retrieve the person's profile
-        return Response({'token': token.key, 'details': profile_serializer.data})
+@api_view(['post'])
+def login_user(request, **kwargs):
+    serializer = LoginSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    return serializer.authenticate_user(request)
 
 
-class Logout(mixins.GlobalAPIMixins, GenericAPIView):
-    def post(self, request, **kwargs):
-        if not request.user.is_anonymous:
-            return Response({'message': 'User not authenticated'})
-            
-        request.user.auth_token.delete()
-        logout(request)
-        return Response({'message': 'User logged out'})
+@api_view(['post'])
+def logout_user(request, **kwargs):
+    if request.user.is_anonymous:
+        return Response(data={'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    request.user.auth_token.delete()
+    logout(request)
+    return Response(data={'message': 'User logged out'})
 
 
 @api_view(['post'])
 def signup(request, **kwargs):
-    refixed_credentials = {
-        'email': request.data.get('email'),
-        'password': request.data.get('password1'),
-        'firstname': request.data.get('firstname'),
-        'lastname': request.data.get('lastname'),
-        'username': request.data.get('username', None)
-    }
-    serialized_credentials = serializers.SignupSerializer(data=refixed_credentials)
-    serialized_credentials.is_valid(raise_exception=True)
+    serializer = SignupSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
 
-    password1 = request.data.get('password1')
-    password2 = request.data.get('password2')
-
-    if password1 != password2:
+    if not serializer.test_passwords():
         return base_bad_request_response(request, 'Passwords do not match')
 
-    new_user = serialized_credentials.save()
+    new_user = serializer.save()
     new_user.is_active = True
     new_user.save()
 
-    serialized_user_profile = serializers.MyUserProfileSerializer(instance=new_user.myuserprofile)
-    return Response(data=serialized_user_profile.data)
+    return Response(data={'message': 'Please login'})
 
 
 @api_view(['post'])

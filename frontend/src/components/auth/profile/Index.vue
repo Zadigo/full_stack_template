@@ -20,7 +20,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'ProfileIndex',
+  name: 'Index',
   computed: {
     ...mapState('profileModule', {
       firstName: (state) => { return state.userDetails.myuser.firstname }

@@ -1,11 +1,17 @@
 from accounts import get_userprofile_model
 from accounts.models import Address, MyUserProfile
 from api import check_user_token, serializers
+from api.serializers.profile import (AddressSerializer,
+                                     MyUserProfileSerializer,
+                                     PasswordChangeValidationSerializer,
+                                     PersonalDetailsValidationSerializer)
 from api.views import mixins
-from api.views.base import base_bad_request_response, base_error_response, base_internal_server_error, not_authorized_response
+from api.views.base import (base_bad_request_response, base_error_response,
+                            base_internal_server_error,
+                            not_authorized_response)
 from api.views.mixins import CustomIsAuthenticated
-from django.contrib.auth import (authenticate, get_user_model,
-                                 password_validation, update_session_auth_hash)
+from django.contrib.auth import (get_user_model, password_validation,
+                                 update_session_auth_hash)
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView, get_object_or_404
@@ -15,10 +21,10 @@ from rest_framework.mixins import (CreateModelMixin, DestroyModelMixin,
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from accounts.models import MyUserProfile
 
 USER_MODEL = get_user_model()
 
-USER_PROFILE_MODEL = get_userprofile_model()
 
 class ChangePersonalDetails(GenericAPIView):
     http_method_names = ['post', 'patch']
@@ -26,7 +32,7 @@ class ChangePersonalDetails(GenericAPIView):
     # on the incoming position that was
     # included in the incoming POST data
     serializer_classes = [
-        serializers.PersonalDetailsValidationSerializer
+        PersonalDetailsValidationSerializer
     ]
 
     def post(self, request, **kwargs):
@@ -82,11 +88,12 @@ class ChangePersonalDetails(GenericAPIView):
 
 class AddressesApi(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, DestroyModelMixin, UpdateModelMixin):
     queryset = Address.objects.all()
-    serializer_class = serializers.AddressSerializer
+    serializer_class = AddressSerializer
     permission_classes = [CustomIsAuthenticated]
 
-    def _user_addresses(self, request):
-        return self.queryset.filter(myuserprofile__id=request.user.id)
+    def get_queryset(self, request):
+        queryset = super().get_queryset()
+        return queryset.filter(myuserprofile__id=request.user.id)
 
     def get_object(self):
         # Overrides the default get_object() to ensure that
@@ -106,13 +113,13 @@ class AddressesApi(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateMod
         return address
 
     def list(self, request, *args, **kwargs):
-        queryset = self._user_addresses(request)
+        queryset = self.get_queryset(request)
         serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+        return Response(data=serializer.data)
 
     def perform_create(self, serializer, request):
         new_address = serializer.save()
-        user_profile = get_object_or_404(USER_PROFILE_MODEL, id=request.user.id)
+        user_profile = get_object_or_404(MyUserProfile, id=request.user.id)
         user_profile.addresses.add(new_address)
 
     def create(self, request, *args, **kwargs):
@@ -120,7 +127,7 @@ class AddressesApi(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateMod
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer, request)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 @api_view(['post', 'patch'])
@@ -166,7 +173,7 @@ def collect_user_details(request):
         return not_authorized_response(request)
     
     user_profile = get_object_or_404(MyUserProfile.objects.all(), id=request.user.id)
-    serializer = serializers.MyUserProfileSerializer(instance=user_profile)
+    serializer = MyUserProfileSerializer(instance=user_profile)
     return Response(serializer.data)
 
 
@@ -175,7 +182,7 @@ def change_password(request, **kwargs):
     if not check_user_token(request):
         return base_error_response(request)
 
-    serializer = serializers.PasswordChangeValidationSerializer(data=request.data)
+    serializer = PasswordChangeValidationSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
     old_password = request.data.get('old_password')

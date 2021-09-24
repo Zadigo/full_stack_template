@@ -16,28 +16,8 @@
 </template>
 
 <script>
-// import { isUndefined } from 'lodash'
-
 export default {
   name: 'App'
-  // beforebRouteEnter (to, from, next) {
-  //   next(vm => {
-  //     var cachedToken = localStorage.getItem('tok')
-  //     var isAuthenticated = vm.$store.getters['authenticationModule/isAuthenticated']
-  //     if (!isUndefined(cachedToken) && isAuthenticated) {
-  //       return true
-  //     }
-  //     if (isAuthenticated) {
-  //       return true
-  //     }
-  //     return 'signin'
-  //   })
-  // }
-  // beforeMount() {
-  //   this.runStripe('js.stripe.com/v3/', function (vm) {
-  //     console.log(vm)
-  //   })
-  // }
 }
 </script>
 

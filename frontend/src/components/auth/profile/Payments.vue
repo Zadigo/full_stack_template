@@ -1,5 +1,6 @@
 <template>
   <section id="payment">
+
     <!-- Intro -->
     <base-card v-if="payments.length===0 && !addNew" class="text-center">
       <h2 class="mb-4">You have no payments</h2>
@@ -10,36 +11,6 @@
     <!-- Create -->
     <base-validation-card @validateAction="createNewCard" v-else-if="addNew">
       <fields-iterator @startAction="registerChange" :formFields="fields" />
-      
-      <!-- <div class="form-group">
-        <input v-model="newCreditCard['number']" type="text" class="form-control" placeholder="Card number" autocomplete="cc-number" required>
-      </div>
-
-      <div class="row mt-2">
-        <div class="col-6">
-          <div class="form-group">
-            <input v-model="newCreditCard['month']" type="text" class="form-control" id="expiry-month" placeholder="MM" autocomplete="cc-exp-month" required>
-          </div>
-        </div>
-        
-        <div class="col-6">
-          <div class="form-group">
-            <input v-model="newCreditCard['year']" type="text" class="form-control" id="expiry-year" placeholder="YY" autocomplete="cc-exp-year" required>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mt-2">
-        <div class="col-12">
-          <div class="form-group">
-            <input v-model="newCreditCard['cvv']" type="password" class="form-control" id="cvv" placeholder="CV" autocomplete="cc-csc" required>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="form-group">
-        <input v-model="bankAccounts['iban']" type="text" class="form-control" id="iban-input" placeholder="BANK 0123456789" required>
-      </div> -->
     </base-validation-card>
     
     <!-- Payments -->
@@ -62,6 +33,7 @@
         </base-card>
       </div>
     </div>
+    
   </section>
 </template>
 

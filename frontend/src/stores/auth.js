@@ -1,19 +1,4 @@
-// Main store elements for all the application.
-// Contains a basic profile and authentication
-// module
-// import axios from 'axios'
-// import router from '../router/index'
-// function urlJoin(url, path) {
-//     return new URL(path, url)
-// }
-
-
-// import { isNull } from 'lodash'
-
 var _ = require('lodash')
-
-
-
 
 var profileModule = {
     // Module that contains all the getters
@@ -39,23 +24,9 @@ var profileModule = {
     }),
 
     mutations: {
-        // initialUserDetails(state, payload) {
-        //     // Updates some very specific user details
-        //     // such as the firstname, the lastname and
-        //     // the email address. P.S. Might also update
-        //     // the date of birth
-        //     _.forEach(Object.keys(payload.myuser), (key) => {
-        //         state.userDetails[key] = payload.myuser[key]
-        //     })
-        //     state.userDetails.addresses = payload.addresses
-        //     state.hasUserDetails = true
-        // },
-
         updateUserDetails(state, payload) {
-            // _.forEach(Object.keys(payload), (key) => {
-            //     state.userDetails[key] = payload[key]
-            // })
-            // state.hasUserDetails = true
+            // Update userDetails with the
+            // user's data
             state.userDetails = payload
         },
 
@@ -126,16 +97,14 @@ var authenticationModule = {
         performLogin(state, payload) {
             let { token, details } = payload
             state.authenticated = true
-            // Updates the state in the profileModule
-            // with the initial values in the userDetails state
-            this.commit('profileModule/updateUserDetails', details)
-
+            
             state.admin = details.myuser.is_admin
             state.staff = details.myuser.is_staff
             state.active = details.myuser.is_active
-
+            
             state.token = token
             localStorage.setItem('ttk', state.token)
+            this.commit('profileModule/updateUserDetails', details)
         },
 
         performLogout(state) {
@@ -150,68 +119,40 @@ var authenticationModule = {
 
     actions: {
         login({ commit }, response) {
-            // Initiates a login request to Django
-            // let { email, username, password } = payload
-            
-            // When a person just presses the button without
-            // entering anykind of credentials, we should
-            // not be continuing the process
-            // if (isNull(email) | isNull(username) && isNull(password)) {
-            //     console.error('No crendentials entered')
-            //     return false
-            // }
+            // Login a user and get their details
+            // for userDetails
             commit('performLogin', response.data)
         },
 
-        // logout({ state, commit, rootState }) {
         logout({ commit }) {
+            // Logout a user and clear all their
+            // details in userDetails
             commit('performLogout')
-        },
-
-        signUp({ rootState }, response) {
-            rootState, response
-            // let { email, password1, password2 } = payload
-
-            // if (isNull(email) && isNull(password1) && isNull(password2)) {
-            //     console.error('No or not enough credentials entered')
-            //     return false
-            // }
-            // rootState
-            // axios({
-            //     method: 'post',
-            //     url: urlJoin(rootState.baseUrls.api, 'signup'),
-            //     data: payload,
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     withCredentials: true
-            // })
-            // .then((response) => {
-            //     if (response.status >= 200 && response.status <= 201) {
-            //         router.push({ name: 'signin' })
-            //     } else {
-            //         console.log(response.data)
-            //     }
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
         }
     },
 
     getters: {
         isAuthenticated(state) {
+            // If we have both token and authentication on
+            // the state, consider them authenticated
+            if (!_.isNull(state.token) & state.authenticated) {
+                return true
+            }
+
             // If the user has already been logged in
             // with a token that was stored in the local storage
             // keep the current state as logged in
             const currentToken = localStorage.getItem('ttk')
 
             if (_.isNull(currentToken)) {
-                // return state.authenticated && !_.isNull(state.token)
-                return state.authenticated
+                return false
             } else {
-                state.token = currentToken
-                return true
+                if (!state.authenticated) {
+                    return false
+                } else {
+                    state.token = currentToken
+                    return true
+                }
             }
         },
 
