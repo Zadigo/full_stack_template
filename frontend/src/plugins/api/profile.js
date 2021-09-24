@@ -3,7 +3,7 @@ export default ($axios) => ({
 
     updateDetails: (position, details) => {
         return $axios({
-            method: 'post',
+            method: 'patch',
             url: '/profile/update/personal-details',
             data: { position: position, details: details },
         })

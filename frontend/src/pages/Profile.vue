@@ -2,6 +2,7 @@
   <div class="container">
     <section class="section mt-4">
       <div class="row">
+        
         <!-- Sidebar -->
         <div class="col-sm-12 col-md-3 offset-md-2">
           <aside role="navigation">
@@ -19,6 +20,7 @@
         <div class="col-5">
           <router-view />
         </div>
+
       </div>
     </section>
   </div>
@@ -50,7 +52,6 @@ export default {
     if (!this.hasUserDetails) {
       this.$api.profile.getUserDetails()
       .then((response) => {
-        console.log(response.data)
         this.$store.commit('profileModule/updateUserDetails', response.data)
       })
       .catch((error) => {
@@ -64,14 +65,6 @@ export default {
       'hasUserDetails'
     ])
   }
-
-  // _checkCredentials () {
-  //   var { email, password } = this.credentials
-  //   if (!this._validateEmail(email)) {
-  //     console.log('Email is not valid')
-  //   }
-  //   password
-  // }
 }
 </script>
 

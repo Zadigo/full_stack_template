@@ -1,5 +1,5 @@
 <template>
-  <base-registration-layout @startAction="sendRequest" :buttonName="'Send me a password reset email'">
+  <base-registration-layout @startAuthentication="sendRequest" :buttonName="'Send me a password reset email'">
     
     <div class="form-group">
       <label class="font-weight-bold" for="email">Email</label>
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
-
 import { isNull } from 'lodash'
+
+import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
 
 export default {
   name: 'ForgotPassword',
@@ -36,6 +36,9 @@ export default {
   },
   
   beforeRouteEnter (to, from, next) {
+    // If the user is authenticated then return the
+    // page on the profile where an authenticated user
+    // can modify there password
     next(vm => {
       if (vm.$store.getters['authenticationModule/isAuthenticated']) {
         return true
@@ -53,12 +56,17 @@ export default {
   
   methods: {
     sendRequest () {
-      if (this._validateEmail(this.email)) {
-        console.log('Requested email change')
-        this.$router.push({ name: 'signin' })
-      } else {
-        console.error('Email is not valid')
-      }
+      this.$api.auth.forgotPassword(this.email)
+      .then(() => {
+        // pass
+      })
+      .catch((error) => {
+        this.$store.dispatch('newDangerMessage', {
+          app: 'auth',
+          content: error.response.data,
+          title: null
+        })
+      })
     }
   }
 }

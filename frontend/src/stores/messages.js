@@ -2,7 +2,7 @@ import { isUndefined } from 'lodash'
 
 var _ = require('lodash')
 
-export default {
+var notificationsModule = {
     state: () => ({
         messages: []
     }),
@@ -18,7 +18,7 @@ export default {
         clearMessages(state) {
             // Clears the current stack
             // of messages in order to
-            // prevent messages to be
+            // prevent stale messages to be
             // constantly displayed
             state.messages = []
         },
@@ -59,3 +59,5 @@ export default {
         }
     }
 }
+
+export default notificationsModule

@@ -6,3 +6,9 @@
         </router-link>
     </p>
 </template>
+
+<script>
+export default {
+    name: 'BasePrivacyText'
+}
+</script>

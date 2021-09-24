@@ -2,6 +2,7 @@
   <footer class="page-footer text-center font-small wow fadeIn">
     <div class="container pt-3">
       <div class="row text-left">
+
         <page-footer-column v-for="section in sections" :key="section.id" :section="section" />
 
         <div class="col-3">
@@ -43,8 +44,8 @@
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
 
     <hr class="my-4">
@@ -71,9 +72,7 @@ import PageFooterColumn from './PageFooterColumn.vue'
 
 export default {
   name: 'PageFooter',
-  components: {
-    PageFooterColumn
-  },
+  components: { PageFooterColumn },
 
   data () {
     return {

@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-// var _ = require('lodash')
-
 // import Cookies from 'js-cookie'
 
 // Modules
 import { authenticationModule, profileModule } from './auth'
 import subscriptionsModule from './subscriptions'
-import Messages from './messages'
+import notificationsModule from './messages'
 
 Vue.use(Vuex)
 
@@ -22,7 +19,7 @@ var store = new Vuex.Store({
     modules: {
         authenticationModule,
         profileModule,
-        Messages,
+        notificationsModule,
         
         // Optional
         subscriptionsModule,

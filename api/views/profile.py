@@ -26,35 +26,35 @@ from accounts.models import MyUserProfile
 USER_MODEL = get_user_model()
 
 
-class ChangePersonalDetails(GenericAPIView):
-    http_method_names = ['post', 'patch']
-    # Dynamically update the data depending 
-    # on the incoming position that was
-    # included in the incoming POST data
-    serializer_classes = [
-        PersonalDetailsValidationSerializer
-    ]
+# class ChangePersonalDetails(GenericAPIView):
+#     http_method_names = ['post', 'patch']
+#     # Dynamically update the data depending 
+#     # on the incoming position that was
+#     # included in the incoming POST data
+#     serializer_classes = [
+#         PersonalDetailsValidationSerializer
+#     ]
 
-    def post(self, request, **kwargs):
-        serializer_position = request.data.get('position', None)
-        if serializer_position is not None:
-            serializer_position = int(serializer_position)
-        else:
-            return Response({'error': 'An error occured - PF1'})
+#     def post(self, request, **kwargs):
+#         position = request.data.get('position', None)
+#         if position is not None:
+#             position = int(position)
+#         else:
+#             return Response({'error': 'An error occured - PF1'})
             
-        content = request.data['content']
-        if not content or content is None:
-            return Response({}, status=status.HTTP_202_ACCEPTED)
+#         content = request.data['content']
+#         if not content or content is None:
+#             return Response(data={'state': True}, status=status.HTTP_202_ACCEPTED)
 
-        serializer = self._get_serializer(serializer_position, content)
-        serializer.update(request.user, serializer._validated_data)
-        return Response(serializer.data)
+#         serializer = self.get_serializer(position, content)
+#         serializer.update(request.user, serializer._validated_data)
+#         return Response(data=serializer.data)
 
-    def _get_serializer(self, position, data):
-        serializer = self.serializer_classes[position]
-        instance = serializer(data=data)
-        instance.is_valid(raise_exception=True)
-        return instance
+#     def get_serializer(self, position, data):
+#         serializer = self.serializer_classes[position]
+#         instance = serializer(data=data)
+#         instance.is_valid(raise_exception=True)
+#         return instance
 
 
 # class ChangePassword(mixins.GlobalAPIMixins, GenericAPIView):
@@ -136,7 +136,7 @@ def update_personal_details(request):
         return not_authorized_response(request)
 
     serializer_classes = [
-        serializers.PersonalDetailsValidationSerializer
+        PersonalDetailsValidationSerializer
     ]
 
     def _get_serializer(position, data):
@@ -157,7 +157,7 @@ def update_personal_details(request):
 
     serializer = _get_serializer(serializer_position, details)
     serializer.update(request.user, serializer.validated_data)
-    return Response(serializer.data)
+    return Response(data=serializer.data)
 
 
 @api_view(['post'])

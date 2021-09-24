@@ -1,17 +1,17 @@
 <template>
-<section :id="sectionId">
-  <header>
-    <!-- Jumbotron -->
-    <div id="intro" class="p-5 text-center bg-light">
-      <h1 class="mb-3 font-weight-bold">{{ pageTitle }}</h1>
-      <p>
-        {{ pageDescription }}
-      </p>
-    </div>
-  </header>
+  <section :id="sectionId">
+    <header>
+      <!-- Jumbotron -->
+      <div id="intro" class="p-5 text-center bg-light">
+        <h1 class="mb-3 font-weight-bold">{{ pageTitle }}</h1>
+        <p>
+          {{ pageDescription }}
+        </p>
+      </div>
+    </header>
 
-  <slot></slot>
-</section>
+    <slot></slot>
+  </section>
 </template>
 
 <script>

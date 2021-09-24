@@ -20,5 +20,13 @@ export default ($axios) => ({
             url: '/auth/signup',
             data: credentials,
         })
+    },
+
+    forgotPassword: (email) => {
+        return $axios({
+            method: 'post',
+            url: '/auth/forgot-password',
+            data: { email: email }
+        })
     }
 })

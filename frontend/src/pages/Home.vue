@@ -13,18 +13,11 @@
     </header>
 
     <!-- Companies -->
-    <div id="banner p-4 mt-4 mb-4">
+    <div class="p-4 mt-2 mb-4 text-center" id="banner">
       <div class="container">
-        <p class="text-muted text-uppercase m-0">Trusted by product-led innovators around the world</p>
+        <p class="text-muted text-uppercase mb-3">Trusted by product-led innovators around the world</p>
         <div class="icons d-flex justify-content-between">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e258e93f171e18a3308_clearbit.svg" height=50 width=120 alt="clearbit">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b423729024d61e9a81a7be_logmein.svg" height=50 width=120 alt="log-me-in">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/6058c083201c15c0fa471850_privy-2021.svg" height=50 width=120 alt="privy">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e426ec9b0001bdb875c_codepen.svg" height=50 width=120 alt="codepen">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e0ae1947a43717e46e7_amplitude.svg" height=50 width=120 alt="Amplitude">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e8407fc3fd1a197b1b4_adroll.svg" height=50 width=120 alt="adroll">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/605105a4d0533067cfafabd2_profitwell-2021.svg" height=50 width=120 alt="profitwell">
-          <img src="https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e3d86ed89aec212c20e_lyft.svg" height=50 width=120 alt="lyft">
+          <img v-for="company in companies" :key="company.alt" :src="company.image" :alt="company.alt" height=50 width=120>
         </div>
       </div>
     </div>
@@ -38,7 +31,7 @@
       <!-- Details -->
       <Boxes />
 
-      <!-- CTA -->
+      <!-- Cta -->
       <base-secondary-cta />
     </div>
 
@@ -50,12 +43,20 @@
 import Boxes from '@/components/hero/sections/Boxes.vue'
 import Testimonials from '@/components/hero/sections/Testimonials.vue'
 
+import companies from '../data/companies.json'
+
 export default {
   name: 'Home',
   
   components: {
     Testimonials,
     Boxes
+  },
+
+  data () {
+    return {
+      companies: companies
+    }
   }
 }
 </script>

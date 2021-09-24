@@ -1,5 +1,6 @@
 <template>
   <div class="text-white">
+
     <h1 class="display-4 font-weight-bold mb-3">{{ lead }}</h1>
     <h5 class="mb-4">{{ description }}</h5>
     
@@ -7,13 +8,13 @@
     <router-link :to="{ name: 'signin' }" class="btn btn-outline-light btn-lg m-2" role="button" rel="nofollow">
       Start tutorial
     </router-link>
-    <button @click="testFunction" class="btn btn-lg btn-primary">Test Api</button>
+  
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Intro',
   props: {
     lead: {
       type: String,

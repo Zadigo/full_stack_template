@@ -20,6 +20,7 @@ authentication_url_patterns = [
     url(r'^login', authentication.login_user),
     url(r'^logout', authentication.logout_user),
     url(r'^signup', authentication.signup),
+    url(r'^forgot-password', authentication.forgot_password)
 ]
 
 
@@ -36,7 +37,6 @@ urlpatterns = [
     path('auth/', include(authentication_url_patterns)),
     path('profile/', include(profile_url_patterns)),
 
-    url(r'^password/reset', authentication.reset_password),
     url(r'^subscribe', base.subscribe_user),
     path('', include((router.urls, app_name))),
 

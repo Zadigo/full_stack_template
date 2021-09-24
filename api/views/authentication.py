@@ -1,20 +1,17 @@
-from django.utils import http
-from rest_framework import status
 from api.serializers.authentication import LoginSerializer, SignupSerializer
-from api.serializers.profile import MyUserProfileSerializer
-from api.views import mixins
 from api.views.base import base_bad_request_response, base_error_response
-from django.contrib.auth import login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from rest_framework import status
 from rest_framework.authentication import get_user_model
 # from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view
-from rest_framework.generics import GenericAPIView, get_object_or_404
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
 USER_MODEL = get_user_model()
@@ -63,7 +60,7 @@ def get_user_token(request):
 
 
 @api_view(['post'])
-def reset_password(request):
+def forgot_password(request):
     email_field_name = USER_MODEL.get_email_field_name()
 
     if request.user.is_authenticated:
@@ -104,9 +101,13 @@ def reset_password(request):
     if email is None:
         return base_error_response(request)
 
-    single_link_generator(email)
-    return Response({'message': 'Email sent'})
+    try:
+        single_link_generator(email)
+    except Exception as e:
+        return Response({'error': f"An error occured. {e.args[1].decode('utf-8')}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response({'message': 'Please check your emails'})
 
 
+@api_view(['post'])
 def confirm_password_reset(request, **kwargs):
     pass

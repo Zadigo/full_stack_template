@@ -28,6 +28,7 @@ var profileModule = {
             // Update userDetails with the
             // user's data
             state.userDetails = payload
+            state.hasUserDetails = true
         },
 
         changeAddress(state, payload) {
@@ -76,6 +77,7 @@ var profileModule = {
         },
 
         getUserFullName(state) {
+            // Returns the full lastname and fistname
             return `${state.userDetails.myuser.firstname} ${state.userDetails.myuser.lastname}`
         }
     }

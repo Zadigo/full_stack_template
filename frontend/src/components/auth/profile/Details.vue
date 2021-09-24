@@ -1,5 +1,6 @@
 <template>
   <section>
+
     <base-validation-card @validateAction="sendChanges" :position="0">
       <template v-slot:cardHeader>
         <header class="card-header">
@@ -9,6 +10,7 @@
 
       <fields-iterator @startAction="changeItems" :formFields="fields" />
     </base-validation-card>
+
   </section>
 </template>
 
@@ -58,19 +60,6 @@ export default {
       this.$api.profile.updateDetails(position, this.changedValues) 
       .then((response) => {
         this.changedValues = {}
-        // this.$buefy.snackbar.open({
-        //     message: 'Yellow button and positioned on top, click to close',
-        //     type: 'is-warning',
-        //     position: 'is-top',
-        //     actionText: 'Cancel',
-        //     indefinite: true,
-        //     onAction: () => {
-        //         this.$buefy.toast.open({
-        //             message: 'Action pressed',
-        //             queue: false
-        //         })
-        //     }
-        // })
         this.$store.dispatch('profileModule/updatePersonalDetails', response)
       })
       .catch((error) => {
