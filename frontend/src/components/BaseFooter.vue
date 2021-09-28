@@ -20,12 +20,14 @@
             <div class="col-12 pt-2 pb-2">
               <transition name="general-transition" mode="out-in">
                 <div v-if="!sent" class="form-group">
+
                   <label class="mb-2" for="newsletter">Sign up for {{ companyDetails.name }} latest news</label>
                   <input v-model="newsletterEmail" type="email" class="form-control" id="newsletter" placeholder="Email">
                   <button @click="subscribeUser" class="btn btn-md btn-primary m-0 mt-2" role="button">
                     <i class="fa fa-envelope mr-3"></i>
                     Subscribe
                   </button>
+                
                 </div>  
 
                 <div v-else :class="alertDetails.type" class="alert">

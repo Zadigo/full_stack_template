@@ -1,5 +1,5 @@
 <template>
-  <div class="col-3">
+  <div class="col-sm-12 col-md-3">
     <p class="font-weight-bold text-white text-uppercase">
       {{ section.title }}
     </p>
@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'PageFooterColumn',
   props: {
     section: {
       type: Object,

@@ -40,6 +40,7 @@ export default {
       default: true
     }
   },
+
   computed: {
     ...mapGetters('authenticationModule', [
       'isAuthenticated'
@@ -49,6 +50,7 @@ export default {
       return this.isAuthenticated ? 'profile_subscriptions' : 'signin'
     }
   },
+  
   methods: {
     ...mapMutations('subscriptionsModule', [
       'chooseSubscription'

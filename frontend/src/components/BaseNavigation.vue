@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg d-lg-block" style="z-index: 2000;">
 
-    <div class="container-fluid">
+    <div class="container">
       <!-- Navbar brand -->
-      <router-link :to="{ name: 'home' }" class="navbar-brand nav-link">
+      <router-link :to="{ name: 'home' }" class="navbar-brand">
         <strong>{{ companyDetails.name }}</strong>
       </router-link>
 
@@ -12,7 +12,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarExample01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto my-2 my-lg-0">
           <li v-for="link in links" :key="link.id" class="nav-item">
             <router-link :to="{ name: link.name }" :id="link.name" class="nav-link" role="link">
               {{ link.title }}
@@ -89,6 +89,8 @@ export default {
     ]),
 
     logoutUser() {
+      // Logs out the user from the
+      // current session
       this.$api.auth.logout()
       .then(() => {
         this.logout()

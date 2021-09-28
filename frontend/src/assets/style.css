@@ -118,3 +118,8 @@ hr.divider {
 hr.divider-light {
     background-color: #fff;
 }
+
+
+.d-wrap {
+    flex-wrap: wrap;
+}

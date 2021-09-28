@@ -1,5 +1,6 @@
 <template>
   <base-jumbotron :pageDescription="pageDescription" :pageTitle="pageTitle" sectionId="prices">
+
      <!-- Prices -->
     <div class="container">
       <section class="text-center" id="prices">
@@ -28,6 +29,7 @@
         </div>
       </section>
     </div>
+    
   </base-jumbotron>
 </template>
 

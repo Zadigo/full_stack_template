@@ -18,7 +18,7 @@
     <div class="p-4 mt-2 mb-4 text-center" id="banner">
       <div class="container">
         <p class="text-muted text-uppercase mb-3">Trusted by product-led innovators around the world</p>
-        <div class="icons d-flex justify-content-between">
+        <div class="icons d-flex justify-content-between d-wrap">
           <img v-for="company in companies" :key="company.alt" :src="company.image" :alt="company.alt" height=50 width=120>
         </div>
       </div>
@@ -74,7 +74,8 @@ export default {
   /* Height for devices larger than 576px */
   @media (min-width: 992px) {
     #intro {
-      margin-top: -58.59px;
+      /* margin-top: -58.59px; */
+      margin-top: -70px;
     }
   }
 </style>
