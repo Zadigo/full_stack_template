@@ -1,5 +1,5 @@
 <template>
-  <section class="page-section text-white text-center orange darken-2">
+  <section class="page-section text-white text-center">
     <div class="container px-4 px-lg-5">
 
       <h2 class="p-3">We've got what you need!</h2>
@@ -9,7 +9,7 @@
       <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-lg-8">
           <p class="text-white-75 mb-4">
-            Start Bootstrap has everything you need to get your new website 
+            {{ companyDetails.name }} has everything you need to get your new website 
             up and running in no time! Choose one of our open source, free to download, 
             and easy to use themes! No strings attached!
           </p>

@@ -12,7 +12,7 @@
       </div>
     </header>
 
-    <CTA />
+    <CTA class="blue darken-3" />
 
     <!-- Companies -->
     <div class="p-4 mt-2 mb-4 text-center" id="banner">
