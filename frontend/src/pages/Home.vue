@@ -3,7 +3,7 @@
     <header>
       <router-view name="nav" class="navbar-dark" />
 
-      <div class="bg-image shadow-2-strong" id="intro">
+      <div ref="intro" class="bg-image shadow-2-strong" id="intro">
         <div class="mask">
           <div class="container h-100 d-flex align-items-center justify-content-center text-center">
             <router-view lead="Create your beautiful templates with Vue" description="Simple templates for Vue" />
@@ -51,6 +51,10 @@ import companies from '../data/companies.json'
 export default {
   name: 'Home',
   
+  mounted () {
+    this.$refs.intro.style.backgroundImage = "url(https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80)"
+  },
+  
   components: {
     Testimonials,
     Boxes,
@@ -67,7 +71,6 @@ export default {
 
 <style scoped>
   #intro {
-    background-image: url("https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80");
     height: 100vh;
   }
 

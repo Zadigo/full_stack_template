@@ -1,8 +1,8 @@
 <template>
   <div class="text-white">
 
-    <h1 class="display-4 font-weight-bold mb-3">{{ lead }}</h1>
-    <h5 class="mb-4">{{ description }}</h5>
+    <h1 class="display-4 font-weight-bold mb-3" :aria-label="lead">{{ lead }}</h1>
+    <h5 class="mb-4" :aria-label="description">{{ description }}</h5>
     
     <!-- Call to action -->
     <router-link :to="{ name: 'signin' }" class="btn btn-outline-light btn-lg m-2" role="button" rel="nofollow">
@@ -27,7 +27,7 @@ export default {
   },
 
   title () {
-    return 'Home'
+    return 'Intro'
   }
 }
 </script>
