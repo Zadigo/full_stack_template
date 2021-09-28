@@ -98,3 +98,23 @@ section.section {
 .shadow-2-strong {
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .21) !important;
 }
+
+
+/* Sections */
+
+.page-section {
+    padding: 8rem 0;
+}
+
+
+hr.divider {
+    height: 0.2rem;
+    max-width: 3.25rem;
+    margin: 1.5rem auto;
+    background-color: #f4623a;
+    opacity: 1;
+}
+
+hr.divider-light {
+    background-color: #fff;
+}

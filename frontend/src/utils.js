@@ -7,6 +7,8 @@ var incrementIdFromLast = (items) => {
 
 
 var lengthOfDict = (item) => {
+    // Returns the current length
+    // of a given dictionnary
     if (_.isUndefined(item)) {
         return 0
     }

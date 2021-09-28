@@ -37,6 +37,10 @@ Imports
 
 
 
+// Mobile
+
+npm install -g @ionic/cli
+
 // Remove typescript in ionic
 
 npm uninstall --save typescript @types/jest @typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/cli-plugin-typescript @vue/eslint-config-typescript

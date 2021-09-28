@@ -1,5 +1,5 @@
 import { isUndefined } from 'lodash'
-import company from './data/company.json'
+import company from '../data/company.json'
 
 var _ = require('lodash')
 

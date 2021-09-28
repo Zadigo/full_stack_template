@@ -27,6 +27,8 @@ export default {
 
   methods: {
     subscribeUser() {
+      // Subscribes the user to an email marketing
+      // e.g. mailchimp in the backend
       this.$api.subscribe(this.email)
       .then((response) => {
         console.log(response)

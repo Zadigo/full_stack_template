@@ -25,14 +25,9 @@ export default {
       required: true
     }
   },
+
   title () {
     return 'Home'
-  },
-
-  methods: {
-    testFunction() {
-      console.log('for testing')
-    }
   }
 }
 </script>

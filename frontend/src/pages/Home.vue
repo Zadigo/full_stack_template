@@ -12,6 +12,8 @@
       </div>
     </header>
 
+    <CTA />
+
     <!-- Companies -->
     <div class="p-4 mt-2 mb-4 text-center" id="banner">
       <div class="container">
@@ -42,6 +44,7 @@
 <script>
 import Boxes from '@/components/hero/sections/Boxes.vue'
 import Testimonials from '@/components/hero/sections/Testimonials.vue'
+import CTA from '../components/hero/sections/CTA.vue'
 
 import companies from '../data/companies.json'
 
@@ -50,7 +53,8 @@ export default {
   
   components: {
     Testimonials,
-    Boxes
+    Boxes,
+    CTA
   },
 
   data () {

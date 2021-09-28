@@ -11,9 +11,6 @@ Vue.use(Vuex)
 
 var store = new Vuex.Store({
     state: () => ({
-        baseUrls: {
-            api: 'http://127.0.0.1:8000/api/v1/'
-        }
     }),
 
     modules: {
@@ -29,9 +26,6 @@ var store = new Vuex.Store({
     getters: {
         getAuthenticationToken(state) {
             return state.authenticationModule.token
-        },
-        getApiUrl(state) {
-            return state.baseUrls.api
         }
     }
 })
