@@ -13,7 +13,7 @@ require('./assets/admin.css')
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash, faPen, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faCheck, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global components
@@ -24,6 +24,7 @@ import BaseSecondaryCTA from './components/BaseSecondaryCTA.vue'
 import BaseSmallFAQ from './components/layouts/BaseSmallFAQ.vue'
 import BaseJumbotron from './components/layouts/BaseJumbotron.vue'
 import BaseCard from './components/layouts/BaseCard.vue'
+import BaseHero from './components/BaseHero.vue'
 
 // Mixins
 import globalMixin from './mixins'
@@ -40,6 +41,7 @@ import Buefy from 'buefy'
 library.add(faTrash)
 library.add(faPen)
 library.add(faCheck)
+library.add(faStar)
 
 // Mixins
 Vue.mixin(globalMixin)
@@ -59,6 +61,7 @@ Vue.component('base-secondary-cta', BaseSecondaryCTA)
 Vue.component('base-small-faq', BaseSmallFAQ)
 Vue.component('base-jumbotron', BaseJumbotron)
 Vue.component('base-card', BaseCard)
+Vue.component('base-hero', BaseHero)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
