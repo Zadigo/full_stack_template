@@ -1,5 +1,3 @@
-from typing import Union
-
 # import mailchimp
 import mailchimp_marketing as MailchimMpMarketing
 from django.conf import settings
@@ -19,10 +17,10 @@ class Base:
 # Documentation: https://mailchimp.com/developer/marketing/api/list-members/get-member-info/
 
 class Members(Base):
-    def create(self, list_id: Union[int, str]):
+    def create(self, list_id):
         return self.client.lists.add_list_member()
 
-    def associate(self, list_id: Union[int, str], email: str, status: str, **kwargs):
+    def associate(self, list_id, email, status, **kwargs):
         authorized_status = ['subscribed',
                              'unsubscribed', 'cleaned', 'pending']
         if status not in authorized_status:
@@ -31,8 +29,8 @@ class Members(Base):
         attrs = attrs | kwargs
         return self.client.lists.add_list_member(list_id, attrs)
 
-    def members(self, list_id: Union[int, str]):
+    def members(self, list_id):
         return self.client.lists.get_list_member()
 
-    def update(self, list_id: Union[int, str], subscriber_hash: str, **attrs):
+    def update(self, list_id, subscriber_hash: str, **attrs):
         return self.client.lists.update_list_member(list_id, subscriber_hash, attrs)

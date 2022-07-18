@@ -11,7 +11,6 @@ class EmailAuthenticationBackend(ModelBackend):
             user = USER_MODEL.objects.get(email=email)
             if user.check_password(password):
                 return user
-
         except USER_MODEL.DoesNotExist:
             return None
 
