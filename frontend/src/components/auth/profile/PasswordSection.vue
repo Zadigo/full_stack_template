@@ -1,20 +1,20 @@
 <template>
-  <base-validation-card @validateAction="updatePassword" :buttonName="'Reset password'">
-    
+  <base-validation-card :button-name="'Reset password'" @validateAction="updatePassword">
+
     <transition name="alert-transition">
       <div v-if="!isValid" class="alert alert-danger">
         Passwords do not match
       </div>
     </transition>
-    
+
     <div v-for="field in fields" :key="field.id" class="form-group mt-2">
       <label v-if="field.name==='password1'" :for="field.name" class="mt-3 mb-2">
         Enter your new password here. It should be different from your old password
         and should contain at least one.
       </label>
-      <input v-model="credentials[field.name]" :id="field.name" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
+      <input :id="field.name" v-model="credentials[field.name]" :autocomplete="field.autocomplete" :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
     </div>
-    
+
   </base-validation-card>
 </template>
 
@@ -36,12 +36,14 @@ export default {
 
   computed: {
     ...mapState('profileModule', {
-      userId: (state) => { return state.userDetails.id }
+      userId: (state) => {
+        return state.userDetails.id
+      }
     }),
     
     isValid () {
-      let { password1, password2 } = this.credentials
-      if (password2 !== undefined && password1 !== password2) {
+      const { password1, password2 } = this.credentials
+      if (password2 && password1 !== password2) {
         return false
       } else {
         return true

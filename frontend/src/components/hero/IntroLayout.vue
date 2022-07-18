@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'Intro',
+  name: 'IntroLayout',
   props: {
     lead: {
       type: String,

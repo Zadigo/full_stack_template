@@ -8,10 +8,11 @@ import './plugins/fontawesome'
 import router from './router'
 
 import NavItemVue from './components/nav/NavItem.vue'
-import { loadFonts, useMessagesPlugin } from './plugins'
+import { loadFonts } from './plugins'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createLocalStorage, createVueSession } from './plugins/vue-storages'
 import { createPinia } from 'pinia'
+import messagesPlugin from '@/store/messages'
 // import {  functions } from './plugins/vue-analytics/google'
 // import { createGoogleAnalytics } from './plugins/vue-analytics/google'
 // console.log(functions)
@@ -23,10 +24,10 @@ const session = createVueSession()
 const localstorage = createLocalStorage()
 const pinia = createPinia()
 
-pinia.use(useMessagesPlugin)
+pinia.use(messagesPlugin)
 
 pinia.use((store) => {
-  store.sessionStorage = markRaw(session)
+  store.session = markRaw(session)
   store.localstorage = markRaw(localstorage)
 })
 

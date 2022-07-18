@@ -17,13 +17,16 @@
 </template>
 
 <script>
+import { useAuthentication } from '@/store/autthentication'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Index',
+  name: 'IndexSection',
   computed: {
-    ...mapState('profileModule', {
-      firstName: (state) => { return state.userDetails.myuser.firstname }
+    ...mapState(useAuthentication, {
+      firstName: (state) => {
+        return state.userDetails.myuser.firstname
+      }
     })
   }
 }

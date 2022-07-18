@@ -6,7 +6,7 @@
       {{ content }}
     </p>
 
-    <button class="btn btn-outline-primary text-center mt-5">
+    <button type="button" class="btn btn-outline-primary text-center mt-5">
       {{ buttonTitle }}
     </button>
   </b-card>

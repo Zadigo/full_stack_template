@@ -3,43 +3,40 @@
 
     <b-list-group>
       <b-list-group-item>
-        <b-form-checkbox @change="updatePreferences" v-model="userOptions['newsletter']" id="newsletter">
+        <b-form-checkbox id="newsletter" v-model="userOptions['newsletter']" @change="updatePreferences">
           <span class="m-2">I would like to get updates related to newsletters</span>
         </b-form-checkbox>
       </b-list-group-item>
 
       <b-list-group-item>
-        <b-form-checkbox v-model="userOptions['another']"  id="another">
+        <b-form-checkbox id="another" v-model="userOptions['another']">
           <span class="m-2">I would like to get updates related to newsletters</span>
         </b-form-checkbox>
       </b-list-group-item>
 
       <b-list-group-item>
-        <b-form-checkbox v-model="userOptions['other']" id="other">
+        <b-form-checkbox id="other" v-model="userOptions['other']">
           <span class="m-2">I would like to get updates related to newsletters</span>
         </b-form-checkbox>
       </b-list-group-item>
     </b-list-group>
-    
+
   </base-card>
 </template>
 
 <script>
 export default {
-  name: 'Preferences',
-  
+  name: 'PreferencesSection',
   title() {
     return 'Preferences'
   },
-
   data() {
     return {
       userOptions: {}
     }
   },
-
   methods: {
-    updatePreferences() {
+    async updatePreferences() {
       this.$api.profile.updatePreferences(this.userOptions)
       .then((response => {
         console.log(response)
