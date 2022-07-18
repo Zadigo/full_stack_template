@@ -26,7 +26,7 @@
 <script>
 import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
 
-import { mapActions } from 'vuex'
+import { mapActions } from 'pinia'
 
 export default {
   name: 'SigninView',

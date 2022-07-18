@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Header -->
-    <PageHeader homePageName="Dashboard" currentPageName="Index" />
+    <PageHeader home-page-name="Dashboard" current-page-name="Index" />
     
     <div class="card">
       <div class="card-body">
@@ -15,7 +15,7 @@
 import PageHeader from './nav/PageHeader.vue'
 
 export default {
-  name: 'Index',
+  name: 'IndexView',
   title () {
     return 'Index - Dashboard'
   },

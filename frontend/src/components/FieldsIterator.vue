@@ -5,7 +5,7 @@
         <label v-if="field.label !== null" :for="field.name" class="mt-3 mb-2 font-weight-bold">
           {{ field.label }}
         </label>
-        <input @keyup="$emit('startAction', field.name, $event.target.value)" :type="field.type|defaulType" :value="field.value" :id="field.name" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" class="form-control">
+        <input :id="field.name" :type="field.type" :value="field.value" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" class="form-control" @keyup="$emit('start-action', field.name, $event.target.value)">
       </div>
     </div>
   </div>
@@ -20,15 +20,8 @@ export default {
       required: true
     }
   },
-  
-  filters: {
-    defaulType (value) {
-      if (value === null | value === undefined) {
-        return 'text'
-      } else {
-        return value
-      }
-    }
+  emits: {
+    'start-action': () => true
   }
 }
 </script>

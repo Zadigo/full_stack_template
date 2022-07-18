@@ -27,9 +27,9 @@
 </template>
 
 <script>
-var _ = require('lodash')
+import _ from 'lodash'
 
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 
 export default {
   name: 'ProfileView',

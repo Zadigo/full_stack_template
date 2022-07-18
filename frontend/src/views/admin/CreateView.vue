@@ -2,7 +2,12 @@
   <div>
     <div class="row">
       <div class="col-12">
-        This is a product
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Create new product</h2>
+            <hr class="my-3">
+          </div>
+        </div>
       </div>
 
       <div class="col-8">
@@ -11,25 +16,45 @@
             <p class="font-weight-bold">{{ fieldset.description }}</p>
             <div v-for="field in fieldset.fields" :key="field.id" class="form-group">
 
-              <input v-model="currentChanges[field.name]" v-if="field.type=='text'" :type="field.type" :placeholder="field.placeholder" class="form-control">
-              <input v-model.number="currentChanges[field.name]" v-else-if="field.type=='number'" :type="field.type" :placeholder="field.placeholder" class="form-control">
+              <input v-if="field.type=='text'" v-model="currentChanges[field.name]" :type="field.type" :placeholder="field.placeholder" class="form-control">
+              <input v-else-if="field.type=='number'" v-model.number="currentChanges[field.name]" :type="field.type" :placeholder="field.placeholder" class="form-control">
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-4"></div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-header">
+            <p class="font-weight-bold m-0">Additional details</p>
+          </div>
+
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="row mt-2">
+    <div class="row mt-2 text-right">
       <div class="col-12">
         <div class="card">
-          <div class="card-body text-right">
-            <button @click="$router.go(-1)" class="btn btn-lg btn-danger">
+          <div class="card-body">
+            <button type="button" class="btn btn-md btn-danger" @click="$router.go(-1)">
               Cancel
             </button>
 
-            <button @click="saveCurrentChanges" class="btn btn-lg btn-primary">
+            <button type="button" class="btn btn-md btn-secondary">
+              Save draft
+            </button>
+
+            <button type="button" class="btn btn-md btn-primary" @click="saveCurrentChanges">
               Save
             </button>
           </div>
@@ -40,11 +65,14 @@
 </template>
 
 <script>
-var _ = require('lodash')
+import _ from 'lodash'
 
 export default {
-  name: 'Product',
-  data() {
+  name: 'CreateView',
+  title () {
+    return 'Create new - Dashboard'
+  },
+  data () {
     return {
       currentProduct: {},
       fieldsets: [
@@ -54,20 +82,7 @@ export default {
       currentChanges: {}
     }
   },
-  beforeRouterEnter(to, from, next) {
-    var currentProduct = this.$store.getters['itemsModule/getItem'](this.$route.params.id)
-    if (currentProduct === undefined) {
-      next('login')
-    } else {
-      next(vm => { vm.setData('currentProduct', currentProduct) })
-    }
-  },
-  beforeRouteUpdate(to, from, next) {
-    var currentProduct = this.$store.getters['itemsModule/getItem'](this.$route.params.id)
-    this.setData('currentProduct', currentProduct)
-    next()
-  },
-  beforeMount() {
+  beforeMount () {
     _.forEach(this.fieldsets, (fieldset) => {
       _.forEach(fieldset.fields, (field) => {
         this.currentChanges[field.name] = null

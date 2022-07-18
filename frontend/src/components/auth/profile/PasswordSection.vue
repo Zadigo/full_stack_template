@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import BaseValidationCard from './BaseValidationCard.vue'
 export default {
   components: { BaseValidationCard },

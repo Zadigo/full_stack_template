@@ -7,9 +7,9 @@
         <span>{{ currentPageName }}</span>
       </h4>
 
-      <form class="d-flex justify-content-center">
+      <form class="d-flex justify-content-center" @submit.prevent>
         <input v-model="searchedItem" type="search" placeholder="Search" aria-label="Search" class="form-control">
-        <button @click.prevent="doSearch" class="btn btn-primary btn-sm my-0 p waves-effect waves-light" type="submit">
+        <button type="submit" class="btn btn-primary btn-sm my-0 p waves-effect waves-light" @click="doSearch">
           <i class="fas fa-search"></i>
         </button>
       </form>
@@ -34,16 +34,19 @@
         default: 'admin_home'
       }
     },
+    emits: {
+      'do-search': (value) => value
+    },
     data() {
       return {
-        searchedItem: undefined
+        searchedItem: null
       }
     },
     methods: {
       doSearch() {
         // this.$router.goTo('search', { q: this.search })
         // this.$router.push({ name: 'search', query: { q: this.search } })
-        this.$emit('doSearch', this.searchedItem)
+        this.$emit('do-search', this.searchedItem)
       }
     }
   }

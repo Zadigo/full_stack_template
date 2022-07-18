@@ -14,7 +14,7 @@
     <hr class="my-4">
 
     <div class="pb-4">
-      <a v-for="social in socials" :id="social.id" :key="social.id" :href="social.href" target="_blank" rel="nooponer noreferrer nofollow" role="link">
+      <a v-for="social in socials" :id="social.id" :key="social.id" :href="social.href" target="_blank" rel="noopener noreferrer nofollow" role="link">
         <i :class="social.icon" class="mr-3"></i>
       </a>
     </div>

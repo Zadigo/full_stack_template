@@ -18,7 +18,7 @@
 
 <script>
 import { useAuthentication } from '@/store/autthentication'
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 
 export default {
   name: 'IndexSection',

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  // var _ = require('lodash')
+  // import _ from 'lodash'
   
   export default {
     props: {

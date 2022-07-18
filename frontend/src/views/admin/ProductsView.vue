@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-12">
       <!-- Header -->
-      <PageHeader @doSearch="searchItems" v-if="products.length > 0" homePageName="Dashboard" currentPageName="Products" />
-      
+      <PageHeader v-if="products.length > 0" home-page-name="Dashboard" current-page-name="Products" @doSearch="searchItems" />
+
       <div v-if="products.length > 0" class="card">
         <div class="card-header">
           <!-- Actions -->
@@ -34,12 +34,14 @@
           <table class="table">
             <thead>
               <tr>
-                <th><b-form-checkbox id="select-all"></b-form-checkbox></th>
+                <th>
+                  <b-form-checkbox id="select-all"></b-form-checkbox>
+                </th>
                 <th>Name</th>
                 <th>Price</th>
               </tr>
             </thead>
-            
+
             <tbody>
               <tr v-for="product in searchedProducts" :key="product.id">
                 <td>
@@ -50,7 +52,7 @@
                     {{ product.name }}
                   </router-link>
                 </td>
-                <td>{{ product.price|currency }}</td>
+                <td>{{ product.price }}</td>
               </tr>
             </tbody>
           </table>
@@ -70,14 +72,17 @@
 </template>
 
 <script>
-var _ = require('lodash')
+import _ from 'lodash'
 
 import PageHeader from './nav/PageHeader.vue'
 
 export default {
-  name: 'Products',
+  name: 'ProductsSection',
   title () {
     return 'Products - Dashboard'
+  },
+  components: {
+    PageHeader
   },
   data () {
     return {
@@ -85,12 +90,9 @@ export default {
       searchedItem: null
     }
   },
-  components: {
-    PageHeader
-  },
   computed: {
     searchedProducts () {
-      if (this.searchedItem === null | this.searchedItem === '') {
+      if (this.searchedItem) {
         return this.products
       } else {
         return _.filter(this.products, (product) => {

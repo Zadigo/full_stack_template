@@ -2,14 +2,14 @@
   <section id="account">
     <base-card>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sed, aliquid debitis nemo aspernatur 
-        veniam itaque iusto! Excepturi laudantium commodi cupiditate, delectus repudiandae 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sed, aliquid debitis nemo aspernatur
+        veniam itaque iusto! Excepturi laudantium commodi cupiditate, delectus repudiandae
         suscipit, quis quidem odio nostrum rem nam?
       </p>
 
       <template v-slot:cardFooter>
         <footer class="card-footer bg-white">
-          <button @click="deleteAccount" class="btn btn-sm btn-danger">
+          <button type="button" class="btn btn-sm btn-danger" @click="deleteAccount">
             Delete account
           </button>
         </footer>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'Account',
+  name: 'AccountSection',
   title() {
     return 'Account'
   },

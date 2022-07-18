@@ -10,8 +10,8 @@
             <div class="col-12">
               <p class="font-weight-bold text-white text-uppercase">Get in touch</p>
               <p>
-                Any questions? Let us know in store at 
-                {{ companyDetails.address }} 
+                Any questions? Let us know in store at
+                {{ companyDetails.address }}
                 or call us on {{ companyDetails.telephone }}
               </p>
             </div>
@@ -22,16 +22,16 @@
                 <div v-if="!sent" class="form-group">
 
                   <label class="mb-2" for="newsletter">Sign up for {{ companyDetails.name }} latest news</label>
-                  <input v-model="newsletterEmail" type="email" class="form-control" id="newsletter" placeholder="Email">
-                  <button @click="subscribeUser" class="btn btn-md btn-primary m-0 mt-2" role="button">
+                  <input id="newsletter" v-model="newsletterEmail" type="email" class="form-control" placeholder="Email">
+                  <button type="button" class="btn btn-md btn-primary m-0 mt-2" @click="subscribeUser">
                     <i class="fa fa-envelope mr-3"></i>
                     Subscribe
                   </button>
-                
-                </div>  
+
+                </div>
 
                 <div v-else :class="alertDetails.type" class="alert">
-                  {{ alertDetails.message }}  
+                  {{ alertDetails.message }}
                 </div>
               </transition>
             </div>
@@ -41,7 +41,7 @@
               <div class="d-flex justify-content-between">
                 <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
                 <i class="fa fa-cc-visa" aria-hidden="true"></i>
-                <i class="fa fa-cc-google-pay" aria-hidden="true"></i> 
+                <i class="fa fa-cc-google-pay" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
     <hr class="my-4">
 
     <div class="pb-4">
-      <a v-for="social in companyDetails.socials" :key="social.id" :href="social.link" target="_blank" role="link">
+      <a v-for="social in companyDetails.socials" :key="social.id" :href="social.link" target="_blank" rel="noopener noreferrer nofollow" role="link">
         <i :class="social.icon" class="mr-3"></i>
       </a>
     </div>
@@ -89,7 +89,7 @@ export default {
   },
 
   methods: {
-    subscribeUser () {
+    async subscribeUser () {
       this.$api.subscribe(this.newsletterEmail)
       .then((response) => {
         console.log(response)
@@ -98,14 +98,7 @@ export default {
       })
       .catch((error) => {
         console.error(error)
-        this._newMessage('alert-danger', 'Email is not valid')
       })
-    },
-
-    _newMessage (type, message) {
-      this.alertDetails['type'] = type
-      this.alertDetails['message'] = message
-      return this.alertDetails
     }
   }
 }
