@@ -1,5 +1,5 @@
 <template>
-  <nav :class="[scrollY > 20 ? 'bg-dark navbar-light' : 'navbar-dark shadow-none']" class="navbar navbar-expand-lg d-lg-block fixed-top">
+  <nav :class="[scrollY > 20 ? 'bg-light navbar-light' : 'navbar-dark shadow-none']" class="navbar navbar-expand-lg d-lg-block fixed-top">
     <div class="container">
       <!-- Brand -->
       <router-link :to="{ name: 'home_view' }" class="navbar-brand text-uppercase fw-bold">
@@ -15,19 +15,19 @@
 
       <div id="navbarExample01" class="collapse navbar-collapse">
         <div class="ms-auto d-flex align-items-center">
-          <router-link :to="{ name: 'pricing_view' }" type="button" class="btn btn-transparent shadow-none px-3 text-white">
+          <router-link :to="{ name: 'pricing_view' }" type="button" class="btn btn-transparent shadow-none px-3">
             Pricing
           </router-link>
 
-          <button type="button" class="btn btn-transparent shadow-none px-3 text-white">
+          <button type="button" class="btn btn-transparent shadow-none px-3">
             <font-awesome-icon icon="fa-solid fa-user" />
           </button>
 
-          <button type="button" class="btn btn-transparent shadow-none px-3 me-2 text-white">
+          <button type="button" class="btn btn-transparent shadow-none px-3 me-2">
             <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
           </button>
 
-          <button type="button" class="btn btn-primary text-white">
+          <button type="button" class="btn btn-primary">
             Signup
           </button>
         </div>
@@ -86,13 +86,14 @@
 import { mapActions, storeToRefs } from 'pinia'
 import { useAuthentication } from '@/store/autthentication'
 import { useScroll } from '@vueuse/core'
+import { ref } from 'vue'
 
 export default {
   name: 'BaseNavbar',
   setup () {
     const store = useAuthentication()
     const { isAuthenticated, isAdmin } = storeToRefs(store)
-    const target = null
+    const target = ref(null)
     const { y } = useScroll(target)
     return {
       target,
@@ -110,7 +111,7 @@ export default {
     }
   },
   mounted () {
-    this.target = window.HTMLBodyElement
+    this.target = window.document
   },
   methods: {
     ...mapActions(useAuthentication, ['logoutUser']),
