@@ -6,17 +6,17 @@
             {
                 "id": 1,
                 "name": "Home",
-                "path": "home"
+                "path": "home_view"
             },
             {
                 "id": 2,
                 "name": "About us",
-                "path": "about"
+                "path": "home_view"
             },
             {
                 "id": 3,
                 "name": "Career",
-                "path": "jobs"
+                "path": "home_view"
             }
         ]
     },
@@ -27,7 +27,7 @@
             {
                 "id": 1,
                 "name": "Pricing",
-                "path": "pricing"
+                "path": "pricing_view"
             }
         ]
     },
@@ -38,7 +38,7 @@
             {
                 "id": 1,
                 "name": "Contact",
-                "path": "contact"
+                "path": "home_view"
             }
         ]
     }

@@ -273,3 +273,9 @@ html {
 ::-webkit-scrollbar-track {
     background: #F5F5F5;
 }
+
+
+
+.page-section {
+    padding: 3rem;
+}

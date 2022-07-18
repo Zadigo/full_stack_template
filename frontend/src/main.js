@@ -1,17 +1,17 @@
-import { createApp, markRaw } from 'vue'
+import { createApp, toRaw } from 'vue'
 import App from './App.vue'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'mdb-ui-kit/css/mdb.min.css'
 import '@mdi/font/css/materialdesignicons.css'
 import './plugins/fontawesome'
-import router from './router'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'mdb-ui-kit/css/mdb.min.css'
 
 // import NavItemVue from './components/nav/NavItem.vue'
 import { loadFonts } from './plugins'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createLocalStorage, createVueSession } from './plugins/vue-storages'
 import { createPinia } from 'pinia'
+import router from './router'
 import messagesPlugin from '@/store/messages'
 // import {  functions } from './plugins/vue-analytics/google'
 // import { createGoogleAnalytics } from './plugins/vue-analytics/google'
@@ -26,15 +26,16 @@ const pinia = createPinia()
 
 pinia.use(messagesPlugin)
 
-pinia.use((store) => {
-  store.session = markRaw(session)
-  store.localstorage = markRaw(localstorage)
+pinia.use(({ store }) => {
+  store.router = toRaw(router)
+  store.session = toRaw(session)
+  store.localstorage = toRaw(localstorage)
 })
 
 // const analytics = createGoogleAnalytics('some-tag', {
 //   currency: 1
 // })
-console.log('test', session.retrieve(1))
+// console.log('test', session.retrieve(1))
 app.use(router)
 // app.use(analytics)
 app.use(session)

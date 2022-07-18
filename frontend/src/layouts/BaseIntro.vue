@@ -1,13 +1,9 @@
 <template>
-  <div class="py-5 shadow-sm text-center">
-    <h1 class="display-5 fw-bold">
-      {{ catchPhrase }}
-    </h1>
-
-    <div class="col-lg-6 mx-auto">
-      <p v-if="lead" class="lead mb-4">{{ lead }}</p>
-
-      <slot></slot>
+  <div ref="intro" class="hero p-5 text-center bg-image">
+    <div ref="mask" class="mask">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -16,13 +12,30 @@
 export default {
   name: 'BaseIntro',
   props: {
-    catchPhrase: {
+    image: {
       type: String,
       default: null
     },
-    lead: {
+    height: {
+      type: String,
+      default: '400px'
+    },
+    offsetTop: {
       type: String,
       default: null
+    }
+  },
+  mounted () {
+    if (!this.image) {
+      // this.$refs.intro.style.backgroundColor = '#efefefef'
+      this.$refs.intro.style.backgroundColor = '#fff'
+    } else {
+      this.$refs.intro.style.backgroundImage = `url("${this.image}")`
+      this.$refs.mask.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+    }
+    this.$refs.intro.style.height = this.height
+    if (this.offsetTop) {
+      this.$refs.intro.style.marginTop = this.offsetTop
     }
   }
 }

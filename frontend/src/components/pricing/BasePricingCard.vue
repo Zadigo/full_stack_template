@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-3 col-md-6 mb-4">
+  <article class="col-lg-3 col-md-6 mb-4">
     <div :class="{ 'border border-primary': subscription.highlight }" class="card">
       <div class="card-header bg-white py-3">
         <p class="text-uppercase small mb-2"><strong>{{ subscription.name }}</strong></p>
@@ -17,16 +17,18 @@
       </div>
 
       <div class="card-footer bg-white py-3">
-        <button type="button" :class="{ 'btn-primary': subscription.highlight, 'btn-success': !subscription.highlight }" class="btn btn-sm" @click="finalizeSubscription">
+        <button type="button" :class="{ 'btn-primary': subscription.highlight, 'btn-success': !subscription.highlight }" class="btn btn-sm" @click="finalize">
           Get it
         </button>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'pinia'
+import { useAuthentication } from '@/store/autthentication'
+import { useSubscriptions } from '@/store/subscriptions'
+import { storeToRefs } from 'pinia'
 
 export default {
   name: 'BasePricingCard',
@@ -40,25 +42,20 @@ export default {
       default: true
     }
   },
-
-  computed: {
-    ...mapGetters('authenticationModule', [
-      'isAuthenticated'
-    ]),
-
-    buttonLink() {
-      return this.isAuthenticated ? 'profile_subscriptions' : 'signin'
+  setup () {
+    const store = useAuthentication()
+    const subscriptionModule = useSubscriptions()
+    const { isAuthenticated } = storeToRefs(store)
+    return {
+      subscriptionModule,
+      isAuthenticated
     }
   },
-  
   methods: {
-    ...mapMutations('subscriptionsModule', [
-      'chooseSubscription'
-    ]),
-
-    finalizeSubscription() {
-      this.chooseSubscription({ subscription: this.subscription, isMonthly: this.isMonthly })
-      this.$router.push({ name: this.buttonLink, query: { subscription: this.name, monthly: this.isMonthly } })
+    finalize () {
+      const redirectLink = this.isAuthenticated ? 'profile_subscriptions_view' : 'signin_view'
+      this.subscriptionModule.chooseSubscription({ subscription: this.subscription, isMonthly: this.isMonthly })
+      this.$router.push({ name: redirectLink, query: { subscription: this.name, monthly: this.isMonthly } })
     }
   }
 }

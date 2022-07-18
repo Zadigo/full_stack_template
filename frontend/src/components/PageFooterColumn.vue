@@ -1,11 +1,12 @@
 <template>
   <div class="col-sm-12 col-md-3">
-    <p class="font-weight-bold text-white text-uppercase">
+    <p class="fw-bold text-light text-uppercase">
       {{ section.title }}
     </p>
+
     <ul class="p-0">
       <li v-for="link in section.links" :key="link.id">
-        <router-link :to="{ name: link.path }" :aria-labelledby="link.name" role="link">
+        <router-link :to="{ name: link.path }" :aria-labelledby="link.name" class="text-light" role="link">
           {{ link.name }}  
         </router-link>
       </li>

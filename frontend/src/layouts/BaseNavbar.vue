@@ -1,18 +1,38 @@
 <template>
-  <nav class="navbar navbar-expand-lg d-lg-block" style="z-index: 2000;">
-
+  <nav :class="[scrollY > 20 ? 'bg-dark navbar-light' : 'navbar-dark shadow-none']" class="navbar navbar-expand-lg d-lg-block fixed-top">
     <div class="container">
-      <!-- Navbar brand -->
-      <router-link :to="{ name: 'home' }" class="navbar-brand">
-        <strong>{{ companyDetails.name }}</strong>
+      <!-- Brand -->
+      <router-link :to="{ name: 'home_view' }" class="navbar-brand text-uppercase fw-bold">
+        Some company
       </router-link>
 
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- Toggle -->
+      <button class="navbar-toggler" type="button" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
       </button>
 
+      <!-- Links -->
+
       <div id="navbarExample01" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto my-2 my-lg-0">
+        <div class="ms-auto d-flex align-items-center">
+          <router-link :to="{ name: 'pricing_view' }" type="button" class="btn btn-transparent shadow-none px-3 text-white">
+            Pricing
+          </router-link>
+
+          <button type="button" class="btn btn-transparent shadow-none px-3 text-white">
+            <font-awesome-icon icon="fa-solid fa-user" />
+          </button>
+
+          <button type="button" class="btn btn-transparent shadow-none px-3 me-2 text-white">
+            <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
+          </button>
+
+          <button type="button" class="btn btn-primary text-white">
+            Signup
+          </button>
+        </div>
+      </div>
+      <!-- <ul class="navbar-nav ms-auto my-2 my-lg-0">
           <li v-for="link in links" :key="link.id" class="nav-item">
             <router-link :id="link.name" :to="{ name: link.name }" class="nav-link" role="link">
               {{ link.title }}
@@ -20,107 +40,108 @@
           </li>
 
           <li v-show="isAuthenticated" class="nav-item">
-            <router-link id="profile" :to="{ name: 'profile_overview' }" class="nav-link" role="link">
+            <router-link id="profile" :to="{ name: 'home_view' }" class="nav-link" role="link">
               Profile
             </router-link>
           </li>
 
           <li v-show="!isAuthenticated" class="nav-item">
-            <router-link id="signin" :to="{ name: 'signin' }" class="nav-link" role="link">
-              Signin
+            <router-link id="signin" :to="{ name: 'home_view' }" class="nav-link" role="link">
+              <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
             </router-link>
           </li>
 
           <li v-show="!isAuthenticated" class="nav-item">
-            <router-link id="signup" :to="{ name: 'signup' }" class="nav-link" role="link">
+            <router-link id="signup" :to="{ name: 'home_view' }" class="nav-link" role="link">
               Signup
             </router-link>
           </li>
 
           <li v-show="isAuthenticated" class="nav-item">
-            <a id="logout" href class="nav-link" role="link" @click.prevent="logoutUser">
-              Logout
+            <a id="logout" href class="nav-link" role="link" @click.prevent="logout">
+              <font-awesome-icon icon="fa-solid fa-right-fom-bracket" />
             </a>
           </li>
 
           <li v-show="isAuthenticated && isAdmin" class="nav-item">
-            <router-link id="admin" :to="{ name: 'admin_home' }" class="nav-link" role="link">
+            <router-link id="admin" :to="{ name: 'home_view' }" class="nav-link" role="link">
               Admin
             </router-link>
           </li>
-        </ul>
+        </ul> -->
 
-        <!-- Share -->
-        <ul class="navbar-nav d-flex flex-row">
+      <!-- Share -->
+      <!-- <ul class="navbar-nav d-flex flex-row">
           <li v-for="social in companyDetails.socials" :key="social.id" class="nav-item me-3 me-lg-0">
             <a :href="social.link" class="nav-link" target="_blank" rel="noopener noreferrer nofollow">
               <i :class="social.icon"></i>
             </a>
           </li>
-        </ul>
-      </div>
+        </ul> -->
     </div>
-
   </nav>
 </template>
 
 <script>
-import { useAuthentication } from '@/store/autthentication'
 import { mapActions, storeToRefs } from 'pinia'
+import { useAuthentication } from '@/store/autthentication'
+import { useScroll } from '@vueuse/core'
+
 export default {
   name: 'BaseNavbar',
   setup () {
     const store = useAuthentication()
     const { isAuthenticated, isAdmin } = storeToRefs(store)
+    const target = null
+    const { y } = useScroll(target)
     return {
+      target,
       store,
       isAuthenticated,
-      isAdmin
+      isAdmin,
+      scrollY: y
     }
   },
   data() {
     return {
       links: [
-        { id: 1, name: 'pricing', title: 'Pricing', authentication: false, admin: false }
+        { id: 1, name: 'home_view', title: 'Pricing', authentication: false, admin: false }
       ]
     }
   },
+  mounted () {
+    this.target = window.HTMLBodyElement
+  },
   methods: {
-    ...mapActions(useAuthentication, ['logout']),
+    ...mapActions(useAuthentication, ['logoutUser']),
+    
+    async logout () {
 
-    logoutUser() {
-      // Logs out the user from the
-      // current session
-      this.$api.auth.logout()
-      .then(() => {
-        this.logout()
-        this.$router.push({ name: 'home' })
-      })
-      .catch((error) => {
-        console.error(error)
-      })
     }
+    // logoutUser() {
+    //   // Logs out the user from the
+    //   // current session
+    //   this.$api.auth.logout()
+    //   .then(() => {
+    //     this.logout()
+    //     this.$router.push({ name: 'home_view' })
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //   })
+    // }
   }
 }
 </script>
 
-<style scoped>
-  /* .navbar .nav-link {
-    color: #fff !important;
-  } */
-
+<!-- <style scoped>
   .navbar .nav-flex-icons {
     flex-direction: row;
   }
-  /* .navbar.bg-white .nav-link {
-    color: black !important;
-  } */
 
   .navbar-light .navbar-brand, .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
     color: rgba(0,0,0,.9);
   }
-
-  /* navbar-light bg-light */
 
   .navbar.navbar-dark {
     background-color: transparent;
@@ -151,4 +172,4 @@ export default {
       transition: background 0.5s ease-in-out,padding 0.5s ease-in-out;
     }
   } 
-</style>
+</style> -->

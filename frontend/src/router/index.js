@@ -4,6 +4,21 @@ import { loadView } from '@/utils'
 
 const routes = [
     {
+        path: '/',
+        name: 'home_view',
+        component: loadView('site/HomeView')
+    },
+    {
+        path: '/pricing',
+        name: 'pricing_view',
+        component: loadView('site/PricingView')
+    },
+    {
+        path: '/login',
+        name: 'login_view',
+        component: loadView('site/LoginView')
+    },
+    {
         path: '/506',
         name: 'not_authorized_view',
         component: loadView('site/NotAuthorized')
@@ -11,8 +26,11 @@ const routes = [
     {
         path: '/404',
         name: 'not_found_view',
-        alias: '*',
         component: loadView('site/NotFound')
+    },
+    {
+        path: '/:catchAll(.*)',
+        redirect: '/404'
     }
 ]
 
@@ -20,7 +38,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: routes,
     scrollBehavior () {
-        window.scrollTop(0, 0)
+        window.scrollTo(0, 0)
     }
 })
 
