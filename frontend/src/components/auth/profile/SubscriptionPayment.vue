@@ -2,20 +2,20 @@
   <div class="row">
     <div class="col-sm-12 col-md-12 mt-3">
       <h3 class="py-4">
-        <a href="http://stripe.com/" target="_blank">
+        <a href="http://stripe.com/" target="_blank" rel="noopener noreferrer nofollow">
           <img :src="require('../../../assets/stripe/svg/black.svg')" class="img-fluid" alt="stripe">
         </a>
       </h3>
     </div>
-    
+
     <div class="col-12">
       <base-card>
         <div class="form-group my-3">
           <b-checkbox id="register"><span class="m-3">Register for future payments</span></b-checkbox>
         </div>
 
-        <button @click="requestPayment" class="btn btn-lg btn-block btn-primary">
-          Pay - $0
+        <button type="button" class="btn btn-lg btn-block btn-primary" @click="requestPayment">
+          Pay - {{ price }}
         </button>
 
         <template v-slot:cardFooter>
@@ -44,7 +44,11 @@
 <script>
 export default {
   name: 'SubscriptionPayment',
-  props: ['price'],
+  props: {
+    price: {
+      type: Number
+    }
+  },
   data() {
     return {
       completed: false

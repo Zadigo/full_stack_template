@@ -27,7 +27,7 @@
         nemo aspernatur veniam itaque iusto! Excepturi laudantium commodi cupiditate,
         delectus repudiandae suscipit, quis quidem odio nostrum rem nam?
 
-        <button class="btn btn-sm btn-danger">Delete subscription</button>
+        <button type="button" class="btn btn-sm btn-danger">Delete subscription</button>
       </b-card-body>
     </b-card>
 
@@ -40,22 +40,27 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-
+import { useSubscriptions } from '@/store/subscriptions'
 export default {
-  name: 'Subscriptions',
+  name: 'SubscriptionsIterator',
+  setup () {
+    const store = useSubscriptions()
+    return {
+      store
+    }
+  },
   computed: {
-    ...mapGetters('subscriptionsModule', [
-      'hasSubscription', 'hasSelectedSubscription'
-    ]),
+    // ...mapGetters('subscriptionsModule', [
+    //   'hasSubscription', 'hasSelectedSubscription'
+    // ]),
 
-    ...mapState('subscriptionsModule', [
-      'selectedSubscription'
-    ]),
+    // ...mapState('subscriptionsModule', [
+    //   'selectedSubscription'
+    // ]),
 
     subscriptionPrice() {
       if (this.hasSelectedSubscription) {
-        let { monthly, yearly } = this.selectedSubscription.subscription.prices
+        const { monthly, yearly } = this.selectedSubscription.subscription.prices
         return this.selectedSubscription.isMonthly ? monthly : yearly
       } else {
         return 0

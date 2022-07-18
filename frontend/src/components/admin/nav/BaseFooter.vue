@@ -14,7 +14,7 @@
     <hr class="my-4">
 
     <div class="pb-4">
-      <a v-for="social in socials" :key="social.id" :href="social.href" :id="social.id|createAnalaticsId" target="_blank" role="link">
+      <a v-for="social in socials" :id="social.id" :key="social.id" :href="social.href" target="_blank" rel="nooponer noreferrer nofollow" role="link">
         <i :class="social.icon" class="mr-3"></i>
       </a>
     </div>
@@ -28,7 +28,7 @@
 <script>
   // var DateJs = require('datejs')
   export default {
-    name: 'AdminFooter',
+    name: 'BaseFooter',
     // props: {
     //   copyright: {
     //     type: String,
@@ -44,11 +44,6 @@
         currentYear: 2021,
         copyright: 'Something',
         socials: []
-      }
-    },
-    filters: {
-      createAnalaticsId(value) {
-        return `link_${value}`
       }
     }
   }

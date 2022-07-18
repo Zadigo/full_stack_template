@@ -5,23 +5,23 @@
     <base-card v-if="payments.length===0 && !addNew" class="text-center">
       <h2 class="mb-4">You have no payments</h2>
       <img src="../../../assets/hello.svg" alt="payments" class="img-fluid">
-      <button @click="addNew=true" class="btn btn-primary btn-lg m-0 mt-4">Add new</button>
+      <button type="button" class="btn btn-primary btn-lg m-0 mt-4" @click="addNew=true">Add new</button>
     </base-card>
-    
+
     <!-- Create -->
-    <base-validation-card @validateAction="createNewCard" v-else-if="addNew">
-      <fields-iterator @startAction="registerChange" :formFields="fields" />
+    <base-validation-card v-else-if="addNew" @validateAction="createNewCard">
+      <fields-iterator :form-fields="fields" @start-action="registerChange" />
     </base-validation-card>
-    
+
     <!-- Payments -->
     <div v-else class="row">
       <div class="col-12">
         <base-card v-for="(payment, index) in payments" :key="payment.id" :class="{ 'mt-2': index >= 1 }">
           {{ payment.id }}
-          
+
           <div class="row">
             <div class="col">
-              <button @click="deleteCreditCard(payment.id)" class="btn btn btn-light">
+              <button type="button" class="btn btn btn-light" @click="deleteCreditCard(payment.id)">
                 <i class="fa fa-trash mr-2"></i>
               </button>
             </div>
@@ -29,22 +29,23 @@
         </base-card>
 
         <base-card class="text-center mt-2">
-          <button @click="addNew=true" class="btn btn-lg btn-primary">New card</button>
+          <button type="button" class="btn btn-lg btn-primary" @click="addNew=true">New card</button>
         </base-card>
       </div>
     </div>
-    
+
   </section>
 </template>
 
 <script>
-import BaseValidationCard from './BaseValidationCard.vue'
+import { mapState } from 'pinia'
+import { useAuthentication } from '@/store/autthentication'
 
-import { mapState } from 'vuex'
+import BaseValidationCard from './BaseValidationCard.vue'
 import FieldsIterator from '../../FieldsIterator.vue'
 
 export default {
-  name: 'Payment',
+  name: 'PaymentsSection',
   components: { BaseValidationCard, FieldsIterator },
   
   title () {
@@ -66,8 +67,10 @@ export default {
   },
   
   computed: {
-    ...mapState('profileModule', {
-      payments: (state) => { return state.userDetails.payments }
+    ...mapState(useAuthentication, {
+      payments: (state) => {
+        return state.userDetails.payments
+      }
     }),
 
     // fields() {
