@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import PageHeader from './nav/PageHeader.vue'
+import PageHeader from '@/components/admin/nav/PageHeader.vue'
 
 export default {
   name: 'IndexView',

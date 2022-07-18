@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import ContactCard from '@/components/contact/Card.vue'
+import ContactCard from '@/components/contact/BaseCard.vue'
 
 export default {
   name: 'ContactView',

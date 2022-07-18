@@ -35,7 +35,7 @@
 
 <script>
 import BasePricingCard from '@/components/pricing/BasePricingCard.vue'
-import SubscriptionsData from '../data/subscriptions.json'
+import SubscriptionsData from '@/data/subscriptions.json'
 
 export default {
   name: 'PricingView',

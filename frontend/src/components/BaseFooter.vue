@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import PageFooterData from '../data/PageFooter.json'
+import footer from '../data/footer.json'
 import PageFooterColumn from './PageFooterColumn.vue'
 
 export default {
@@ -84,7 +84,7 @@ export default {
         type: 'alert-success',
         message: null 
       },
-      sections: PageFooterData
+      sections: footer
     }
   },
 

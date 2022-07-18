@@ -74,7 +74,7 @@
 <script>
 import _ from 'lodash'
 
-import PageHeader from './nav/PageHeader.vue'
+import PageHeader from '@/components/admin/nav/PageHeader.vue'
 
 export default {
   name: 'ProductsSection',

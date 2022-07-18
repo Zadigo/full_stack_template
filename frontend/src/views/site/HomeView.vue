@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import Boxes from '@/components/hero/sections/Boxes.vue'
-import Testimonials from '@/components/hero/sections/Testimonials.vue'
-import CTA from '../components/hero/sections/CTA.vue'
+import Boxes from '@/components/hero/sections/BoxesSection.vue'
+import Testimonials from '@/components/hero/sections/TestimonialsIterator.vue'
+import CTA from '@/components/hero/sections/CTASection.vue'
 
-import companies from '../data/companies.json'
+import companies from '@/data/companies.json'
 
 export default {
   name: 'HomeView',

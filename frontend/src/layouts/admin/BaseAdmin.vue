@@ -1,6 +1,6 @@
 <template>
   <section id="dashboard" style="z-index:150;">
-    <top-header />
+    <base-header />
     
     <main style="margin-top:58px;">
       <div class="container pt-4">
@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import TopHeader from '@/components/dashboard/TopHeader.vue'
+import BaseHeader from '@/components/admin/nav/BaseHeader.vue'
 export default {
   name: 'DashboardSite',
   components: {
-    TopHeader
+    BaseHeader
   }
 }
 </script>
 
 <style>
-@import url('@/assets/dashboard.css');
+/* @import url('@/assets/admin.css'); */
 </style>
