@@ -1,5 +1,5 @@
 <template>
-  <section class="section mb-4" id="press">
+  <section id="press" class="section mb-4">
     <!-- Jumbotron -->
     <header>
       <div id="intro" class="p-5 text-center bg-light">
@@ -77,7 +77,7 @@
       </div>
 
       <!-- Jobs -->
-      <div class="row mt-5 mb-3" id="jobs">
+      <div id="jobs" class="row mt-5 mb-3">
         <div class="col-12">
           <h2 class="font-weight-bold mb-4">Job Openings</h2>
 

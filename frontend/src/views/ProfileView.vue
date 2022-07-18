@@ -32,14 +32,17 @@ var _ = require('lodash')
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Profile',
-
+  name: 'ProfileView',
   data() {
     return {
       sideBarLinks: []
     }
   },
-  
+  computed: {
+    ...mapState('profileModule', [
+      'hasUserDetails'
+    ])
+  },
   beforeMount() {
     // Gather all the links related to the user profile dynamically
     var routesForProfile = _.find(this.$router.options.routes, ['path', '/profile'])
@@ -47,23 +50,21 @@ export default {
       this.sideBarLinks.push({ id: index, link: route.name, name: route.meta.verboseName })
     })
   },
-  
-  mounted() {
-    if (!this.hasUserDetails) {
-      this.$api.profile.getUserDetails()
-      .then((response) => {
-        this.$store.commit('profileModule/updateUserDetails', response.data)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-    }
+  mounted () {
+    this.getUserProfile()
   },
-
-  computed: {
-    ...mapState('profileModule', [
-      'hasUserDetails'
-    ])
+  methods: {
+    async getUserProfile () {
+      if (!this.hasUserDetails) {
+        this.$api.profile.getUserDetails()
+        .then((response) => {
+          this.$store.commit('profileModule/updateUserDetails', response.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      }
+    }
   }
 }
 </script>

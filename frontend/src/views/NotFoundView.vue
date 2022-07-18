@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  name: 'NotFoundView',
   beforeRouteLeave (to, from, next) {
     console.log(to)
     next()

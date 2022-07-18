@@ -18,6 +18,7 @@
 
 <script>
 export default {
+  name: 'LegalView',
   data() {
     return {
       items: [

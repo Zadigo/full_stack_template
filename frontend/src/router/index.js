@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { loadView } from '@/utils'
 
 const routes = [
     {

@@ -1,11 +1,11 @@
 <template>
   <div class="col-lg-3 col-md-6 mb-4">
-    <div :class="{ 'border border-primary':  subscription.highlight }" class="card">
+    <div :class="{ 'border border-primary': subscription.highlight }" class="card">
       <div class="card-header bg-white py-3">
         <p class="text-uppercase small mb-2"><strong>{{ subscription.name }}</strong></p>
-        
-        <h5 v-if="isMonthly" class="mb-0">{{ subscription.prices.monthly|currency }}/month</h5>
-        <h5 v-else class="mb-0">{{ subscription.prices.yearly|currency }}/year</h5>
+
+        <h5 v-if="isMonthly" class="mb-0">{{ subscription.prices.monthly }}/month</h5>
+        <h5 v-else class="mb-0">{{ subscription.prices.yearly }}/year</h5>
       </div>
 
       <div class="card-body">
@@ -17,7 +17,7 @@
       </div>
 
       <div class="card-footer bg-white py-3">
-        <button @click="finalizeSubscription" type="button" :class="{ 'btn-primary': subscription.highlight, 'btn-success': !subscription.highlight }" class="btn btn-sm">
+        <button type="button" :class="{ 'btn-primary': subscription.highlight, 'btn-success': !subscription.highlight }" class="btn btn-sm" @click="finalizeSubscription">
           Get it
         </button>
       </div>

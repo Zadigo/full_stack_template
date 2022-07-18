@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: 'NotAuthorizedView',
   beforeRouteLeave (to, from, next) {
     console.log(to)
     next()

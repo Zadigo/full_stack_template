@@ -1,15 +1,15 @@
 <template>
-  <section class="mt-4 pt-4" id="payment">
+  <section id="payment" class="mt-4 pt-4">
     <div class="container">
       <div class="row">
         <div class="col-sm-12 col-md-4 offset-md-3">
           <h3 class="py-4">
-            <a href="http://stripe.com/" target="_blank">
+            <a href="http://stripe.com/" target="_blank" rel="noopener noreferrer">
               <img :src="require('@/assets/stripe/svg/black.svg')" class="img-fluid" alt="stripe">
             </a>
           </h3>
         </div>
-        
+
         <div class="col-sm-12 col-md-4 offset-md-3">
           <b-card>
             <b-card-body>
@@ -17,7 +17,7 @@
                 <b-checkbox id="register"><span class="m-3">Register for future payments</span></b-checkbox>
               </div>
 
-              <button @click="requestPayment" class="btn btn-lg btn-block btn-primary">
+              <button type="button" class="btn btn-lg btn-block btn-primary" @click="requestPayment">
                 Pay - $0
               </button>
             </b-card-body>
@@ -40,11 +40,11 @@
         <div class="col-3">
           <b-card>
             <b-card-text>
-              Lorem ipsum dolor sit amet consectetur 
-              adipisicing elit. Architecto nobis tempore 
-              qui excepturi necessitatibus maiores ducimus 
-              nostrum, sequi similique illo, ipsa dolorum 
-              voluptas, amet a libero commodi impedit iste 
+              Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Architecto nobis tempore
+              qui excepturi necessitatibus maiores ducimus
+              nostrum, sequi similique illo, ipsa dolorum
+              voluptas, amet a libero commodi impedit iste
               inventore?
             </b-card-text>
           </b-card>
@@ -62,12 +62,12 @@
 
 <script>
 export default {
+  name: 'PaymentView',
   data() {
     return {
       completed: false
     }
   },
-  
   methods: {
     requestPayment() {
       this.$router.push({ name: 'home' })

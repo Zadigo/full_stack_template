@@ -9,8 +9,8 @@
             <p class="mb-4">More than 3 million people rely on {{ companyDetails.name }} to take care of their tedious tasks.</p>
           </div>
 
-          <template v-for="(testimonial, index) in testimonials">
-            <div :class="{ 'mt-2': index >= 2 }" :key="index" class="col-sm-12 col-md-6">
+          <template v-for="(testimonial, index) in testimonials" :key="index">
+            <div :class="{ 'mt-2': index >= 2 }" class="col-sm-12 col-md-6">
               <b-card>
                 <b-card-text>
                   {{ testimonial.content }}
@@ -37,7 +37,7 @@
 import testimonials from '../../../data/testimonials.json'
 
 export default {
-  name: 'Testimonials',
+  name: 'TestimonialsIterator',
   data () {
     return {
       testimonials: testimonials

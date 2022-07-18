@@ -1,5 +1,5 @@
 <template>
-  <base-jumbotron pageTitle="What about us" pageDescription="This is our story and you will hear it!">
+  <base-jumbotron page-title="What about us" page-description="This is our story and you will hear it!">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -45,6 +45,6 @@
 
 <script>
 export default {
-  name: 'AboutUs'
+  name: 'AboutUsView'
 }
 </script>

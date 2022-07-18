@@ -26,13 +26,11 @@
 // import Footer from '@/components/admin/nav/Footer.vue'
 
 export default {
-  name: 'Admin',
-  
+  name: 'AdminView',
   components: {
     // Header,
     // Footer
   },
-
   data() {
     return {
       socials: [

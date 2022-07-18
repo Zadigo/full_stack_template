@@ -9,13 +9,13 @@
 
         <img v-if="!hasSelectedSubscription" src="../../../assets/hello.svg" alt="payments" class="img-fluid">
         <img v-else src="../../../assets/payment.svg" alt="payments" class="img-fluid">
-        
-        <router-link :to="{ name: 'pricing'}" v-if="!hasSelectedSubscription" class="btn btn-primary btn-lg m-0 mt-4" role="link">
+
+        <router-link v-if="!hasSelectedSubscription" :to="{ name: 'pricing'}" class="btn btn-primary btn-lg m-0 mt-4" role="link">
           Add new
         </router-link>
 
-        <button @click="proceedToPayment" v-else class="btn btn-primary btn-lg m-0 mt-4" role="button">
-          Proceed to payment - {{ subscriptionPrice|currency }}
+        <button v-else type="button" class="btn btn-primary btn-lg m-0 mt-4" @click="proceedToPayment">
+          Proceed to payment - {{ subscriptionPrice }}
         </button>
       </b-card-body>
     </b-card>
@@ -23,19 +23,19 @@
     <!-- Active subscriptions -->
     <b-card v-else>
       <b-card-body>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sed, aliquid debitis 
-        nemo aspernatur veniam itaque iusto! Excepturi laudantium commodi cupiditate, 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sed, aliquid debitis
+        nemo aspernatur veniam itaque iusto! Excepturi laudantium commodi cupiditate,
         delectus repudiandae suscipit, quis quidem odio nostrum rem nam?
-        
+
         <button class="btn btn-sm btn-danger">Delete subscription</button>
       </b-card-body>
     </b-card>
 
-      <!-- Stripe -->
-    <transition name="general"> 
+    <!-- Stripe -->
+    <transition name="general">
       <router-view :price="subscriptionPrice" name="content"></router-view>
     </transition>
-    
+
   </section>
 </template>
 

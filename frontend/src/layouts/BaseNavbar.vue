@@ -11,40 +11,40 @@
         <i class="fas fa-bars"></i>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarExample01">
+      <div id="navbarExample01" class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto my-2 my-lg-0">
           <li v-for="link in links" :key="link.id" class="nav-item">
-            <router-link :to="{ name: link.name }" :id="link.name" class="nav-link" role="link">
+            <router-link :id="link.name" :to="{ name: link.name }" class="nav-link" role="link">
               {{ link.title }}
             </router-link>
           </li>
 
           <li v-show="isAuthenticated" class="nav-item">
-            <router-link :to="{ name: 'profile_overview' }" id="profile" class="nav-link" role="link">
+            <router-link id="profile" :to="{ name: 'profile_overview' }" class="nav-link" role="link">
               Profile
             </router-link>
           </li>
 
           <li v-show="!isAuthenticated" class="nav-item">
-            <router-link :to="{ name: 'signin' }" id="signin" class="nav-link" role="link">
+            <router-link id="signin" :to="{ name: 'signin' }" class="nav-link" role="link">
               Signin
             </router-link>
           </li>
-          
+
           <li v-show="!isAuthenticated" class="nav-item">
-            <router-link :to="{ name: 'signup' }" id="signup" class="nav-link" role="link">
+            <router-link id="signup" :to="{ name: 'signup' }" class="nav-link" role="link">
               Signup
             </router-link>
           </li>
 
           <li v-show="isAuthenticated" class="nav-item">
-            <a @click.prevent="logoutUser" id="logout" class="nav-link" role="link">
+            <a id="logout" href class="nav-link" role="link" @click.prevent="logoutUser">
               Logout
             </a>
           </li>
-          
+
           <li v-show="isAuthenticated && isAdmin" class="nav-item">
-            <router-link :to="{ name: 'admin_home' }" id='admin' class="nav-link" role="link">
+            <router-link id="admin" :to="{ name: 'admin_home' }" class="nav-link" role="link">
               Admin
             </router-link>
           </li>
@@ -53,22 +53,31 @@
         <!-- Share -->
         <ul class="navbar-nav d-flex flex-row">
           <li v-for="social in companyDetails.socials" :key="social.id" class="nav-item me-3 me-lg-0">
-            <a :href="social.link" class="nav-link" rel="nofollow" target="_blank">
+            <a :href="social.link" class="nav-link" target="_blank" rel="noopener noreferrer nofollow">
               <i :class="social.icon"></i>
             </a>
           </li>
         </ul>
       </div>
     </div>
-    
+
   </nav>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { useAuthentication } from '@/store/autthentication'
+import { mapActions, storeToRefs } from 'pinia'
 export default {
-  name: 'Navbar',
-
+  name: 'BaseNavbar',
+  setup () {
+    const store = useAuthentication()
+    const { isAuthenticated, isAdmin } = storeToRefs(store)
+    return {
+      store,
+      isAuthenticated,
+      isAdmin
+    }
+  },
   data() {
     return {
       links: [
@@ -76,17 +85,8 @@ export default {
       ]
     }
   },
-
-  computed: {
-    ...mapGetters('authenticationModule', [
-      'isAuthenticated', 'isAdmin'
-    ])
-  },
-  
   methods: {
-    ...mapActions('authenticationModule', [
-      'logout'
-    ]),
+    ...mapActions(useAuthentication, ['logout']),
 
     logoutUser() {
       // Logs out the user from the

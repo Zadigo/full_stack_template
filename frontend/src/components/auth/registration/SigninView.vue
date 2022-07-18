@@ -27,7 +27,7 @@ import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Signin',
+  name: 'SigninView',
   title () {
     return 'Signin'
   },

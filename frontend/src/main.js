@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import App from './App.vue'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -8,7 +8,7 @@ import './plugins/fontawesome'
 import router from './router'
 
 import NavItemVue from './components/nav/NavItem.vue'
-import { loadFonts } from './plugins'
+import { loadFonts, useMessagesPlugin } from './plugins'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createLocalStorage, createVueSession } from './plugins/vue-storages'
 import { createPinia } from 'pinia'
@@ -23,15 +23,22 @@ const session = createVueSession()
 const localstorage = createLocalStorage()
 const pinia = createPinia()
 
+pinia.use(useMessagesPlugin)
+
+pinia.use((store) => {
+  store.sessionStorage = markRaw(session)
+  store.localstorage = markRaw(localstorage)
+})
+
 // const analytics = createGoogleAnalytics('some-tag', {
 //   currency: 1
 // })
 console.log('test', session.retrieve(1))
 app.use(router)
-app.use(session)
-app.use(pinia)
 // app.use(analytics)
+app.use(session)
 app.use(localstorage)
+app.use(pinia)
 app.component('NavItemVue', NavItemVue)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')

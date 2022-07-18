@@ -1,9 +1,8 @@
 <template>
-  <base-registration-layout @startAuthentication="sendRequest" :buttonName="'Send me a password reset email'">
-    
+  <base-registration-layout :button-name="'Send me a password reset email'" @startAuthentication="sendRequest">
     <div class="form-group">
       <label class="font-weight-bold" for="email">Email</label>
-      <input v-model="email" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email">
+      <input id="email" v-model="email" type="email" class="form-control" autocomplete="email" placeholder="Email">
     </div>
 
     <template v-slot:registrationTexts>
@@ -11,7 +10,6 @@
         Actually, I remember my password <router-link :to="{ name: 'signin' }" class="font-weight-bold">Login here</router-link>
       </p>
     </template>
-  
   </base-registration-layout>
 </template>
 
@@ -21,20 +19,13 @@ import { isNull } from 'lodash'
 import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
 
 export default {
-  name: 'ForgotPassword',
+  name: 'ForgotPasswordView',
   title () {
     return 'Forgot password'
   },
   components: {
     BaseRegistrationLayout
   },
-  
-  data () {
-    return {
-      email: null
-    }
-  },
-  
   beforeRouteEnter (to, from, next) {
     // If the user is authenticated then return the
     // page on the profile where an authenticated user
@@ -47,13 +38,16 @@ export default {
       }
     })
   },
-  
+  data () {
+    return {
+      email: null
+    }
+  },
   computed: {
     hasEmail () {
       return isNull(this.email)
     }
   },
-  
   methods: {
     sendRequest () {
       this.$api.auth.forgotPassword(this.email)

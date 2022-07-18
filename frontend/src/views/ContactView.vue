@@ -1,5 +1,5 @@
 <template>
-  <base-jumbotron :pageTitle="pageTitle" :pageDescription="pageDescription" sectionId="contact">
+  <base-jumbotron :page-title="pageTitle" :page-description="pageDescription" section-id="contact">
     <div class="container">
       <!-- Contact-1 -->
       <div class="row mt-4">
@@ -34,19 +34,19 @@
       <div class="row mt-4 d-none">
         <div class="col-3">
           <contact-card title="Contact a specialist" content="Wondering if Unbounce is the right 
-          tool for your business? Chat with our team to see if there’s a fit." buttonTitle="Let's chat" />
+          tool for your business? Chat with our team to see if there’s a fit." button-title="Let's chat" />
         </div>
         <div class="col-3">
           <contact-card title="Get support" content="Wondering if Unbounce is the right 
-          tool for your business? Chat with our team to see if there’s a fit." buttonTitle="Get support" />
+          tool for your business? Chat with our team to see if there’s a fit." button-title="Get support" />
         </div>
         <div class="col-3">
           <contact-card title="Media inquiries" content="Wondering if Unbounce is the right 
-          tool for your business? Chat with our team to see if there’s a fit." buttonTitle="Get in touch" />
+          tool for your business? Chat with our team to see if there’s a fit." button-title="Get in touch" />
         </div>
         <div class="col-3">
           <contact-card title="Partnership inquiries" content="Wondering if Unbounce is the right 
-          tool for your business? Chat with our team to see if there’s a fit." buttonTitle="Let's chat" />
+          tool for your business? Chat with our team to see if there’s a fit." button-title="Let's chat" />
         </div>
       </div>
 
@@ -59,7 +59,7 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="firstname" placeholder="Firstname">
+                  <input id="firstname" type="text" class="form-control" placeholder="Firstname">
                 </div>
               </div>
             </div>
@@ -76,22 +76,21 @@
 </template>
 
 <script>
-import Card from '@/components/contact/Card.vue'
+import ContactCard from '@/components/contact/Card.vue'
 
 export default {
-  name: 'ContactUs',
-  components: { 'contact-card': Card },
-
+  name: 'ContactView',
+  components: {
+    ContactCard
+  },
   title() {
     return 'Contact our friendly support'
   },
-
   data() {
     return {
       pageTitle: "We've got you covered",
     }
   },
-
   computed: {
     pageDescription() {
       return `Need a hand getting started or getting the most out of ${this.companyDetails.name}?`

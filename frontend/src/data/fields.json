@@ -1,0 +1,140 @@
+{
+    "authentication": {
+        "signup": [
+            {
+                "id": 1,
+                "name": "email",
+                "type": "email",
+                "autocomplete": "email",
+                "placeholder": "Email",
+                "label": "Email"
+            },
+            {
+                "id": 2,
+                "name": "username",
+                "type": "text",
+                "autocomplete": "username",
+                "placeholder": "User name",
+                "label": "User name"
+            },
+            {
+                "id": 3,
+                "name": "first_name",
+                "type": "text",
+                "autocomplete": "given-name",
+                "placeholder": "First name",
+                "label": "First name"
+            },
+            {
+                "id": 4,
+                "name": "last_name",
+                "type": "text",
+                "autocomplete": "family-name",
+                "placeholder": "Last name",
+                "label": "Last name"
+            },
+            {
+                "id": 5,
+                "name": "password1",
+                "type": "password",
+                "autocomplete": "new-password",
+                "placeholder": "Password",
+                "label": "Password"
+            },
+            {
+                "id": 6,
+                "name": "password2",
+                "type": "password",
+                "autocomplete": "new-password",
+                "placeholder": "Confirm password",
+                "label": null
+            }
+        ],
+        "signin": [
+            {
+                "id": 1,
+                "name": "email",
+                "type": "email",
+                "autocomplete": "email",
+                "placeholder": "Email",
+                "label": "Email",
+                "aria": "Email"
+            },
+            {
+                "id": 2,
+                "name": "password",
+                "type": "password",
+                "autocomplete": "current-password",
+                "placeholder": "Password",
+                "label": "Password",
+                "aria": "Password"
+            }
+        ]
+    },
+    "payment": [
+        {
+            "name": "number",
+            "type": "text",
+            "autocomplete": "cc-number",
+            "placeholder": "Card number",
+            "label": "Card number",
+            "required": true
+        },
+        {
+            "name": "number",
+            "type": "text",
+            "autocomplete": "expiry-month",
+            "placeholder": "MM",
+            "label": "Expiry month",
+            "required": true
+        },
+        {
+            "name": "year",
+            "type": "text",
+            "autocomplete": "expiry-year",
+            "placeholder": "YY",
+            "label": "Expiry year",
+            "required": true
+        },
+        {
+            "name": "cvv",
+            "type": "password",
+            "autocomplete": "cc-csc",
+            "placeholder": "CVV",
+            "label": "Card secret code",
+            "required": true
+        }
+    ],
+    "userDetails": [
+        {
+            "type": "text",
+            "name": "firstname",
+            "placeholder": "Firstname",
+            "label": "Firstname",
+            "autocomplete": "given-name",
+            "value": null,
+            "prefilled": true
+        },
+        {
+            "type": "text",
+            "name": "lastname",
+            "placeholder": "Lastname",
+            "label": "Lastname",
+            "autocomplete": "family-name",
+            "value": null,
+            "prefilled": true
+        },
+        {
+            "type": "email", 
+            "name": "email", 
+            "placeholder": "Email", 
+            "label": "Email", 
+            "autocomplete": "email",
+            "value": null, 
+            "prefilled": true
+        }
+    ],
+    "contact": [
+        
+    ]
+}

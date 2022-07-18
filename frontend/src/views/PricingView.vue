@@ -1,35 +1,35 @@
 <template>
-  <base-jumbotron :pageDescription="pageDescription" :pageTitle="pageTitle" sectionId="prices">
+  <base-jumbotron :page-description="pageDescription" :page-title="pageTitle" section-id="prices">
 
-     <!-- Prices -->
+    <!-- Prices -->
     <div class="container">
-      <section class="text-center" id="prices">
+      <section id="prices" class="text-center">
         <div class="btn-group mt-4 mb-4" role="group" aria-label="Choose billing type">
-          <button @click="isMonthly=true" :class="{ 'active': isMonthly }" type="button" class="btn btn-primary ripple-surface" style="min-width: 150px;">
+          <button :class="{ 'active': isMonthly }" type="button" class="btn btn-primary ripple-surface" style="min-width: 150px;" @click="isMonthly=true">
             Monthly billing
           </button>
 
-          <button @click="isMonthly=false" :class="{ 'active': !isMonthly }" type="button" class="btn btn-primary ripple-surface" style="min-width: 232px;">
+          <button :class="{ 'active': !isMonthly }" type="button" class="btn btn-primary ripple-surface" style="min-width: 232px;" @click="isMonthly=false">
             Annual billing <small>(2 months FREE)</small>
           </button>
         </div>
 
         <div class="row gx-lg-5">
-          <base-pricing-card v-for="subscription in subscriptions" :key="subscription.id" :subscription="subscription" :isMonthly="isMonthly" />
+          <base-pricing-card v-for="subscription in subscriptions" :key="subscription.id" :subscription="subscription" :is-monthly="isMonthly" />
         </div>
       </section>
 
       <hr class="my-4">
 
       <!-- FAQ -->
-      <section class="mb-4" id="faq">
+      <section id="faq" class="mb-4">
         <div class="row">
           <!-- FAQ -->
           <base-small-faq />
         </div>
       </section>
     </div>
-    
+
   </base-jumbotron>
 </template>
 
@@ -38,17 +38,14 @@ import BasePricingCard from '@/components/pricing/BasePricingCard.vue'
 import SubscriptionsData from '../data/subscriptions.json'
 
 export default {
-  name: 'Pricing',
-  
+  name: 'PricingView',
   title () {
     return 'Pricing'
   },
-
   components: {
     BasePricingCard
   },
-
-  data() {
+  data () {
     return {
       subscriptions: SubscriptionsData,
       isMonthly: true,
