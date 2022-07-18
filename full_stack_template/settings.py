@@ -4,7 +4,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-FRONTEND_DIR = Path.joinpath(BASE_DIR, 'frontend')
+FRONTEND_DIR = BASE_DIR / 'frontend'
 
 
 # Quick-start development settings - unsuitable for production
@@ -55,7 +55,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            Path.joinpath(FRONTEND_DIR, 'dist')
+            FRONTEND_DIR / 'dist'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,15 +131,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = Path.joinpath(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'static'
 
 STATICFILES_DIRS = [
-    Path.joinpath(FRONTEND_DIR, 'dist/static')
+    BASE_DIR  / 'staticfiles'
 ]
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # CORS

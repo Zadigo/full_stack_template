@@ -1,75 +1,37 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 
-// Router / Store
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'mdb-ui-kit/css/mdb.min.css'
+import '@mdi/font/css/materialdesignicons.css'
+import './plugins/fontawesome'
 import router from './router'
-import store from './stores'
 
-// CSS
-require('buefy/dist/buefy.css')
-require('../node_modules/bootstrap/dist/css/bootstrap.css')
-require('./assets/style.css')
-require('./assets/admin.css')
-
-// Font awesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash, faPen, faCheck, faStar } from '@fortawesome/free-solid-svg-icons'
+import NavItemVue from './components/nav/NavItem.vue'
+import { loadFonts } from './plugins'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { createLocalStorage, createVueSession } from './plugins/vue-storages'
+import { createPinia } from 'pinia'
+// import {  functions } from './plugins/vue-analytics/google'
+// import { createGoogleAnalytics } from './plugins/vue-analytics/google'
+// console.log(functions)
+loadFonts()
 
-// Global components
-import FieldsIterator from './components/FieldsIterator.vue'
-import BasePrivacyText from './components/BasePrivacyText.vue'
-import BaseSecondaryCTA from './components/BaseSecondaryCTA.vue'
+const app = createApp(App)
 
-import BaseSmallFAQ from './components/layouts/BaseSmallFAQ.vue'
-import BaseJumbotron from './components/layouts/BaseJumbotron.vue'
-import BaseCard from './components/layouts/BaseCard.vue'
-import BaseHero from './components/BaseHero.vue'
+const session = createVueSession()
+const localstorage = createLocalStorage()
+const pinia = createPinia()
 
-// Mixins
-import globalMixin from './mixins'
-import formMixin from './mixins/form'
-
-// Plugins
-import Stripe from './plugins/stripe'
-import Api from './plugins/api'
-// import vuetify from './plugins/vuetify'
-import BootstrapVue from 'bootstrap-vue'
-import Buefy from 'buefy'
-
-// Font awesome
-library.add(faTrash)
-library.add(faPen)
-library.add(faCheck)
-library.add(faStar)
-
-// Mixins
-Vue.mixin(globalMixin)
-Vue.mixin(formMixin)
-
-// Plugins
-Vue.use(Api)
-Vue.use(BootstrapVue)
-Vue.use(Stripe)
-Vue.use(Buefy)
-// Vue.use(Analytics)
-
-// Components
-Vue.component('fields-iterator', FieldsIterator)
-Vue.component('base-privacy-text', BasePrivacyText)
-Vue.component('base-secondary-cta', BaseSecondaryCTA)
-Vue.component('base-small-faq', BaseSmallFAQ)
-Vue.component('base-jumbotron', BaseJumbotron)
-Vue.component('base-card', BaseCard)
-Vue.component('base-hero', BaseHero)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  store,
-  // vuetify,
-  
-  render: h => h(App),
-}).$mount('#app')
+// const analytics = createGoogleAnalytics('some-tag', {
+//   currency: 1
+// })
+console.log('test', session.retrieve(1))
+app.use(router)
+app.use(session)
+app.use(pinia)
+// app.use(analytics)
+app.use(localstorage)
+app.component('NavItemVue', NavItemVue)
+app.component('FontAwesomeIcon', FontAwesomeIcon)
+app.mount('#app')

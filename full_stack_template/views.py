@@ -5,5 +5,6 @@ from django.views.decorators.cache import cache_control
 def index(request):
     return render(request, template_name='index.html', context={})
 
+
 def redirect_view(request):
     return redirect('/')

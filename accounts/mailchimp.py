@@ -1,4 +1,5 @@
 from typing import Union
+
 # import mailchimp
 import mailchimp_marketing as MailchimMpMarketing
 from django.conf import settings
@@ -22,7 +23,8 @@ class Members(Base):
         return self.client.lists.add_list_member()
 
     def associate(self, list_id: Union[int, str], email: str, status: str, **kwargs):
-        authorized_status = ['subscribed', 'unsubscribed', 'cleaned', 'pending']
+        authorized_status = ['subscribed',
+                             'unsubscribed', 'cleaned', 'pending']
         if status not in authorized_status:
             raise Exception(f'Status is not valid')
         attrs = {'email': email, 'status': status}
