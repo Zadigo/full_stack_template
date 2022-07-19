@@ -1,5 +1,5 @@
 <template>
-  <footer class="page-footer fw-small">
+  <footer class="page-footer">
     <div class="container p-4">
       <div class="row">
         <page-footer-column v-for="section in sections" :key="section.id" :section="section" />

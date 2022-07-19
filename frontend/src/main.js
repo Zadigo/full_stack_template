@@ -12,7 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createLocalStorage, createVueSession } from './plugins/vue-storages'
 import { createPinia } from 'pinia'
 import router from './router'
+import i18n from './i18n'
 import messagesPlugin from '@/store/messages'
+import { createAxios } from './plugins/axios'
 // import {  functions } from './plugins/vue-analytics/google'
 // import { createGoogleAnalytics } from './plugins/vue-analytics/google'
 // console.log(functions)
@@ -41,6 +43,8 @@ app.use(router)
 app.use(session)
 app.use(localstorage)
 app.use(pinia)
+app.use(i18n)
+app.use(createAxios())
 // app.component('NavItemVue', NavItemVue)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')

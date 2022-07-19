@@ -20,3 +20,9 @@
     </div>
   </base-jumbotron>
 </template>
+
+<script>
+export default {
+  name: 'PressView'
+}
+</script>

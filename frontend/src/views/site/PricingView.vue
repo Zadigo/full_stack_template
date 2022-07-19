@@ -2,12 +2,14 @@
   <base-site-vue>
     <template #default>
       <base-intro-vue class="border-bottom mb-4" height="50vh">
-        <div class="py-5 my-5 text-center">
-          <h1 class="display-5 fw-bold">Centered hero</h1>
-          <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+        <template #default>
+          <div class="py-5 my-5 text-center">
+            <h1 class="display-5 fw-bold">Centered hero</h1>
+            <div class="col-lg-6 mx-auto">
+              <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+            </div>
           </div>
-        </div>
+        </template>
       </base-intro-vue>
 
       <!-- Prices -->
@@ -31,10 +33,12 @@
         <hr class="my-4">
 
         <!-- FAQ -->
-        <section id="faq" class="mb-4">
+        <section id="faq" class="mb-5">
           <div class="row">
-            <!-- FAQ -->
-            <!-- <base-small-faq /> -->
+            <div class="col-sm-12 col-md-8 offset-md-2">
+              <h2 class="font-weight-bold my-5 text-center">Frequently Asked Questions</h2>
+              <base-accordion-vue :items="faq" />
+            </div>
           </div>
         </section>
       </div>
@@ -43,10 +47,13 @@
 </template>
 
 <script>
+import BaseAccordionVue from '@/layouts/BaseAccordion.vue'
 import BaseIntroVue from '@/layouts/BaseIntro.vue'
 import BasePricingCard from '@/components/pricing/BasePricingCard.vue'
 import BaseSiteVue from '@/layouts/BaseSite.vue'
 import SubscriptionsData from '@/data/subscriptions.json'
+
+import faq from '@/data/faq.json'
 
 export default {
   name: 'PricingView',
@@ -54,10 +61,16 @@ export default {
     return 'Pricing'
   },
   components: {
+    BaseAccordionVue,
     BaseIntroVue,
     BasePricingCard,
     BaseSiteVue
-},
+  },
+  setup () {
+    return {
+      faq
+    }
+  },
   data () {
     return {
       subscriptions: SubscriptionsData,

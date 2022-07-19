@@ -24,18 +24,18 @@ export default {
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: all .3s ease;
+  transition: all .3s ease-in-out;
 }
 
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
-  transform: scale(1, 1);
+  transform: translate(-10px);
 }
 
 .slide-enter-to,
 .slide-leave-from {
   opacity: 1;
-  transform: scale(.9, .9);
+  transform: translate(0px);
 }
 </style>

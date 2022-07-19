@@ -12,12 +12,23 @@
       </button>
 
       <!-- Links -->
-
       <div id="navbarExample01" class="collapse navbar-collapse">
+        <transition name="spread" mode="out-in">
+          <div v-if="showSearch">
+            <input type="search" class="form-control" placeholder="Search">
+          </div>
+  
+          <div v-else>
+            <router-link :to="{ name: 'pricing_view' }" type="button" class="btn btn-transparent shadow-none px-3">
+              Pricing
+            </router-link>
+          </div>
+        </transition>
+
         <div class="ms-auto d-flex align-items-center">
-          <router-link :to="{ name: 'pricing_view' }" type="button" class="btn btn-transparent shadow-none px-3">
-            Pricing
-          </router-link>
+          <button type="button" class="btn btn-transparent shadow-none px-3" @click="showSearch=!showSearch">
+            <font-awesome-icon icon="fa-solid fa-search" />
+          </button>
 
           <button type="button" class="btn btn-transparent shadow-none px-3">
             <font-awesome-icon icon="fa-solid fa-user" />
@@ -32,6 +43,7 @@
           </button>
         </div>
       </div>
+
       <!-- <ul class="navbar-nav ms-auto my-2 my-lg-0">
           <li v-for="link in links" :key="link.id" class="nav-item">
             <router-link :id="link.name" :to="{ name: link.name }" class="nav-link" role="link">
@@ -84,7 +96,7 @@
 
 <script>
 import { mapActions, storeToRefs } from 'pinia'
-import { useAuthentication } from '@/store/autthentication'
+import { useAuthentication } from '@/store/authentication'
 import { useScroll } from '@vueuse/core'
 import { ref } from 'vue'
 
@@ -105,6 +117,7 @@ export default {
   },
   data() {
     return {
+      showSearch: false,
       links: [
         { id: 1, name: 'home_view', title: 'Pricing', authentication: false, admin: false }
       ]
@@ -174,3 +187,20 @@ export default {
     }
   } 
 </style> -->
+
+<style scoped>
+.spread-enter-active,
+.spread-leave-active {
+  transition: all .3s ease;
+}
+.spread-enter-from,
+.spread-leave-to {
+  opacity: 0;
+  width: 0%;
+}
+.spread-enter-to,
+.spread-leave-from {
+  opacity: 1;
+  width: 100%;
+}
+</style>

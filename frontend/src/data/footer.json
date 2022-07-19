@@ -1,45 +1,45 @@
 [
-    {
+  {
+    "id": 1,
+    "title": "Company",
+    "links": [
+      {
         "id": 1,
-        "title": "Company",
-        "links": [
-            {
-                "id": 1,
-                "name": "Home",
-                "path": "home_view"
-            },
-            {
-                "id": 2,
-                "name": "About us",
-                "path": "home_view"
-            },
-            {
-                "id": 3,
-                "name": "Career",
-                "path": "home_view"
-            }
-        ]
-    },
-    {
+        "name": "Home",
+        "path": "home_view"
+      },
+      {
         "id": 2,
-        "title": "Pricing",
-        "links": [
-            {
-                "id": 1,
-                "name": "Pricing",
-                "path": "pricing_view"
-            }
-        ]
-    },
-    {
+        "name": "About us",
+        "path": "home_view"
+      },
+      {
         "id": 3,
-        "title": "Customer care",
-        "links": [
-            {
-                "id": 1,
-                "name": "Contact",
-                "path": "home_view"
-            }
-        ]
-    }
+        "name": "Career",
+        "path": "jobs_view"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Pricing",
+    "links": [
+      {
+        "id": 1,
+        "name": "Pricing",
+        "path": "pricing_view"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Customer care",
+    "links": [
+      {
+        "id": 1,
+        "name": "Contact",
+        "path": "contact_us_view"
+      }
+    ]
+  }
 ]

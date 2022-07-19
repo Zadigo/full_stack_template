@@ -39,7 +39,7 @@
 
 <script>
 import { mapState } from 'pinia'
-import { useAuthentication } from '@/store/autthentication'
+import { useAuthentication } from '@/store/authentication'
 
 import BaseValidationCard from './BaseValidationCard.vue'
 import FieldsIterator from '../../FieldsIterator.vue'

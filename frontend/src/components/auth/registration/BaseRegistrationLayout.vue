@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { useAuthentication } from '@/store/autthentication'
+import { useAuthentication } from '@/store/authentication'
 import { storeToRefs } from 'pinia'
 
 export default {

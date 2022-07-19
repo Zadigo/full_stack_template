@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthentication } from '@/store/autthentication'
+import { useAuthentication } from '@/store/authentication'
 import { loadView } from '@/utils'
 
 const routes = [
@@ -9,9 +9,24 @@ const routes = [
         component: loadView('site/HomeView')
     },
     {
+        path: '/contact-us',
+        name: 'contact_us_view',
+        component: loadView('site/ContactView')
+    },
+    {
+        path: '/jobs',
+        name: 'jobs_view',
+        component: loadView('site/JobsView')
+    },
+    {
         path: '/pricing',
         name: 'pricing_view',
         component: loadView('site/PricingView')
+    },
+    {
+        path: '/press',
+        name: 'press_view',
+        component: loadView('site/PressView')
     },
     {
         path: '/login',
