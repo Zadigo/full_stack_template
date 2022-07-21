@@ -28,9 +28,10 @@ import { VueRecaptcha } from 'vue-recaptcha'
 // import { getCurrentInstance } from 'vue'
 
 import useAuthenticationComposable from '@/composables/authentication'
-// import useGoogleAuthentication from '@/composables/socials'
+// import useGoogleAuthentication from '../../../composables/socials'
 
 import AuthNavigationVue from './AuthNavigation.vue'
+import { useScroll } from '@vueuse/core'
 
 export default {
   name: 'LoginView',
@@ -42,9 +43,10 @@ export default {
       submitted: () => true
   },
   setup() {
+    useScroll()
     // const instance = getCurrentInstance()
-    // const { load } = useGoogleAuthentication(instance, { clientId: '1345' })
-
+    // const { load } = useGoogleAuthentication({}, { clientId: '1345' })
+    
     const { loginCredentials, responseData, authenticationErrors, login } = useAuthenticationComposable()
     function handleSuccess () {}
     function handleError (response) {

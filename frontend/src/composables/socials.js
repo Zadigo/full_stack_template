@@ -1,4 +1,5 @@
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+import { OAuth2Client } from 'google-auth-library'
 
 function asyncTimeout (seconds) {
   return new Promise(resolve => setTimeout(() => {
@@ -8,29 +9,32 @@ function asyncTimeout (seconds) {
 }
 
 export default function useGoogleAuhentication (vueInstance, options = {}) {
-  console.log(vueInstance)
-  const googleApi = ref(null)
+  let googleApi = null
   // const isReady = ref(false)
-
-  const apiUrl = 'https://apis.google.com/js/api.js'
-  const isAuthorized = ref(false)
-  const prompt = 'select_account'
-  // const config = null
-
-  computed('isLoaded', () => {
-    return googleApi.value !== null
-  })
   
+  const prompt = 'select_account'
+  
+  const isAuthorized = ref(false)
+  let authentifiedUser = {}
+  
+  // computed('isLoaded', () => {
+  //   return googleApi.value !== null
+  // })
+    
+  console.info(vueInstance)
+
   function install () {
+    // Creates the Google authentication script
     return new Promise((resolve) => {
       const script = document.createElement('script')
-      script.src = apiUrl
+      script.src = 'https://apis.google.com/js/api.js'
       document.querySelector('head').appendChild(script)
       resolve()
     })
   }
 
   function initialize (options) {
+    // Initializes the script above
     return new Promise((resolve, reject) => {
       try {
         window.gapi.load('auth2', () => {
@@ -44,6 +48,7 @@ export default function useGoogleAuhentication (vueInstance, options = {}) {
   }
 
   async function load () {
+    // Entrypoint for loading authentication with Google
     let defaultOptions = {
       scope: 'profile email',
       discoveryDocs: [
@@ -63,13 +68,34 @@ export default function useGoogleAuhentication (vueInstance, options = {}) {
     const api = await initialize(defaultOptions)
 
     console.log('Google api', api)
-    googleApi.value = api.auth2.getAuthInstance()
+    googleApi = api.auth2.getAuthInstance()
     // isReady.value = true
-    isAuthorized.value = googleApi.value.isSignedIn.get()
+    isAuthorized.value = googleApi.isSignedIn.get()
     console.log('Googlee instance', googleApi, isAuthorized.value)
   }
 
+  async function authenticate (accessToken) {
+    // Authenticates the user on the Google backend
+    // and then returns their infos
+    const client = new OAuth2Client('xxxxxxxxxxxxx.apps.googleusercontent.com')
+    const ticket = await client.verifyIdToken({
+      // idToken: inputs.accessToken,
+      idToken: accessToken,
+      audience: 'xxxxx.apps.googleusercontent.com'
+    })
+    const payload= ticket.getPayload()
+    authentifiedUser = payload
+    // console.log('Google payload is '+JSON.stringify(payload));
+    // const userid = payload.sub;
+    // let email = payload.email;
+    // let emailVerified = payload.email_verified;
+    // let name = payload.name;
+    // let pictureUrl = payload.picture;
+  }
+
   // function signin (successCallback, errorCallback) {
+  //   // Used to signin a user, returns acces token
+  //   // used to authenticate the user and gets his info
   //   return new Promise((resolve, reject) => {
   //     if (!googleApi.value) {
   //       errorCallback(false)
@@ -121,8 +147,10 @@ export default function useGoogleAuhentication (vueInstance, options = {}) {
   // }
 
   return {
-    googleApi,
-    load
+    authentifiedUser,
+    isAuthorized,
+    load,
+    authenticate
     // logout,
     // signin,
     // authenticationCode
