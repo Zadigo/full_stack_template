@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthentication } from '@/store/authentication'
-import { loadView } from '@/utils'
+import { loadLayout, loadView } from '@/utils'
 
 const routes = [
     {
@@ -29,9 +29,31 @@ const routes = [
         component: loadView('site/PressView')
     },
     {
-        path: '/login',
-        name: 'login_view',
-        component: loadView('site/LoginView')
+        path: '/accounts',
+        component: loadLayout('BaseRegistration'),
+        children: [
+            {
+                path: 'login',
+                name: 'login_view',
+                components: {
+                    content: loadView('site/auth/LoginView')
+                }
+            },
+            {
+                path: 'signup',
+                name: 'signup_view',
+                components: {
+                    content: loadView('site/auth/SignupView')
+                }
+            },
+            {
+                path: 'forgot-password',
+                name: 'forgot_passoword_view',
+                components: {
+                    content: loadView('site/auth/ForgotPasswordView')
+                }
+            }
+        ]
     },
     {
         path: '/506',

@@ -24,6 +24,7 @@
     "pinia": "^2.0.14",
     "vue": "^3.2.13",
     "vue-i18n": "^9.1.10",
+    "vue-recaptcha": "^2.0.2",
     "vue-router": "^4.0.16",
     "webfontloader": "^1.6.28"
   },
@@ -55,7 +56,13 @@
       "consistent-return": "warn",
       "curly": "error",
       "eqeqeq": "error",
-      "arrow-spacing": ["error", { "before": true, "after": true }],
+      "arrow-spacing": [
+        "error",
+        {
+          "before": true,
+          "after": true
+        }
+      ],
       "default-case": "error",
       "default-case-last": "warn",
       "dot-notation": "error",
@@ -92,7 +99,10 @@
       "vue/require-prop-types": "error",
       "vue/this-in-template": "error",
       "vue/v-on-style": "warn",
-      "vue/component-definition-name-casing": ["error", "PascalCase"],
+      "vue/component-definition-name-casing": [
+        "error",
+        "PascalCase"
+      ],
       "vue/html-closing-bracket-spacing": "warn",
       "vue/no-v-html": "error",
       "vue/block-spacing": "error",
@@ -107,15 +117,29 @@
       "vue/no-unused-refs": "warn",
       "vue/no-irregular-whitespace": "warn",
       "vue/padding-line-between-blocks": "error",
-      "vue/v-for-delimiter-style": ["error", "in"],
+      "vue/v-for-delimiter-style": [
+        "error",
+        "in"
+      ],
       "vue/prefer-separate-static-class": "error",
       "vue/no-multi-spaces": "error",
       "vue/no-template-target-blank": "error",
       "vue/no-this-in-before-route-enter": "error",
       "vue/no-unused-properties": "error",
-      "vue/component-tags-order": ["error", {
-        "order": [ "docs", ["script", "template" ], "style", "i18n" ]
-      }],
+      "vue/component-tags-order": [
+        "error",
+        {
+          "order": [
+            "docs",
+            [
+              "script",
+              "template"
+            ],
+            "style",
+            "i18n"
+          ]
+        }
+      ],
       "vue/v-bind-style": [
         "error",
         "shorthand"

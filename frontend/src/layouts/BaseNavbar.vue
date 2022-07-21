@@ -34,13 +34,13 @@
             <font-awesome-icon icon="fa-solid fa-user" />
           </button>
 
-          <button type="button" class="btn btn-transparent shadow-none px-3 me-2">
+          <router-link :to="{ name: 'login_view' }" class="btn btn-transparent shadow-none px-3 me-2">
             <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
-          </button>
+          </router-link>
 
-          <button type="button" class="btn btn-primary">
+          <router-link :to="{ name: 'signup_view' }" class="btn btn-primary">
             Signup
-          </button>
+          </router-link>
         </div>
       </div>
 

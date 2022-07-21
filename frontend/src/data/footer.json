@@ -17,6 +17,11 @@
         "id": 3,
         "name": "Career",
         "path": "jobs_view"
+      },
+      {
+        "id": 4,
+        "name": "Login",
+        "path": "login_view"
       }
     ]
   },
