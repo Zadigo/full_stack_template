@@ -1,5 +1,5 @@
-import { client } from '@/plugins/axios'
 import { ref } from 'vue'
+import { client } from '@/plugins/axios'
 
 export default function useAuthenticationComposable () {
   const authenticationErrors = ref([])

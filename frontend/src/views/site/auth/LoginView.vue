@@ -24,10 +24,13 @@
 </template>
 
 <script>
-import AuthNavigationVue from './AuthNavigation.vue'
 import { VueRecaptcha } from 'vue-recaptcha'
+// import { getCurrentInstance } from 'vue'
 
 import useAuthenticationComposable from '@/composables/authentication'
+// import useGoogleAuthentication from '@/composables/socials'
+
+import AuthNavigationVue from './AuthNavigation.vue'
 
 export default {
   name: 'LoginView',
@@ -39,20 +42,27 @@ export default {
       submitted: () => true
   },
   setup() {
+    // const instance = getCurrentInstance()
+    // const { load } = useGoogleAuthentication(instance, { clientId: '1345' })
+
     const { loginCredentials, responseData, authenticationErrors, login } = useAuthenticationComposable()
     function handleSuccess () {}
     function handleError (response) {
       response
     }
     return {
-        loginCredentials,
-        responseData,
-        authenticationErrors,
-        handleSuccess,
-        handleError,
-        login
+      // load,
+      loginCredentials,
+      responseData,
+      authenticationErrors,
+      handleSuccess,
+      handleError,
+      login
     }
   },
+  // mounted () {
+  //   this.load()
+  // },
   methods: {
     async completeLogin() {
       this.login()
