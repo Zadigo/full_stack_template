@@ -1,158 +1,87 @@
-import { ref } from 'vue'
-import { OAuth2Client } from 'google-auth-library'
+import { ref, watch } from 'vue'
+import { Buffer } from 'buffer'
 
-function asyncTimeout (seconds) {
-  return new Promise(resolve => setTimeout(() => {
-      resolve()
-    }, seconds)
-  )
+function parseJwt (token) {
+    const base64Url = token.split('.')[1]
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    const tokens = Buffer.from(base64, 'base64').toString().split('')
+    const result = decodeURIComponent(tokens.map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    }))
+    const jsonPayload = result.join('')
+    return JSON.parse(jsonPayload)
 }
-
-export default function useGoogleAuhentication (vueInstance, options = {}) {
-  let googleApi = null
-  // const isReady = ref(false)
+// https://developers.google.com/identity/gsi/web/reference/js-reference#auto_select
+// Content-Security-Policy-Report-Only: script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;
+export default function useGoogleAuhentication (options = {}) {
+  const authentifiedUser = ref(null)
   
-  const prompt = 'select_account'
-  
-  const isAuthorized = ref(false)
-  let authentifiedUser = {}
-  
-  // computed('isLoaded', () => {
-  //   return googleApi.value !== null
-  // })
-    
-  console.info(vueInstance)
+  watch(authentifiedUser, (current) => {
+    return current !== null
+  })
 
   function install () {
-    // Creates the Google authentication script
-    return new Promise((resolve) => {
-      const script = document.createElement('script')
-      script.src = 'https://apis.google.com/js/api.js'
-      document.querySelector('head').appendChild(script)
-      resolve()
-    })
-  }
-
-  function initialize (options) {
-    // Initializes the script above
     return new Promise((resolve, reject) => {
       try {
-        window.gapi.load('auth2', () => {
-          window.gapi.auth2.init(options)
-          resolve(window.gapi)
-        })
+        const script = document.createElement('script')
+        
+        script.src = 'https://accounts.google.com/gsi/client'
+        script.attributes.setNamedItem(document.createAttribute('async'))
+        script.attributes.setNamedItem(document.createAttribute('defer'))
+
+        document.querySelector('head').appendChild(script)
+        resolve(true)
       } catch {
+        console.warn('Could not create Google signin script')
         reject(false)
       }
     })
   }
 
-  async function load () {
-    // Entrypoint for loading authentication with Google
-    let defaultOptions = {
-      scope: 'profile email',
-      discoveryDocs: [
-        'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
-      ]
-    }
-    defaultOptions = Object.assign(defaultOptions, options)
-    defaultOptions.prompt = prompt
-
-    if (!defaultOptions.clientId) {
-      throw new Error('No client ID for Google authentication')
-    }
-
-    await install()
-
-    await asyncTimeout(1000)
-    const api = await initialize(defaultOptions)
-
-    console.log('Google api', api)
-    googleApi = api.auth2.getAuthInstance()
-    // isReady.value = true
-    isAuthorized.value = googleApi.isSignedIn.get()
-    console.log('Googlee instance', googleApi, isAuthorized.value)
+  function completeSignin (response) {
+    const { credential } = response
+    authentifiedUser.value = parseJwt(credential)
+    // console.log(parseJwt(credential))
   }
 
-  async function authenticate (accessToken) {
-    // Authenticates the user on the Google backend
-    // and then returns their infos
-    const client = new OAuth2Client('xxxxxxxxxxxxx.apps.googleusercontent.com')
-    const ticket = await client.verifyIdToken({
-      // idToken: inputs.accessToken,
-      idToken: accessToken,
-      audience: 'xxxxx.apps.googleusercontent.com'
+  function initialize () {
+    window.google.accounts.id.initialize({
+      client_id: options.clientId || process.env.VUE_APP_GOOGLE_CLIENT_ID,
+      callback: completeSignin
+      // auto_select: false
+      // login_uri: 'https://www.example.com/login'
+      // native_callback:
+      // cancel_on_tap_outside: true
+      // prompt_parent_id: 'parent_id'
+      // nonce: 'zienfoz'
+      // context: 'signin'
+      // state_cookie_domain: 'example.com'
+      // ux_mode: popup / redirect
+      // allowed_parent_origin: ['https://example.com']
+      // intermediate_iframe_close_callback:
+      // itp_support: true
     })
-    const payload= ticket.getPayload()
-    authentifiedUser = payload
-    // console.log('Google payload is '+JSON.stringify(payload));
-    // const userid = payload.sub;
-    // let email = payload.email;
-    // let emailVerified = payload.email_verified;
-    // let name = payload.name;
-    // let pictureUrl = payload.picture;
+
+    window.google.accounts.id.renderButton(
+        document.querySelector('#google-button'),
+        {
+          theme: 'outline',
+          size: 'large'
+        }
+    )
+    // window.google.accounts.id.prompt()
   }
 
-  // function signin (successCallback, errorCallback) {
-  //   // Used to signin a user, returns acces token
-  //   // used to authenticate the user and gets his info
-  //   return new Promise((resolve, reject) => {
-  //     if (!googleApi.value) {
-  //       errorCallback(false)
-  //       reject(false)
-  //     }
-
-  //     try {
-  //       const user = googleApi.value.signin()
-  //       isAuthorized.value = googleApi.value.isSignedIn.get()
-  //       successCallback(user)
-  //       resolve(user)
-  //     } catch (error) {
-  //       errorCallback(false)
-  //       reject(false)
-  //     }
-
-  //   })
-  // }
-
-  // async function logout (successCallback, errorCallback) {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       googleApi.value.signOut()
-  //       successCallback(true)
-  //       isAuthorized.value = false
-  //       resolve(true)
-  //     } catch (error) {
-  //       errorCallback(false)
-  //       reject(false)
-  //     }
-  //   })
-  // }
-
-  // async function authenticationCode (successCallback, errorCallback) {
-  //   return new Promise((resolve, reject) => {
-  //     if (!this.isLoaded) {
-  //       reject(false)
-  //     }
-
-  //     try {
-  //       const result = googleApi.value.grantOfflineAccess({ prompt: prompt })
-  //       successCallback(result.code)
-  //       resolve(result.code)
-  //     } catch (error) {
-  //       errorCallback(false)
-  //       reject(false)
-  //     }
-  //   })
-  // }
+  async function load () {
+    const result = await install()
+    if (result) {
+      window.addEventListener('load', initialize)
+    }
+  }
 
   return {
     authentifiedUser,
-    isAuthorized,
     load,
-    authenticate
-    // logout,
-    // signin,
-    // authenticationCode
+    completeSignin
   }
 }

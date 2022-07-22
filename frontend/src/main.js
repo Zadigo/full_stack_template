@@ -11,13 +11,13 @@ import { loadFonts } from './plugins'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createLocalStorage, createVueSession } from './plugins/vue-storages'
 import { createPinia } from 'pinia'
+import { createAxios } from './plugins/axios'
 import router from './router'
 import i18n from './i18n'
 import messagesPlugin from '@/store/messages'
-import { createAxios } from './plugins/axios'
 // import {  functions } from './plugins/vue-analytics/google'
 // import { createGoogleAnalytics } from './plugins/vue-analytics/google'
-// console.log(functions)
+
 loadFonts()
 
 const app = createApp(App)

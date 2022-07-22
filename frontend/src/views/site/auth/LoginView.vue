@@ -6,12 +6,17 @@
           <input v-model="loginCredentials.email" type="email" autocomplete="email" class="form-control p-2 my-2">
           <input v-model="loginCredentials.password" type="password" autocomplete="current-password" class="form-control p-2 my-2">
 
+          <!-- Recaptcha -->
           <vue-recaptcha :sitekey="'1234'" :load-recaptcha-script="false" @verify="handleSuccess" @error="handleError" />
         </form>
       </div>
 
       <div class="col-12">
         <auth-navigation-vue />
+      </div>
+
+      <div class="col-12">
+        <div id="google-button"></div>
       </div>
     </div>
   </div>
@@ -25,13 +30,12 @@
 
 <script>
 import { VueRecaptcha } from 'vue-recaptcha'
-// import { getCurrentInstance } from 'vue'
+import { getCurrentInstance } from 'vue'
 
 import useAuthenticationComposable from '@/composables/authentication'
-// import useGoogleAuthentication from '../../../composables/socials'
+import useGoogleAuthentication from '../../../composables/socials'
 
 import AuthNavigationVue from './AuthNavigation.vue'
-import { useScroll } from '@vueuse/core'
 
 export default {
   name: 'LoginView',
@@ -43,9 +47,9 @@ export default {
       submitted: () => true
   },
   setup() {
-    useScroll()
-    // const instance = getCurrentInstance()
-    // const { load } = useGoogleAuthentication({}, { clientId: '1345' })
+    console.info(process.env)
+    const instance = getCurrentInstance()
+    const { load } = useGoogleAuthentication(instance, { clientId: '707231563844-e5cpkqrlt62gncmj6b84of5sml9lp8g9.apps.googleusercontent.com' })
     
     const { loginCredentials, responseData, authenticationErrors, login } = useAuthenticationComposable()
     function handleSuccess () {}
@@ -53,7 +57,10 @@ export default {
       response
     }
     return {
-      // load,
+      load,
+      // completeSignin,
+      // authentifiedUser,
+
       loginCredentials,
       responseData,
       authenticationErrors,
@@ -62,13 +69,8 @@ export default {
       login
     }
   },
-  // mounted () {
-  //   this.load()
-  // },
-  methods: {
-    async completeLogin() {
-      this.login()
-    }
+  mounted () {
+    this.load()
   }
 }
 </script>
