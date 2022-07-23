@@ -1,32 +1,31 @@
 <template>
-  <base-card>
+  <div class="card">
+    <div class="card-body">
+      <div class="list-group">
+        <div class="list-group-item">
+          <base-checkbox-vue id="newsletter" label="I would like to get updates related to newsletters" />
+        </div>
 
-    <b-list-group>
-      <b-list-group-item>
-        <b-form-checkbox id="newsletter" v-model="userOptions['newsletter']" @change="updatePreferences">
-          <span class="m-2">I would like to get updates related to newsletters</span>
-        </b-form-checkbox>
-      </b-list-group-item>
+        <div class="list-group-item">
+          <base-checkbox-vue id="another" label="I would like to get updates related to newsletters" />
+        </div>
 
-      <b-list-group-item>
-        <b-form-checkbox id="another" v-model="userOptions['another']">
-          <span class="m-2">I would like to get updates related to newsletters</span>
-        </b-form-checkbox>
-      </b-list-group-item>
-
-      <b-list-group-item>
-        <b-form-checkbox id="other" v-model="userOptions['other']">
-          <span class="m-2">I would like to get updates related to newsletters</span>
-        </b-form-checkbox>
-      </b-list-group-item>
-    </b-list-group>
-
-  </base-card>
+        <div class="list-group-item">
+          <base-checkbox-vue id="another2" label="I would like to get updates related to newsletters" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import BaseCheckboxVue from '@/layouts/BaseCheckbox.vue'
+
 export default {
-  name: 'PreferencesSection',
+  name: 'PreferencesView',
+  components: {
+    BaseCheckboxVue
+  },
   title() {
     return 'Preferences'
   },
@@ -37,26 +36,7 @@ export default {
   },
   methods: {
     async updatePreferences() {
-      this.$api.profile.updatePreferences(this.userOptions)
-      .then((response => {
-        console.log(response)
-        this.$buefy.snackbar.open({
-          message: 'Yellow button and positioned on top, click to close',
-          type: 'is-warning',
-          position: 'is-top',
-          duration: 3500,
-          
-          // onAction: () => {
-          //   this.$buefy.toast.open({
-          //       message: 'Action pressed',
-          //       queue: false
-          //   })
-          // }
-        })
-      }))
-      .catch((error) => {
-        console.log(error)
-      })
+      
     }
   }
 }

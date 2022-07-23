@@ -12,6 +12,8 @@
         </form>
       </div>
 
+      <base-privacy-text-vue />
+
       <div class="col-12">
         <auth-navigation-vue />
       </div>
@@ -27,13 +29,15 @@
 
 <script>
 import AuthNavigationVue from './AuthNavigation.vue'
+import BasePrivacyTextVue from '@/components/BasePrivacyText.vue'
 
 import useAuthenticationComposable from '@/composables/authentication'
 
 export default {
   name: 'LoginView',
   components: {
-    AuthNavigationVue
+    AuthNavigationVue,
+    BasePrivacyTextVue
   },
   setup () {
     const { signupCredentials, performSignup } = useAuthenticationComposable()

@@ -1,9 +1,9 @@
 <template>
-  <section id="profile" class="my-5">
+  <section id="profile" style="margin-top:6rem;">
     <base-navbar-vue />
 
     <div class="container">
-      <section class="section mt-4">
+      <section class="section my-5">
         <div class="row">
           <!-- Sidebar -->
           <div class="col-sm-12 col-md-3 offset-md-2">
@@ -17,11 +17,11 @@
                       </router-link>
                     </div>
                   </div>
-                </div>  
+                </div>
               </keep-alive>
             </aside>
           </div>
-  
+
           <!-- Content -->
           <div class="col-sm-12 col-md-5">
             <router-view />
@@ -35,9 +35,10 @@
 <script>
 import _ from 'lodash'
 
+import BaseNavbarVue from './BaseNavbar.vue'
+
 import { useAuthentication } from '@/store/authentication'
 import { storeToRefs } from 'pinia'
-import BaseNavbarVue from './BaseNavbar.vue'
 
 export default {
   name: 'ProfileView',

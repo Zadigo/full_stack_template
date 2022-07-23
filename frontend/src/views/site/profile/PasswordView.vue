@@ -1,46 +1,46 @@
+<doc>
+  Allows the use to change his passwords
+</doc>
+
 <template>
-  <base-validation-card :button-name="'Reset password'" @validate-action="updatePassword">
+  <base-validation-card button-name="Reset password" @validate-action="update">
     <transition name="alert-transition">
       <div v-if="!isValid" class="alert alert-danger">
         Passwords do not match
       </div>
     </transition>
 
-    <div v-for="field in fields" :key="field.id" class="form-group mt-2">
+    <div v-for="field in getFields('password')" :key="field.id" class="form-group mt-2">
       <label v-if="field.name==='password1'" :for="field.name" class="mt-3 mb-2">
         Enter your new password here. It should be different from your old password
         and should contain at least one.
       </label>
-      <input :id="field.name" v-model="credentials[field.name]" :autocomplete="field.autocomplete" :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
+      <input :id="field.name" v-model="credentials[field.name]" :autocomplete="field.autocomplete" :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control p-3">
     </div>
   </base-validation-card>
 </template>
 
 <script>
-import { mapState } from 'pinia'
+import BaseValidationCard from '@/layouts/BaseValidationCard.vue'
 
-import BaseValidationCard from '../../../components/auth/profile/BaseValidationCard.vue'
+import useProfileComposable from '@/composables/profile'
 
 export default {
+  name: 'PasswordView',
   components: { BaseValidationCard },
+  setup () {
+    const { getFields } = useProfileComposable()
+    return {
+      getFields
+    }
+  },
   data () {
     return {
-      credentials: {},
-      fields: [
-        { id: 1, name: 'old_password', aria: 'Current password', autocomplete: 'current-password', placeholder: 'Current password' },
-        { id: 2, name: 'password1', aria: 'New password', autocomplete: 'new-password', placeholder: 'New password' },
-        { id: 3, name: 'password2', aria: 'New password', autocomplete: 'new-password', placeholder: 'New password' },
-      ]
+      credentials: {}
     }
   },
 
   computed: {
-    ...mapState('profileModule', {
-      userId: (state) => {
-        return state.userDetails.id
-      }
-    }),
-    
     isValid () {
       const { password1, password2 } = this.credentials
       if (password2 && password1 !== password2) {
@@ -52,40 +52,18 @@ export default {
   },
   
   methods: {
-    updatePassword () {
-      this.$api.profile.changePassword(this.credentials)
-      .then(() => {
-
-      })
-      .catch(() => {
-
-      })
-      // axios({
-      //   method: 'post',
-      //   url: 'http://127.0.0.1:8000/api/v1/change-password',
-      //   data: this.credentials,
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Token ${this.$store.getters['authenticationModule/getToken']}`
-      //   },
-      //   withCredentials: true
-      // })
-      // .then((response) => {
-      //   if (response.status === 200) {
-      //     this.credentials = {}
-      //   } else {
-      //     console.log('Could not reset password')
-      //   }
-      // })
-      // .error((error) => {
-      //   console.log(error)
-      // })
+    async update () {
+      try {
+        // pass
+      } catch (error) {
+        error
+      }
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .alert-transition-enter-active,
 .alert-transition-leave-active {
   transition: all .5s ease;

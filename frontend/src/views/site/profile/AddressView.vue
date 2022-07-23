@@ -1,49 +1,45 @@
 <template>
   <section id="addresses">
-    <!-- Add new -->
-    <base-card v-if="addresses.length===0 && !addNew">
-      <b-card-body class="text-center">
-        <h2 class="mb-4">You have no addresses</h2>
-        <img src="../../../assets/hello.svg" alt="addresses" class="img-fluid">
-        <button type="button" class="btn btn-primary btn-lg m-0 mt-4" @click="addNew=true">Add new</button>
-      </b-card-body>
-    </base-card>
-
     <!-- Update/Creation form -->
-    <base-card v-else-if="addNew">
-      <div class="form-group">
-        <input id="street-address" v-model="newAddress['street_address']" type="text" class="form-control" placeholder="1 rue de Rivoli" autocomplete="address-line1">
-      </div>
-
-      <div class="form-group mt-2">
-        <input id="address2" v-model="newAddress['city']" type="text" class="form-control" placeholder="City" autocomplete="address-level2">
-      </div>
-
-      <div class="form-group mt-2">
-        <input id="postal-code" v-model="newAddress['zip_code']" type="text" class="form-control" placeholder="75001" autocomplete="postal-code">
-      </div>
-
-      <div class="form-group mt-2">
-        <input id="country" v-model="newAddress['country']" type="text" class="form-control" placeholder="France" autocomplete="country-name">
-      </div>
-
-      <template v-slot:cardFooter>
-        <button v-if="createMode" type="button" class="btn btn-primary btn-md" @click="sendChanges">
-          <font-awesome-icon icon="check"></font-awesome-icon>
-          Validate
+    <div v-if="addresses.length===0 && !addNew" class="card">
+      <div class="card-body text-center">
+        <h2 class="mb-4">You have no addresses</h2>
+        <img :src="require('@/assets/hello.svg')" alt="addresses" class="img-fluid">
+        <button type="button" class="btn btn-primary btn-lg m-0 mt-4" @click="addNew=true">
+          Add new
         </button>
+      </div>
+    </div>
 
-        <button v-else type="button" class="btn btn-primary btn-md" @click="updateAddress">
-          <font-awesome-icon icon="check"></font-awesome-icon>
-          Update
-        </button>
+    <base-validation-card-vue v-else-if="addNew">
+      <input id="street-address" v-model="newAddress.street_address" type="text" class="form-control p-3" placeholder="1 rue de Rivoli" autocomplete="address-line1">
+      
+      <div class="d-flex justify-content-between my-2">
+        <input id="address2" v-model="newAddress.city" type="text" class="form-control p-3 me-2" placeholder="City" autocomplete="address-level2">
+        <input id="postal-code" v-model="newAddress.zip_code" type="text" class="form-control p-3" placeholder="75001" autocomplete="postal-code">
+      </div>
+      
+      <input id="country" v-model="newAddress.country" type="text" class="form-control w-50 p-3" placeholder="France" autocomplete="country-name">
 
-        <button type="button" class="btn btn-outline-primary btn-md" @click="$router.go(-1)">
-          <font-awesome-icon icon="check"></font-awesome-icon>
-          Cancel
-        </button>
+      <template #cardFooter>
+        <div class="card-footer">
+          <button v-if="createMode" type="button" class="btn btn-primary btn-md" @click="sendChanges">
+            <font-awesome-icon icon="fa-solid fa-check" class="me-2" />
+            Validate
+          </button>
+
+          <button v-else type="button" class="btn btn-primary btn-md" @click="updateAddress">
+            <font-awesome-icon icon="fa-solid fa-check" class="me-2" />
+            Update
+          </button>
+
+          <button type="button" class="btn btn-outline-primary btn-md mx-2" @click="addNew=false">
+            <!-- <font-awesome-icon icon="fa-solid fa-check" class="me-2" /> -->
+            Cancel
+          </button>
+        </div>
       </template>
-    </base-card>
+    </base-validation-card-vue>
 
     <!-- Cards -->
     <div v-else class="row">
@@ -78,22 +74,31 @@
         </base-card>
       </div>
     </div>
-
   </section>
 </template>
 
 <script>
 import _ from 'lodash'
 
-// import { useAuthentication } from '@/store/authentication'
-// import { mapState } from 'pinia'
+import BaseValidationCardVue from '@/layouts/BaseValidationCard.vue'
+
+import { useAuthentication } from '@/store/authentication'
 
 export default {
   name: 'AddressesSection',
+  components: {
+    BaseValidationCardVue
+  },
+  setup () {
+    const store = useAuthentication()
+    const addresses = store.user.addresses || []
+    return {
+      addresses
+    }
+  },
   title () {
     return 'Addresses'
   },
-
   data () {
     return {
       addNew: false,
@@ -101,15 +106,6 @@ export default {
       createMode: true
     }
   },
-  
-  computed: {
-    // ...mapState(useAuthentication, {
-    //   addresses: (state) => {
-    //     return state.userDetails.addresses
-    //   }
-    // })
-  },
-  
   methods: {
     async sendChanges () {
       this.addNew = false
@@ -122,7 +118,6 @@ export default {
       })
       this.newAddress = {}
     },
-
     async deleteAddress (id) {
       // Allows the user to delete an address
       // from the backend

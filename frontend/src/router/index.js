@@ -9,6 +9,11 @@ const routes = [
         component: loadView('site/HomeView')
     },
     {
+        path: '/product',
+        name: 'product_view',
+        component: loadView('site/ProductView')
+    },
+    {
         path: '/contact-us',
         name: 'contact_us_view',
         component: loadView('site/ContactView')
@@ -74,16 +79,52 @@ const routes = [
                     requiresAuthentication: false
                 },
                 component: loadView('site/profile/IndexView')
+            },
+            {
+                name: 'details_view',
+                path: 'details',
+                meta: {
+                    verboseName: 'Details',
+                    requiresAuthentication: false
+                },
+                component: loadView('site/profile/DetailsView')
+            },
+            {
+                name: 'password_view',
+                path: 'password',
+                meta: {
+                    verboseName: 'Password',
+                    requiresAuthentication: false
+                },
+                component: loadView('site/profile/PasswordView')
+            },
+            {
+                name: 'preferences_view',
+                path: 'preferences',
+                meta: {
+                    verboseName: 'Preferences',
+                    requiresAuthentication: false
+                },
+                component: loadView('site/profile/PreferencesView')
+            },
+            {
+                name: 'addresses_view',
+                path: 'addresses',
+                meta: {
+                    verboseName: 'Addresses',
+                    requiresAuthentication: false
+                },
+                component: loadView('site/profile/AddressView')
+            },
+            {
+                name: 'account_view',
+                path: 'details',
+                meta: {
+                    verboseName: 'Account',
+                    requiresAuthentication: false
+                },
+                component: loadView('site/profile/AccountView')
             }
-            // {
-            //     name: 'profiles_index_view',
-            //     path: '',
-            //     meta: {
-            //         verboseName: 'Anoh',
-            //         requiresAuthentication: true
-            //     },
-            //     component: loadView('site/profile/IndexView')
-            // }
         ]
     },
     {

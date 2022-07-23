@@ -1,0 +1,48 @@
+{
+    "password": [
+        {
+            "name": "old_password",
+            "aria": "Current password",
+            "autocomplete": "current-password",
+            "placeholder": "Current password"
+        },
+        {
+            "name": "password1",
+            "aria": "New password",
+            "autocomplete": "new-password",
+            "placeholder": "New password"
+        },
+        {
+            "name": "password2",
+            "aria": "New password",
+            "autocomplete": "new-password",
+            "placeholder": "New password"
+        }
+    ],
+    "details": [
+        {
+            "name": "firstname",
+            "type": "text",
+            "autocomplete": "given-name",
+            "placeholder": "Firstname",
+            "label": "Firstname",
+            "prefilled": true
+        },
+        {
+            "name": "lastname",
+            "type": "text",
+            "autocomplete": "family-name",
+            "placeholder": "Lastname",
+            "label": "Lastname",
+            "prefilled": true
+        },
+        {
+            "name": "email",
+            "autocomplete": "email",
+            "placeholder": "Email",
+            "type": "email",
+            "label": "Email",
+            "prefilled": true
+        }
+    ]
+}

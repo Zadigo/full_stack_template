@@ -52,23 +52,37 @@
       <!-- Benefits -->
       <section class="p-5">
         <div class="container">
+          <div class="row">
+            <div class="col-md-9 offset-md-2 text-center p-4">
+              <p class="display-5 fw-bold mb-4">Build landing pages faster with AI</p>
+              <p class="fw-light">
+                Unbounce landing pages have helped businesses turn billions of visitors into leads,
+                sales, and signups. (Literally.) Combining that data with AI, Unbounce lets you create
+                custom landing pages twice as fast as old-school builders.
+              </p>
+            </div>
+          </div>
+
           <div class="row gx-5">
             <div class="col-4">
-              <i class="fa fa-user text-blud lighten-2"></i>
+              <font-awesome-icon icon="fa-solid fa-user" class="text-blue lighten-2 mb-3" size="2x" />
               <h4 class="fw-bold">Integrate</h4>
-              <p>Link your web apps with a few clicks, so they can share data</p>
+              <p class="fw-light">Link your web apps with a few clicks, so they can share data</p>
+              <router-link :to="{ name: 'product_view' }" class="btn btn-outline-dark btn-lg">Create your pages</router-link>
             </div>
 
             <div class="col-4">
-              <i class="fa fa-user text-blud lighten-2"></i>
+              <font-awesome-icon icon="fa-solid fa-user" class="text-blue lighten-2 mb-3" size="2x" />
               <h4 class="fw-bold">Automate</h4>
-              <p>Pass info between your apps with workflows called Zaps</p>
+              <p class="fw-light">Pass info between your apps with workflows called Zaps</p>
+              <router-link :to="{ name: 'product_view' }" class="btn btn-outline-dark btn-lg">Write your copy</router-link>
             </div>
 
             <div class="col-4">
-              <i class="fa fa-user text-blud lighten-2"></i>
+              <font-awesome-icon icon="fa-solid fa-user" class="text-blue lighten-2 mb-3" size="2x" />
               <h4 class="fw-bold">Innovate</h4>
-              <p>Build processes faster and get more done—no code required</p>
+              <p class="fw-light">Build processes faster and get more done—no code required</p>
+              <router-link :to="{ name: 'product_view' }" class="btn btn-outline-dark btn-lg">Optimize your traffic</router-link>
             </div>
           </div>
         </div>
@@ -86,9 +100,12 @@
 
               <template v-for="(testimonial, index) in testimonials" :key="index">
                 <div :class="{ 'mt-2': index >= 2 }" class="col-sm-12 col-md-6">
-                  <div class="card">
+                  <div class="card h-100">
                     <div class="card-body">
                       <p class="card-text fw-light">{{ testimonial.content }}</p>
+                    </div>
+
+                    <div class="card-footer py-1 border-0">
                       <p class="fw-bold text-muted text-uppercase mt-3">
                         {{ testimonial.author }}
                       </p>

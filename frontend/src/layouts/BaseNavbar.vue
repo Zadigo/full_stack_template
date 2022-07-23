@@ -1,5 +1,5 @@
 <template>
-  <nav :class="[scrollY > 20 ? 'bg-light navbar-light' : 'navbar-dark shadow-none']" class="navbar navbar-expand-lg d-lg-block fixed-top">
+  <nav :class="[scrollY > 20 ? 'bg-white navbar-light' : 'navbar-dark shadow-none']" class="navbar navbar-expand-lg d-lg-block fixed-top">
     <div class="container">
       <!-- Brand -->
       <router-link :to="{ name: 'home_view' }" class="navbar-brand text-uppercase fw-bold">
@@ -30,9 +30,9 @@
             <font-awesome-icon icon="fa-solid fa-search" />
           </button>
 
-          <button type="button" class="btn btn-transparent shadow-none px-3">
+          <router-link :to="{ name: 'profile_index_view' }" class="btn btn-transparent shadow-none px-3">
             <font-awesome-icon icon="fa-solid fa-user" />
-          </button>
+          </router-link>
 
           <router-link v-if="!isAuthenticated" :to="{ name: 'login_view' }" class="btn btn-transparent shadow-none px-3 me-2">
             <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
@@ -186,6 +186,9 @@ export default {
 </style> -->
 
 <style scoped>
+.navbar {
+  transition: all .4s ease;
+}
 .spread-enter-active,
 .spread-leave-active {
   transition: all .3s ease;

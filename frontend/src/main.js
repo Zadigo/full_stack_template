@@ -1,12 +1,11 @@
 import { createApp, toRaw } from 'vue'
 import App from './App.vue'
 
-import '@mdi/font/css/materialdesignicons.css'
 import './plugins/fontawesome'
+import '@mdi/font/css/materialdesignicons.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'mdb-ui-kit/css/mdb.min.css'
 
-// import NavItemVue from './components/nav/NavItem.vue'
 import { loadFonts } from './plugins'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createLocalStorage, createVueSession } from './plugins/vue-storages'
@@ -45,6 +44,5 @@ app.use(localstorage)
 app.use(pinia)
 app.use(i18n)
 app.use(createAxios())
-// app.component('NavItemVue', NavItemVue)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')
