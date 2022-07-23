@@ -1,6 +1,5 @@
 <template>
-  <base-validation-card :button-name="'Reset password'" @validateAction="updatePassword">
-
+  <base-validation-card :button-name="'Reset password'" @validate-action="updatePassword">
     <transition name="alert-transition">
       <div v-if="!isValid" class="alert alert-danger">
         Passwords do not match
@@ -14,13 +13,14 @@
       </label>
       <input :id="field.name" v-model="credentials[field.name]" :autocomplete="field.autocomplete" :placeholder="field.placeholder" :aria-label="field.aria" type="password" class="form-control">
     </div>
-
   </base-validation-card>
 </template>
 
 <script>
 import { mapState } from 'pinia'
-import BaseValidationCard from './BaseValidationCard.vue'
+
+import BaseValidationCard from '../../../components/auth/profile/BaseValidationCard.vue'
+
 export default {
   components: { BaseValidationCard },
   data () {

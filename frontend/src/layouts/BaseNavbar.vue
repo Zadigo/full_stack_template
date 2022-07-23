@@ -34,11 +34,15 @@
             <font-awesome-icon icon="fa-solid fa-user" />
           </button>
 
-          <router-link :to="{ name: 'login_view' }" class="btn btn-transparent shadow-none px-3 me-2">
+          <router-link v-if="!isAuthenticated" :to="{ name: 'login_view' }" class="btn btn-transparent shadow-none px-3 me-2">
             <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
           </router-link>
 
-          <router-link :to="{ name: 'signup_view' }" class="btn btn-primary">
+          <a v-if="isAuthenticated" :to="{ name: 'login_view' }" href class="btn btn-transparent shadow-none px-3 me-2" @click.prevent="logout">
+            <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+          </a>
+
+          <router-link v-if="!isAuthenticated" :to="{ name: 'signup_view' }" class="btn btn-primary">
             Signup
           </router-link>
         </div>
@@ -95,9 +99,10 @@
 </template>
 
 <script>
-import { mapActions, storeToRefs } from 'pinia'
 import { useAuthentication } from '@/store/authentication'
+import useAuthenticationComposable from '@/composables/authentication'
 import { useScroll } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 
 export default {
@@ -105,9 +110,11 @@ export default {
   setup () {
     const store = useAuthentication()
     const { isAuthenticated, isAdmin } = storeToRefs(store)
+    const { performLogout } = useAuthenticationComposable()
     const target = ref(null)
     const { y } = useScroll(target)
     return {
+      performLogout,
       target,
       store,
       isAuthenticated,
@@ -126,24 +133,14 @@ export default {
   mounted () {
     this.target = window.document
   },
-  methods: {
-    ...mapActions(useAuthentication, ['logoutUser']),
-    
+  methods: {    
     async logout () {
-
+      this.performLogout(() => {
+        this.store.logoutUser()
+      }, (error) => {
+        console.error(error)
+      })
     }
-    // logoutUser() {
-    //   // Logs out the user from the
-    //   // current session
-    //   this.$api.auth.logout()
-    //   .then(() => {
-    //     this.logout()
-    //     this.$router.push({ name: 'home_view' })
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
-    // }
   }
 }
 </script>

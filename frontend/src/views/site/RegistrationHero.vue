@@ -1,7 +1,7 @@
 <template>
   <div id="hero">
     <header>
-      <div ref="intro" class="bg-image shadow-2-strong" id="intro">
+      <div id="intro" ref="intro" class="bg-image shadow-2-strong">
         <div class="mask d-flex align-items-center">
           <div class="container h-100">
             <router-view />

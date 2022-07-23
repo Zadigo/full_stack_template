@@ -19,7 +19,7 @@
   </div>
 
   <div class="card-footer">
-    <button type="button" class="btn btn-primary" @click="completeSignup">
+    <button type="button" class="btn btn-primary" @click="signup">
       Signup
     </button>
   </div>
@@ -36,16 +36,19 @@ export default {
     AuthNavigationVue
   },
   setup () {
-    const { signupCredentials, passwordsValid, signup } = useAuthenticationComposable()
+    const { signupCredentials, performSignup } = useAuthenticationComposable()
     return {
-      passwordsValid,
       signupCredentials,
-      signup
+      performSignup
     }
   },
   methods: {
-    completeSignup () {
-      this.signup()
+    signup () {
+      this.performSignup(() => {
+        this.$router.push({ name: 'login_view' })
+      }, (error) => {
+        console.error(error)
+      })
     }
   }
 }

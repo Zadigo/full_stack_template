@@ -1,9 +1,9 @@
 import { ref } from 'vue'
 import { client } from '@/plugins/axios'
 
+/** Adds authentication functionnalities to */
 export default function useAuthenticationComposable () {
   const authenticationErrors = ref([])
-  const responseData = ref({})
   const loginCredentials = ref({
     email: null,
     password: null
@@ -22,36 +22,80 @@ export default function useAuthenticationComposable () {
     email: null
   })
 
+  const verificationCredentials = ref({
+    verification_code: null
+  })
+
   function passwordsValid () {
     return signupCredentials.value.password1 === signupCredentials.value.password2
   }
 
-  async function login () {
+  async function performLogin (success, fail) {
     try {
-      const response = client.post('/login', loginCredentials.value)
-      responseData.value = response.daa
+      const response = await client.post('accounts/login', loginCredentials.value)
+      try {
+        success(response)
+      } catch (error) {
+        console.error(error)
+      }
     } catch (error) {
-      authenticationErrors.value.push({ type: 'danger', content: error.message})
+      if (typeof fail === 'function') {
+        fail([error.message, error.response.data])
+      } else {
+        console.error(error)
+      }
     }
   }
   
-  async function signup () {
+  async function performSignup (success, fail) {
     try {
-      const response = client.post('/signup', signupCredentials.value)
-      responseData.value = response.daa
+      const response = await client.post('accounts/signup', signupCredentials.value)
+      try {
+        success(response)
+      } catch (error) {
+        console.error(error)
+      }
     } catch (error) {
-      authenticationErrors.value.push({ type: 'danger', content: error.message})
+      fail([error.message, error.response.data])
+    }
+  }
+
+  async function performLogout (success, fail) {
+    try {
+      await client.post('accounts/logout')
+      try {
+        success()
+      } catch (error) {
+        console.error(error)
+      }
+    } catch (error) {
+      fail([error.message, error.response.data])
+    }
+  }
+
+  async function performAccountVerification (success, fail) {
+    try {
+      await client.post('accounts/verify-account', verificationCredentials.value)
+      try {
+        success()
+      } catch (error) {
+        console.error(error)
+      }
+    } catch (error) {
+      fail([error.message, error.response.data])
     }
   }
 
   return {
-    responseData,
+    verificationCredentials,
     authenticationErrors,
     loginCredentials,
     signupCredentials,
     forgotPasswordCredentials,
-    login,
-    signup,
+    performLogin,
+    performSignup,
+    performLogout,
+    performAccountVerification,
     passwordsValid
   }
 }

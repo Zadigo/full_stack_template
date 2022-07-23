@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% autoescape off %}
+    {% blocktrans trimmed %}
+        Need to reset your password?
+    {% endblocktrans %}
+
+    {{ verification_code }}
+
+    {% blocktrans trimmed %}
+        Click on the button below and enter the secret code above.
+    {% endblocktrans %}
+
+    {% blocktrans trimmed %}
+        If you did not forget your password, you can ignore this email.
+    {% endblocktrans %}
+{% endautoescape %}

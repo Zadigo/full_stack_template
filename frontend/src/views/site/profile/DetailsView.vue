@@ -15,7 +15,7 @@
 <script>
 import _ from 'lodash'
 
-import BaseValidationCard from './BaseValidationCard.vue'
+import BaseValidationCard from '../../../components/auth/profile/BaseValidationCard.vue'
 import FieldsIterator from '@/components/FieldsIterator.vue'
 
 export default {

@@ -1,0 +1,1 @@
+from promailing.shortcuts import verify_user_code

@@ -1,0 +1,9 @@
+{% autoescape off %}
+    {% blocktrans trimmed %}Hi, {{ username }},{% endblocktrans %}
+
+    {% blocktrans trimmed %}We have verified several unsuccessful attempts to login to your account with us.{% endblocktrans %}
+
+    {% blocktrans trimmed %}This happened in {{ date_and_time }} with the IP address {{ ip_address }}.{% endblocktrans %}
+
+    {% trans "Regards" %}
+{% endautoescape %}

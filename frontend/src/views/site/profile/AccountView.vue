@@ -20,13 +20,13 @@
 
 <script>
 export default {
-  name: 'AccountSection',
+  name: 'AccountView',
   title() {
     return 'Account'
   },
   
   methods: {
-    deleteAccount() {
+    async deleteAccount() {
       
     }
   }

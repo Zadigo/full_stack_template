@@ -1,11 +1,32 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from promailing.emailing import VerifyAccount
+from promailing import verify_user_code
+from promailing.models import EmailVerificationCode
+from rest_framework.exceptions import NotAcceptable
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
 from accounts import serializers
 from accounts.permissions import HasPermissions, IsAuthenticated
+
+
+def simple_api_response(serializer):
+    from rest_framework.response import Response
+    return Response(serializer.data)
+
+
+def api_response(serializer=None, data=None):
+    from rest_framework.response import Response
+    if serializer is not None and data is not None:
+        return simple_api_response(serializer)
+
+    if serializer is not None:
+        return simple_api_response(serializer)
+
+    return Response(data=data)
+
 
 USER_MODEL = get_user_model()
 
@@ -16,6 +37,7 @@ def signup_view(request, **kwargs):
     serializer = serializers.SignupSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
+    return api_response(data={'state': True})
 
 
 @api_view(['post'])
@@ -23,16 +45,16 @@ def signup_view(request, **kwargs):
 def login_view(request, **kwargs):
     serializer = serializers.LoginSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
-    serializer.save(request)
+    data = serializer.save()
+    return api_response(data=data)
 
 
 @api_view(['post'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def logout_view(request, **kwargs):
-    if request.user.is_authenticated:
-        token = get_object_or_404(Token, user=request.user)
-        token.delete()
-    return
+    token = get_object_or_404(Token, user=request.user)
+    token.delete()
+    return api_response(data={'state': True})
 
 
 @api_view(['post'])
@@ -40,6 +62,8 @@ def logout_view(request, **kwargs):
 def forgot_password_view(request, **kwargs):
     serializer = serializers.ForgotPassword(data=request.data)
     serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return api_response(data={'state': True})
 
 
 @api_view(['post'])
@@ -52,8 +76,9 @@ def confirm_reset_password_view(request, **kwargs):
 @api_view(['get'])
 @permission_classes([IsAuthenticated])
 def profile_view(request, **kwargs):
-    profile = request.user.myuserprofile_set.get()
-    serializer = serializers.ProfileSerializer(instance=profile)
+    serializer = serializers.ProfileSerializer(
+        instance=request.user.myuserprofile)
+    return simple_api_response(serializer)
 
 
 @api_view(['post'])
@@ -61,6 +86,8 @@ def profile_view(request, **kwargs):
 def update_profile_view(request, **kwargs):
     serializer = serializers.ProfileSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
+    serializer.save(request)
+    return simple_api_response(serializer)
 
 
 @api_view(['post'])
@@ -68,3 +95,26 @@ def update_profile_view(request, **kwargs):
 def delete_account_view(request, **kwargs):
     user = get_object_or_404(USER_MODEL, user=request.user)
     user.delete()
+
+
+@api_view(['post'])
+@permission_classes([AllowAny])
+def request_verification_code_view(request, **kwargs):
+    user = get_object_or_404(USER_MODEL, email=request.data['email'])
+    if user.is_active:
+        raise NotAcceptable(detail='Could not perform request')
+    instance = VerifyAccount(user)
+    instance.send_email()
+    return api_response(data={'state': True})
+
+
+@api_view(['post'])
+@permission_classes([AllowAny])
+def verify_account_view(request, **kwargs):
+    verification_code = request.data.get('verification_code', None)
+    instance = verify_user_code(verification_code=verification_code)
+    instance.user.is_active = True
+    instance.user.save()
+    previous_codes = EmailVerificationCode.objects.filter(user=instance.user)
+    previous_codes.delete()
+    return api_response(data={'state': True})

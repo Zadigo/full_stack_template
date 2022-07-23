@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import { mapState } from 'pinia'
-import { useAuthentication } from '@/store/authentication'
+// import { mapState } from 'pinia'
+// import { useAuthentication } from '@/store/authentication'
 
-import BaseValidationCard from './BaseValidationCard.vue'
-import FieldsIterator from '../../FieldsIterator.vue'
+import BaseValidationCard from '../../../components/auth/profile/BaseValidationCard.vue'
+import FieldsIterator from '../../../components/FieldsIterator.vue'
 
 export default {
   name: 'PaymentsSection',
@@ -67,11 +67,11 @@ export default {
   },
   
   computed: {
-    ...mapState(useAuthentication, {
-      payments: (state) => {
-        return state.userDetails.payments
-      }
-    }),
+    // ...mapState(useAuthentication, {
+    //   payments: (state) => {
+    //     return state.userDetails.payments
+    //   }
+    // }),
 
     // fields() {
     //   return this.getFieldsFor('payment')

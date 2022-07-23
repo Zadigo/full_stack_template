@@ -52,18 +52,49 @@ const routes = [
                 components: {
                     content: loadView('site/auth/ForgotPasswordView')
                 }
+            },
+            {
+                path: 'verify',
+                name: 'verify_view',
+                components: {
+                    content: loadView('site/auth/VerifyAccountView')
+                }
             }
+        ]
+    },
+    {
+        path: '/profile',
+        component: loadLayout('BaseProfile'),
+        children: [
+            {
+                name: 'profile_index_view',
+                path: '',
+                meta: {
+                    verboseName: 'Index',
+                    requiresAuthentication: false
+                },
+                component: loadView('site/profile/IndexView')
+            }
+            // {
+            //     name: 'profiles_index_view',
+            //     path: '',
+            //     meta: {
+            //         verboseName: 'Anoh',
+            //         requiresAuthentication: true
+            //     },
+            //     component: loadView('site/profile/IndexView')
+            // }
         ]
     },
     {
         path: '/506',
         name: 'not_authorized_view',
-        component: loadView('site/NotAuthorized')
+        component: loadView('site/NotAuthorizedView')
     },
     {
         path: '/404',
         name: 'not_found_view',
-        component: loadView('site/NotFound')
+        component: loadView('site/NotFoundView')
     },
     {
         path: '/:catchAll(.*)',

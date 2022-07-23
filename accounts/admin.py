@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
+from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from rest_framework.authtoken.admin import TokenAdmin
 from rest_framework.authtoken.models import TokenProxy
@@ -7,8 +8,6 @@ from rest_framework.authtoken.models import TokenProxy
 from accounts import forms
 from accounts.forms import CustomAdminAuthenticationForm
 from accounts.models import Address, MyUser, MyUserProfile, Payment
-
-from django.contrib.auth.admin import UserAdmin
 
 
 class CustomAdminSite(AdminSite):

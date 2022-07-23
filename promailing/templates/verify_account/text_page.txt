@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% autoescape off %}
+    {% blocktrans trimmed %}
+        Hello {{ username }},
+    {% endblocktrans %}
+
+    {% blocktrans trimmed %}
+        You registered an account on {{ website_name }}, before being able to use your account you need to verify that this is your email address by clicking here: {{ verification_link }}
+    {% endblocktrans %}
+
+    {% blocktrans trimmed %}
+        Your verification code is: {{ verification_code }}
+    {% endblocktrans %}
+
+    {% blocktrans trimmed %}
+        Kind Regards, {{ website_name }}
+    {% endblocktrans %}
+{% endautoescape %}

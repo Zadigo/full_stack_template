@@ -1,6 +1,5 @@
 <template>
   <section id="addresses">
-
     <!-- Add new -->
     <base-card v-if="addresses.length===0 && !addNew">
       <b-card-body class="text-center">
@@ -84,10 +83,10 @@
 </template>
 
 <script>
-const _ = require('lodash')
+import _ from 'lodash'
 
-import { useAuthentication } from '@/store/authentication'
-import { mapState } from 'pinia'
+// import { useAuthentication } from '@/store/authentication'
+// import { mapState } from 'pinia'
 
 export default {
   name: 'AddressesSection',
@@ -104,11 +103,11 @@ export default {
   },
   
   computed: {
-    ...mapState(useAuthentication, {
-      addresses: (state) => {
-        return state.userDetails.addresses
-      }
-    })
+    // ...mapState(useAuthentication, {
+    //   addresses: (state) => {
+    //     return state.userDetails.addresses
+    //   }
+    // })
   },
   
   methods: {
@@ -139,15 +138,15 @@ export default {
       // Finalizes the updating of the address
       // by sending the request to the server
       // this.$store.dispatch('profileModule/updateAddress', this.newAddress)
-      this.$api.profile.modifyAddress(this.newAddress)
-      .then((response) => {
-        this.$store.dispatch('profileModule/updateAddress', response)
-        this.createMode = true
-        this.addNew = false
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      // this.$api.profile.modifyAddress(this.newAddress)
+      // .then((response) => {
+      //   this.$store.dispatch('profileModule/updateAddress', response)
+      //   this.createMode = true
+      //   this.addNew = false
+      // })
+      // .catch((error) => {
+      //   console.log(error)
+      // })
     },
     retrieveAddressToUpdate(id) {
       // Initiates the updating of the address by

@@ -1,27 +1,32 @@
 from uuid import uuid4
 
-from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, Group, Permission
 from django.core.mail import send_mail
 from django.db import models
 from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToCover
-from rest_framework.authtoken.models import Token
 
 from accounts.managers import MyUserManager
 from accounts.utils import upload_avatar_directory
-from accounts.validators import (avatar_validator, stripe_card_validator, stripe_iban_validator,
-                                 stripe_token_validator)
+from accounts.validators import (avatar_validator, stripe_card_validator,
+                                 stripe_iban_validator, stripe_token_validator)
 
 
 class PermissionMixin(models.Model):
     is_superuser = models.BooleanField(default=False)
     groups = models.ManyToManyField(
-        Group, blank=True, related_name='user_set', related_query_name='user')
+        Group, blank=True,
+        related_name='user_set',
+        related_query_name='user'
+    )
     user_permissions = models.ManyToManyField(
-        Permission, blank=True, related_name='user_set', related_query_name='user')
+        Permission, blank=True,
+        related_name='user_set',
+        related_query_name='user'
+    )
 
     class Meta:
         abstract = True
@@ -39,7 +44,11 @@ class PermissionMixin(models.Model):
 
 class MyUser(AbstractBaseUser, PermissionMixin):
     username = models.CharField(
-        max_length=50, blank=True, null=True, unique=True)
+        max_length=50,
+        blank=True,
+        null=True,
+        unique=True
+    )
     email = models.EmailField(blank=False, null=False, unique=True)
 
     firstname = models.CharField(max_length=60, blank=True, null=True)
@@ -99,6 +108,9 @@ class Payment(models.Model):
     card = models.CharField(max_length=150, validators=[stripe_card_validator])
     iban = models.CharField(max_length=150, validators=[stripe_iban_validator])
 
+    class Meta:
+        verbose_name = _('payment')
+
     def __str__(self):
         return self.reference
 
@@ -136,7 +148,7 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.email
-
+        
 
 @receiver(post_save, sender=MyUser)
 def create_user_profile(sender, instance, created, **kwargs):

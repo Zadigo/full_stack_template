@@ -1,10 +1,17 @@
 from django.contrib.auth import get_user_model
+from django.db import transaction
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext_lazy as _
+from promailing import emailing
+from promailing.emailing import VerifyAccount
 from rest_framework import fields
+from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import Serializer
 
-from accounts.validators import password_validator, username_validator
+from accounts.validators import (email_validator, password_validator,
+                                 username_validator)
 
 USER_MODEL = get_user_model()
 
@@ -18,39 +25,81 @@ class BaseAuthenticationSerializer(Serializer):
     password = fields.CharField(validators=[])
 
 
-class LoginSerializer(BaseAuthenticationSerializer):
-    def save(self, request, **kwargs):
-        result = request.user.check_password(self.validated_data['password'])
+class LoginSerializer(Serializer):
+    username = fields.CharField(required=False)
+    email = fields.EmailField(required=False)
+    password = fields.CharField()
+
+    def save(self, **kwargs):
+        email = self.validated_data.get('email', None)
+        username = self.validated_data.get('username', None)
+        if email is None and username is None:
+            raise ValidationError(detail=_('No username or email'))
+
+        logic = (
+            Q(email=email)
+            # TODO: When querying the database,
+            # Django returns the first record
+            # even when 'username' is None because
+            # it considers that useer.username even
+            # with None is a valid return object
+            # Q(username=username)
+        )
+        user = get_object_or_404(USER_MODEL, logic)
+
+        if not user.is_active:
+            raise ValidationError(detail=_('Account needs verification'))
+
+        result = user.check_password(self.validated_data['password'])
         if not result:
-            raise ValidationError(detail='User could not be authenticated')
-        return result
+            raise ValidationError(detail=_('User could not be authenticated'))
+
+        instance, state = Token.objects.get_or_create(user=user)
+        serialized_profile = ProfileSerializer(instance=user.myuserprofile)
+        return {
+            'token': instance.key,
+            **serialized_profile.data
+        }
 
 
-class SignupSerializer(BaseAuthenticationSerializer):
-    password = None
+class SignupSerializer(Serializer):
+    username = fields.CharField(validators=[username_validator])
+    email = fields.EmailField(validators=[email_validator])
     firstname = fields.CharField(required=False)
     lastname = fields.CharField(required=False)
-    password1 = fields.CharField(validators=[password_validator])
-    password2 = fields.CharField(validators=[password_validator])
+    password1 = fields.CharField()
+    password2 = fields.CharField()
 
     def save(self, **kwargs):
         password1 = self.validated_data['password1']
         password2 = self.validated_data['password2']
         if password1 != password2:
-            raise ValidationError(detail="Passwords do not match")
+            raise ValidationError(detail=_("Passwords do not match"))
+
+        # password_validator(password1)
+
         params = {
             'email': self.validated_data['email'],
-            'firstname': self.validated_data['firstname'],
-            'lastname': self.validated_data['lasttname'],
+            'firstname': self.validated_data.get('firstname', None),
+            'lastname': self.validated_data.get('lastname', None),
             'username': self.validated_data['username'],
-            'password': password2
+            'password': password1
         }
-        USER_MODEL.objects.create(**params)
+        user = USER_MODEL.objects.create_user(**params)
+
+        # TODO: Send email validation in order to verify that
+        # we are dealing with a valid email address
+        instance = VerifyAccount(user)
+        instance.send_email()
 
 
 class ForgotPassword(BaseAuthenticationSerializer):
-    username = None
-    password = None
+    email = fields.EmailField()
+
+    def save(self, **kwargs):
+        user = get_object_or_404(USER_MODEL, email=self.validated_data['email'])
+        instance = emailing.ResetPassword(user)
+        instance.send_email()
 
 
 class PasswordResetSerializer(Serializer):
@@ -68,23 +117,31 @@ class AddressProfileSerializer(Serializer):
     country = fields.CharField()
 
 
-class ProfileSerializer(Serializer):
-    id = fields.IntegerField(read_only=True)
+class UserSerializer(Serializer):
+    get_full_name = fields.CharField(read_only=True)
+    username = fields.CharField(required=False)
     firstname = fields.CharField(required=False)
     lastname = fields.CharField(required=False)
+    email = fields.EmailField(required=False)
+    is_admin = fields.BooleanField(read_only=True)
+    is_staff = fields.BooleanField(read_only=True)
+    created_on = fields.DateTimeField(read_only=True)
+
+
+class ProfileSerializer(Serializer):
+    id = fields.IntegerField(read_only=True)
+    myuser = UserSerializer(required=False)
     avatar = fields.FileField(required=False)
     addresses = AddressProfileSerializer(many=True, required=False)
-    created_on = fields.DateField(read_only=True)
 
     def save(self, request, **kwargs):
-        profile = request.user.myuserprofile_set.get()
-        data = request.data
-        addresses = data.pop('addresses')
-        for key, value in data.items():
-            setattr(profile, key, value)
+        profile = request.user.myuserprofile
+        # with transaction.atomic():
+        profile_data = self.validated_data['myuser']
+        for key, incoming_value in profile_data.items():
+            setattr(profile, key, incoming_value)
         profile.save()
-        for address in addresses:
-            instance = profile.addresses.get(id=address['id'])
-            for key, value in address.items():
-                setattr(instance, key, value)
-            instance.save()
+
+        # sid = transaction.savepoint()
+
+        # transaction.savepoint_commit(sid)

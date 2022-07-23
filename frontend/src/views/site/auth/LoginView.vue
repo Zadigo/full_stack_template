@@ -7,16 +7,12 @@
           <input v-model="loginCredentials.password" type="password" autocomplete="current-password" class="form-control p-2 my-2">
 
           <!-- Recaptcha -->
-          <vue-recaptcha :sitekey="'1234'" :load-recaptcha-script="false" @verify="handleSuccess" @error="handleError" />
+          <!-- <vue-recaptcha :sitekey="'1234'" :load-recaptcha-script="false" @verify="handleSuccess" @error="handleError" /> -->
         </form>
       </div>
 
       <div class="col-12">
         <auth-navigation-vue />
-      </div>
-
-      <div class="col-12">
-        <div id="google-button"></div>
       </div>
     </div>
   </div>
@@ -29,48 +25,49 @@
 </template>
 
 <script>
-import { VueRecaptcha } from 'vue-recaptcha'
-import { getCurrentInstance } from 'vue'
+// import { VueRecaptcha } from 'vue-recaptcha'
 
 import useAuthenticationComposable from '@/composables/authentication'
-import useGoogleAuthentication from '../../../composables/socials'
 
 import AuthNavigationVue from './AuthNavigation.vue'
+import { useAuthentication } from '@/store/authentication'
 
 export default {
   name: 'LoginView',
   components: {
     AuthNavigationVue,
-    VueRecaptcha
+    // VueRecaptcha
   },
   emits: {
       submitted: () => true
   },
   setup() {
-    console.info(process.env)
-    const instance = getCurrentInstance()
-    const { load } = useGoogleAuthentication(instance, { clientId: '707231563844-e5cpkqrlt62gncmj6b84of5sml9lp8g9.apps.googleusercontent.com' })
-    
-    const { loginCredentials, responseData, authenticationErrors, login } = useAuthenticationComposable()
-    function handleSuccess () {}
-    function handleError (response) {
-      response
-    }
-    return {
-      load,
-      // completeSignin,
-      // authentifiedUser,
+    const store = useAuthentication()
+    const { loginCredentials, performLogin } = useAuthenticationComposable()
 
+    // function handleSuccess () {}
+    // function handleError (response) {
+    //   response
+    // }
+    return {
+      store,
       loginCredentials,
-      responseData,
-      authenticationErrors,
-      handleSuccess,
-      handleError,
-      login
+      // authenticationErrors,
+      // handleSuccess,
+      // handleError,
+      performLogin
     }
   },
-  mounted () {
-    this.load()
+  methods: {
+    completeLogin () {
+      this.performLogin((response) => {
+        this.store.loginUser(response.data)
+        this.$session.create('auth', response.data)
+        this.$router.push({ name: 'home_view' })
+      }, (error) => {
+        console.error(error)
+      })
+    }
   }
 }
 </script>
