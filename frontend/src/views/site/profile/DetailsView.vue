@@ -4,24 +4,24 @@
 
 <template>
   <section>
-    <base-validation-card :position="0" @validateAction="sendChanges">
+    <base-validation-card :position="0" @validateAction="update">
       <template #cardHeader>
         <header class="card-header">
           <img :src="'https://images.pexels.com/photos/1447885/pexels-photo-1447885.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=100&w=100'" alt="avatar">
         </header>
       </template>
 
-      <fields-iterator :form-fields="getFields('details')" @start-action="changeItems" />
+      <fields-iterator :form-fields="fields" :initial-values="initialValues" @start-action="changeItems" />
     </base-validation-card>
   </section>
 </template>
 
 <script>
-// import _ from 'lodash'
-
 import BaseValidationCard from '@/layouts/BaseValidationCard.vue'
 import FieldsIterator from '@/components/FieldsIterator.vue'
 import useProfileComposable from '@/composables/profile'
+import { useAuthentication } from '@/store/authentication'
+import { storeToRefs } from 'pinia'
 
 export default {
   name: 'DetailsView',
@@ -30,44 +30,35 @@ export default {
     BaseValidationCard
   },
   setup () {
-    const { getFields } = useProfileComposable()
+    const store = useAuthentication()
+    const { user } = storeToRefs(store)
+    const { getFields, getInitialValues } = useProfileComposable()
+    const fields = getFields('details')
+    const initialValues = getInitialValues('details', store.user.myuser)
     return {
+      initialValues,
+      fields,
+      user,
+      getInitialValues,
       getFields
     }
   },
-  // beforeRouteLeave(to, from, next) {
-  //   if (Object.keys(this.changedValues).length > 0) {
-  //     console.log('You have unfinished unsaved data')
-  //   }
-  //   next()
-  // },
   data () {
     return {
       updatedFields: {}
     }
   },
-  mounted () {
-    // Prefills the form fields with their respective
-    // values from the backend database
-    // var userDetails = this.$store.state.profileModule.userDetails.myuser
-    // _.forEach(this.fields, (field) => {
-    //   field.value = userDetails[field.name]
-    // })
-  },
   methods: {
-    async sendChanges (position) {
-      this.$api.profile.updateDetails(position, this.changedValues) 
-      .then((response) => {
-        this.changedValues = {}
-        this.$store.dispatch('profileModule/updatePersonalDetails', response)
-      })
-      .catch((error) => {
+    async update () {
+      try {
+        await this.$http.post('accounts/profile/update', { method: 'details', myuser: this.updatedFields })
+      } catch(error) {
         console.error(error)
-      })
+      }
     },
     changeItems (data) {
-      this.updatedFields[data[0]] = data[1]
-    }  
+      this.updatedFields = data
+    }
   }
 }
 </script>

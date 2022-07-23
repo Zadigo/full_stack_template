@@ -16,6 +16,7 @@ class RequiresAdmin(IsAuthenticated):
 
 
 class HasPermissions(BasePermission):
+    permissions = ['accounts.change_myuserprofile']
     def has_permission(self, request, view):
         return True
         # return request.user.has_perms(['profile.edit'])

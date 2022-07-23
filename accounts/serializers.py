@@ -7,7 +7,7 @@ from promailing import emailing
 from promailing.emailing import VerifyAccount
 from rest_framework import fields
 from rest_framework.authtoken.models import Token
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, AuthenticationFailed
 from rest_framework.serializers import Serializer
 
 from accounts.validators import (email_validator, password_validator,
@@ -97,7 +97,8 @@ class ForgotPassword(BaseAuthenticationSerializer):
     email = fields.EmailField()
 
     def save(self, **kwargs):
-        user = get_object_or_404(USER_MODEL, email=self.validated_data['email'])
+        user = get_object_or_404(
+            USER_MODEL, email=self.validated_data['email'])
         instance = emailing.ResetPassword(user)
         instance.send_email()
 
@@ -145,3 +146,16 @@ class ProfileSerializer(Serializer):
         # sid = transaction.savepoint()
 
         # transaction.savepoint_commit(sid)
+
+
+class UpdatePasswordSerializer(Serializer):
+    old_password = fields.CharField()
+    password1 = fields.CharField(validators=[])
+    password2 = fields.CharField(validators=[])
+
+    def save(self, request, **kwargs):
+        user = request.user
+        result = user.check_password(self.validated_data['old_password'])
+        if not result:
+            raise AuthenticationFailed(detail='Could not authenticate user')
+        user.set_password(self.validated_data['password1'])

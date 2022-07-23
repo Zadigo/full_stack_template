@@ -76,7 +76,7 @@ const routes = [
                 path: '',
                 meta: {
                     verboseName: 'Index',
-                    requiresAuthentication: false
+                    requiresAuthentication: true
                 },
                 component: loadView('site/profile/IndexView')
             },
@@ -85,7 +85,7 @@ const routes = [
                 path: 'details',
                 meta: {
                     verboseName: 'Details',
-                    requiresAuthentication: false
+                    requiresAuthentication: true
                 },
                 component: loadView('site/profile/DetailsView')
             },
@@ -94,7 +94,7 @@ const routes = [
                 path: 'password',
                 meta: {
                     verboseName: 'Password',
-                    requiresAuthentication: false
+                    requiresAuthentication: true
                 },
                 component: loadView('site/profile/PasswordView')
             },
@@ -103,7 +103,7 @@ const routes = [
                 path: 'preferences',
                 meta: {
                     verboseName: 'Preferences',
-                    requiresAuthentication: false
+                    requiresAuthentication: true
                 },
                 component: loadView('site/profile/PreferencesView')
             },
@@ -112,7 +112,7 @@ const routes = [
                 path: 'addresses',
                 meta: {
                     verboseName: 'Addresses',
-                    requiresAuthentication: false
+                    requiresAuthentication: true
                 },
                 component: loadView('site/profile/AddressView')
             },
@@ -156,12 +156,12 @@ router.beforeEach((to, from, next) => {
         const store = useAuthentication()
         
         if (!store.isAuthenticated) {
-            next('login_view')
+            next({ name: 'login_view' })
         }
 
         if (to.meta.requiresAdmin) {
             if (!store.isAdmin) {
-                next('not_authorized_view')
+                next({ name: 'not_authorized_view' })
             }
         }
     }

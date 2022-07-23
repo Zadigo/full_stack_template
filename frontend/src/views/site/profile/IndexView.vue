@@ -19,17 +19,17 @@
 </template>
 
 <script>
-// import { useAuthentication } from '@/store/authentication'
-// import { mapState } from 'pinia'
+import { useAuthentication } from '@/store/authentication'
+import { mapState } from 'pinia'
 
 export default {
   name: 'IndexSection',
   computed: {
-    // ...mapState(useAuthentication, {
-    //   firstName: (state) => {
-    //     return state.userDetails.myuser.firstname
-    //   }
-    // })
+    ...mapState(useAuthentication, {
+      firstName: (state) => {
+        return state.user.myuser.get_full_name
+      }
+    })
   }
 }
 </script>

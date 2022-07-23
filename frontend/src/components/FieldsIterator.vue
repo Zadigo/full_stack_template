@@ -5,7 +5,8 @@
         <label v-if="field.label !== null" :for="field.name" class="mt-3 mb-2 fw-bold">
           {{ field.label }}
         </label>
-        <input :type="field.type" :value="field.value" :autocomplete="field.autocomplete" :aria-label="field.aria" class="form-control p-3" @keyup="$emit('start-action', [field.name, $event.target.value])">
+        <!-- @keyup="$emit('start-action', [field.name, $event.target.value])" -->
+        <input v-model="fieldUpdates[field.name]" :type="field.type" :autocomplete="field.autocomplete" :aria-label="field.aria" class="form-control p-3" @keyup="$emit('start-action', fieldUpdates)">
       </div>
     </div>
   </div>
@@ -18,13 +19,22 @@ export default {
     formFields: {
       type: Array,
       required: true
+    },
+    initialValues: {
+      type: Object,
+      default: () => {}
     }
   },
   emits: {
-    'start-action': (value) => {
-      console.log(value)
-      return true
+    'start-action': () => true
+  },
+  data () {
+    return {
+      fieldUpdates: {}
     }
+  },
+  created () {
+    this.fieldUpdates = Object.assign(this.initialValues, this.fieldUpdates)
   }
 }
 </script>
