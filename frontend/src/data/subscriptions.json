@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "name": "Free",
+        "features": [
+            "Feature1",
+            "Feature2",
+            "Feature3"
+        ],
+        "prices": {
+            "monthly": 0,
+            "yearly": 0
+        },
+        "highlight": false
+    },
+    {
+        "id": 2,
+        "name": "Essential",
+        "features": [
+            "Feature1",
+            "Feature2",
+            "Feature3",
+            "Feature4"
+        ],
+        "prices": {
+            "monthly": 22,
+            "yearly": 26
+        },
+        "highlight": true
+    },
+    {
+        "id": 3,
+        "name": "Advanced",
+        "features": [
+            "Feature1",
+            "Feature2",
+            "Feature3",
+            "Feature4",
+            "Feature5"
+        ],
+        "prices": {
+            "monthly": 83,
+            "yearly": 75
+        },
+        "highlight": false
+    },
+    {
+        "id": 4,
+        "name": "Enterprise",
+        "features": [
+            "Feature1",
+            "Feature2",
+            "Feature3",
+            "Feature4",
+            "Feature5",
+            "Feature6"
+        ],
+        "prices": {
+            "monthly": 129,
+            "yearly": 79
+        },
+        "highlight": false
+    }
+]

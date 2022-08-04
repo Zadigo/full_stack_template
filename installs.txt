@@ -1,0 +1,46 @@
+npm install --save-dev eslint eslint-plugin-vue
+
+npm install --save bootstrap@next bootstrap-vue
+npm install --save axios router vue-router vuex lodash
+
+npm install --save sass-loader sass
+npm install --save datejs
+
+# NOTE: The latest chartjs is not yet compatible with
+# the newest Vue so use "npm install chart.js@2.9.4"
+npm install --save vue-chartjs chart.js
+
+npm install --save mdb-ui-kit
+
+npm install --save vuetify @mdi/font
+
+1. npm install --save @fortawesome/fontawesome-svg-core
+2. npm install --save @fortawesome/free-solid-svg-icons
+3. npm install --save @fortawesome/vue-fontawesome@latest
+// npm install --save @fortawesome/fontawesome-free-solid
+
+npm install buefy
+
+npm install js-cookie
+
+npm install -g @ionic/cli
+
+Imports
+-------
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+@import '~mdb-ui-kit/css/mdb.min.css';
+@import url('https://use.fontawesome.com/releases/v5.15.3/js/all.js');
+@import url('https://cdn.jsdelivr.net/npm/mdbvue/lib/css/mdb.min.css');
+
+
+
+// Mobile
+
+npm install -g @ionic/cli
+
+// Remove typescript in ionic
+
+npm uninstall --save typescript @types/jest @typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/cli-plugin-typescript @vue/eslint-config-typescript

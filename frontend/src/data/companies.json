@@ -1,0 +1,34 @@
+[
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e258e93f171e18a3308_clearbit.svg",
+        "alt": "clearbit"
+    },
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b423729024d61e9a81a7be_logmein.svg",
+        "alt": "log-me-in"
+    },
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/6058c083201c15c0fa471850_privy-2021.svg",
+        "alt": "privy"
+    },
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e426ec9b0001bdb875c_codepen.svg",
+        "alt": "codepen"
+    },
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e0ae1947a43717e46e7_amplitude.svg",
+        "alt": "Amplitude"
+    },
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e8407fc3fd1a197b1b4_adroll.svg",
+        "alt": "adroll"
+    },
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/605105a4d0533067cfafabd2_profitwell-2021.svg",
+        "alt": "profitwell"
+    },
+    {
+        "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e3d86ed89aec212c20e_lyft.svg",
+        "alt": "lyft"
+    }
+]
