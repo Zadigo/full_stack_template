@@ -2,10 +2,11 @@
   <div class="row">
     <div class="col-12">
       <div v-for="field in formFields" :key="field.id" class="form-group mt-2">
-        <label v-if="field.label !== null" :for="field.name" class="mt-3 mb-2 font-weight-bold">
+        <label v-if="field.label !== null" :for="field.name" class="mt-3 mb-2 fw-bold">
           {{ field.label }}
         </label>
-        <input @keyup="$emit('startAction', field.name, $event.target.value)" :type="field.type|defaulType" :value="field.value" :id="field.name" :autocomplete='field.autocomplete' :placeholder="field.placeholder" :aria-label="field.aria" class="form-control">
+        <!-- @keyup="$emit('start-action', [field.name, $event.target.value])" -->
+        <input v-model="fieldUpdates[field.name]" :type="field.type" :autocomplete="field.autocomplete" :aria-label="field.aria" class="form-control p-3" @keyup="$emit('start-action', fieldUpdates)">
       </div>
     </div>
   </div>
@@ -18,17 +19,22 @@ export default {
     formFields: {
       type: Array,
       required: true
+    },
+    initialValues: {
+      type: Object,
+      default: () => {}
     }
   },
-  
-  filters: {
-    defaulType (value) {
-      if (value === null | value === undefined) {
-        return 'text'
-      } else {
-        return value
-      }
+  emits: {
+    'start-action': () => true
+  },
+  data () {
+    return {
+      fieldUpdates: {}
     }
+  },
+  created () {
+    this.fieldUpdates = Object.assign(this.initialValues, this.fieldUpdates)
   }
 }
 </script>

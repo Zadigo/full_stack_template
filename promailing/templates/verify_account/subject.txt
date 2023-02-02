@@ -1,0 +1,3 @@
+{% load i18n %}
+
+{% blocktrans trimmed %}Your verification code{% endblocktrans %}

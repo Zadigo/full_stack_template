@@ -1,10 +1,12 @@
-import Vue from 'vue'
+import { createApp, toRaw } from 'vue'
 import App from './App.vue'
 
-// Router / Store
-import router from './router'
-import store from './stores'
+import './plugins/fontawesome'
+import '@mdi/font/css/materialdesignicons.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'mdb-ui-kit/css/mdb.min.css'
 
+<<<<<<< HEAD
 // CSS
 // require('buefy/dist/buefy.css')
 require('../node_modules/bootstrap/dist/css/bootstrap.css')
@@ -15,22 +17,28 @@ require('./assets/admin.css')
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTrash, faPen, faCheck, faStar, faSearch } from '@fortawesome/free-solid-svg-icons'
+=======
+import { loadFonts } from './plugins'
+>>>>>>> 29457371f93f9f58670a2a9fcba37192e4692f09
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { createLocalStorage, createVueSession } from './plugins/vue-storages'
+import { createPinia } from 'pinia'
+import { createAxios } from './plugins/axios'
+import router from './router'
+import i18n from './i18n'
+import messagesPlugin from '@/store/messages'
+// import {  functions } from './plugins/vue-analytics/google'
+// import { createGoogleAnalytics } from './plugins/vue-analytics/google'
 
-// Global components
-import FieldsIterator from './components/FieldsIterator.vue'
-import BasePrivacyText from './components/BasePrivacyText.vue'
-import BaseSecondaryCTA from './components/BaseSecondaryCTA.vue'
+loadFonts()
 
-import BaseSmallFAQ from './components/layouts/BaseSmallFAQ.vue'
-import BaseJumbotron from './components/layouts/BaseJumbotron.vue'
-import BaseCard from './components/layouts/BaseCard.vue'
-import BaseHero from './components/BaseHero.vue'
+const app = createApp(App)
 
-// Mixins
-import globalMixin from './mixins'
-import formMixin from './mixins/form'
+const session = createVueSession()
+const localstorage = createLocalStorage()
+const pinia = createPinia()
 
+<<<<<<< HEAD
 // Plugins
 import Stripe from './plugins/stripe'
 import Api from './plugins/api'
@@ -75,3 +83,26 @@ new Vue({
 
   render: h => h(App),
 }).$mount('#app')
+=======
+pinia.use(messagesPlugin)
+
+pinia.use(({ store }) => {
+  store.router = toRaw(router)
+  store.session = toRaw(session)
+  store.localstorage = toRaw(localstorage)
+})
+
+// const analytics = createGoogleAnalytics('some-tag', {
+//   currency: 1
+// })
+// console.log('test', session.retrieve(1))
+app.use(router)
+// app.use(analytics)
+app.use(session)
+app.use(localstorage)
+app.use(pinia)
+app.use(i18n)
+app.use(createAxios())
+app.component('FontAwesomeIcon', FontAwesomeIcon)
+app.mount('#app')
+>>>>>>> 29457371f93f9f58670a2a9fcba37192e4692f09

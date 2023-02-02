@@ -3,23 +3,30 @@ from uuid import uuid4
 from django.contrib.auth.models import AbstractBaseUser, Group, Permission
 from django.core.mail import send_mail
 from django.db import models
-from django.db.models.signals import post_save, post_delete, pre_save
+from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 from imagekit.models.fields import ProcessedImageField
 from imagekit.processors import ResizeToCover
-from rest_framework.authtoken.models import Token
 
 from accounts.managers import MyUserManager
 from accounts.utils import upload_avatar_directory
-from accounts.validators import (stripe_card_validator, stripe_iban_validator,
-                                 stripe_token_validator)
-from django.conf import settings
-import os
+from accounts.validators import (avatar_validator, stripe_card_validator,
+                                 stripe_iban_validator, stripe_token_validator)
+
 
 class PermissionMixin(models.Model):
     is_superuser = models.BooleanField(default=False)
-    groups = models.ManyToManyField(Group, blank=True, related_name='user_set', related_query_name='user')
-    user_permissions = models.ManyToManyField(Permission, blank=True, related_name='user_set', related_query_name='user')
+    groups = models.ManyToManyField(
+        Group, blank=True,
+        related_name='user_set',
+        related_query_name='user'
+    )
+    user_permissions = models.ManyToManyField(
+        Permission, blank=True,
+        related_name='user_set',
+        related_query_name='user'
+    )
 
     class Meta:
         abstract = True
@@ -36,16 +43,21 @@ class PermissionMixin(models.Model):
 
 
 class MyUser(AbstractBaseUser, PermissionMixin):
-    username = models.CharField(max_length=50, blank=True, null=True, unique=True)
+    username = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        unique=True
+    )
     email = models.EmailField(blank=False, null=False, unique=True)
-    
+
     firstname = models.CharField(max_length=60, blank=True, null=True)
     lastname = models.CharField(max_length=60, blank=True, null=True)
-    
+
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    
+
     created_on = models.DateTimeField(auto_now_add=True)
 
     EMAIL_FIELD = 'email'
@@ -68,6 +80,7 @@ class MyUserProfile(models.Model):
     myuser = models.OneToOneField(MyUser, on_delete=models.CASCADE)
     avatar = ProcessedImageField(
         upload_to=upload_avatar_directory,
+        validators=[avatar_validator],
         processors=[ResizeToCover(100, 100)],
         format='JPEG',
         options={'quality': 80},
@@ -75,7 +88,7 @@ class MyUserProfile(models.Model):
     )
 
     customer_id = models.CharField(
-        max_length=100, 
+        max_length=100,
         validators=[stripe_token_validator],
         blank=True,
         null=True
@@ -95,14 +108,29 @@ class Payment(models.Model):
     card = models.CharField(max_length=150, validators=[stripe_card_validator])
     iban = models.CharField(max_length=150, validators=[stripe_iban_validator])
 
+    class Meta:
+        verbose_name = _('payment')
+
     def __str__(self):
         return self.reference
 
 
 class Address(models.Model):
-    street_address = models.CharField(max_length=100, blank=False, null=False)
-    zip_code = models.CharField(max_length=10, blank=False, null=False)
-    country = models.CharField(max_length=50, blank=False, null=False)
+    street_address = models.CharField(
+        max_length=100,
+        blank=False,
+        null=False
+    )
+    zip_code = models.CharField(
+        max_length=10,
+        blank=False,
+        null=False
+    )
+    country = models.CharField(
+        max_length=50,
+        blank=False,
+        null=False
+    )
 
     class Meta:
         verbose_name_plural = 'Addresses'
@@ -120,7 +148,7 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.email
-
+        
 
 @receiver(post_save, sender=MyUser)
 def create_user_profile(sender, instance, created, **kwargs):

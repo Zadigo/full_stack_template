@@ -12,12 +12,12 @@
     </div>
 
     <footer class="card-footer bg-white text-right">
-      <button @click="$emit('validateAction', position)" class="btn btn-primary mr-2" role="button" aria-label="Validate">
+      <button type="button" class="btn btn-primary mr-2" aria-label="Validate" @click="$emit('validate-action', position)">
         <font-awesome-icon icon="check"></font-awesome-icon>
         {{ buttonName }}
       </button>
     </footer>
-    
+
   </div>
 </template>
 
@@ -33,6 +33,9 @@ export default {
       type: String,
       default: 'Validate'
     }
+  },
+  emits: {
+    'validate-action': () => true
   }
 }
 </script>

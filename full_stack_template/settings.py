@@ -4,7 +4,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-FRONTEND_DIR = Path.joinpath(BASE_DIR, 'frontend')
+FRONTEND_DIR = BASE_DIR / 'frontend'
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,8 +34,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_extensions',
 
+    # social_django,
     'accounts',
-    'api',
+    'promailing',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'promailing.middlewares.FailedLoginMiddleware',
 ]
 
 ROOT_URLCONF = 'full_stack_template.urls'
@@ -55,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            Path.joinpath(FRONTEND_DIR, 'dist')
+            FRONTEND_DIR / 'dist'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,7 +91,7 @@ DATABASES = {
         'USER': os.environ.get('DB_USER', 'zadigo'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'zadigo'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': '5432',
+        'PORT': '5432'
     }
 }
 
@@ -131,26 +133,26 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = Path.joinpath(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'static'
 
 STATICFILES_DIRS = [
-    Path.joinpath(FRONTEND_DIR, 'dist/static')
+    BASE_DIR / 'staticfiles'
 ]
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # CORS
 
-# If this is used then `CORS_ORIGIN_WHITELIST` 
+# If this is used then `CORS_ORIGIN_WHITELIST`
 # will not have any effect
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOW_CREDENTIALS = True
 
-# If this is used, then not need 
+# If this is used, then not need
 # to use `CORS_ORIGIN_ALLOW_ALL = True`
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:8080',
@@ -163,8 +165,8 @@ CORS_ORIGIN_REGEX_WHITELIST = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'localhost:8080',
-    '192.168.0.103:8080',
+    'http://localhost:8080',
+    'http://192.168.0.103:8080',
 ]
 
 REST_FRAMEWORK = {
@@ -210,3 +212,10 @@ INTERNAL_IPS = [
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+# Promailing
+
+# PROMAILING_EMAIL_VERIFICATION_BACKEND = 'accounts.EmailVerificationCode'
+
+PROMAILING_EMAIL_VERIFICATION_REDIRECT = 'http://localhost:3000?redirect=verify'
