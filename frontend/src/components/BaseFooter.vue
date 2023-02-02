@@ -1,14 +1,17 @@
 <template>
-  <footer class="page-footer text-center font-small wow fadeIn">
-    <div class="container pt-3">
+  <footer class="page-footer text-center font-small">
+    <div class="container pt-5">
       <div class="row text-left">
-
+        
         <page-footer-column v-for="section in sections" :key="section.id" :section="section" />
 
-        <div class="col-3">
+        <div class="col-sm-12 col-md-3">
           <div class="row">
             <div class="col-12">
-              <p class="font-weight-bold text-white text-uppercase">Get in touch</p>
+              <p class="font-weight-bold text-white text-uppercase">
+                Get in touch
+              </p>
+
               <p>
                 Any questions? Let us know in store at 
                 {{ companyDetails.address }} 
@@ -52,12 +55,14 @@
 
     <hr class="my-4">
 
+    <!-- Socials -->
     <div class="pb-4">
       <a v-for="social in companyDetails.socials" :key="social.id" :href="social.link" target="_blank" role="link">
         <i :class="social.icon" class="mr-3"></i>
       </a>
     </div>
 
+    <!-- Copyright -->
     <div class="footer-copyright py-3">
       <div class="d-flex flex-direction-row justify-content-center">
         <span>© {{ currentYear }} Copyright: {{ companyDetails.name }}</span>
@@ -73,7 +78,7 @@ import PageFooterData from '../data/PageFooter.json'
 import PageFooterColumn from './PageFooterColumn.vue'
 
 export default {
-  name: 'PageFooter',
+  name: 'BaseFooter',
   components: { PageFooterColumn },
 
   data () {

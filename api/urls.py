@@ -4,6 +4,8 @@ from django.views.generic import base
 from rest_framework.routers import DefaultRouter
 
 from api.views import admin, authentication, base, profile
+from api.vue_admin import vue_admin
+# import api._testing
 
 app_name = 'api'
 
@@ -41,5 +43,8 @@ urlpatterns = [
     path('', include((router.urls, app_name))),
 
     # Tests
-    url(r'^test', admin.TestEndpoint.as_view(), name='test'),
+    # url(r'^test', admin.TestEndpoint.as_view(), name='test'),
+
+    # Admin
+    path('vue/', vue_admin.urls)
 ]

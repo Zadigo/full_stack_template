@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import { authenticationModule, profileModule } from './auth'
 import subscriptionsModule from './subscriptions'
 import notificationsModule from './messages'
+import shopModule from './shop'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,7 @@ var store = new Vuex.Store({
         
         // Optional
         subscriptionsModule,
-        // shopModule
+        shopModule
     },
 
     getters: {

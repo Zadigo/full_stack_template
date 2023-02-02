@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "description": "Description",
+        "fields": [
+            {
+                "id": 1,
+                "name": "name",
+                "value": "name",
+                "type": "text",
+                "placeholder": "Name",
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "description": "Another one",
+        "fields": [
+            {
+                "id": 1,
+                "name": "price",
+                "value": "price",
+                "type": "number",
+                "placeholder": "Price",
+                "isDefault": true
+            }
+        ]
+    }
+]

@@ -19,13 +19,14 @@
       </base-card>
 
       <slot name="registrationTexts"></slot>
+      
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'BaseRegistrationLayout',
+  name: 'BaseLayout',
   props: {
     buttonName: {
       type: String,

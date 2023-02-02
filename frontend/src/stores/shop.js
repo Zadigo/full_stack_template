@@ -1,4 +1,5 @@
 var _ = require('lodash')
+import products from '../data/products.json'
 
 var cartModule = {
     // This sections deals with products
@@ -40,7 +41,8 @@ var shopModule = {
     namespaced: true,
 
     state: () => ({
-        items: []
+        // items: []
+        items: products
     }),
 
     modules: {
@@ -54,8 +56,10 @@ var shopModule = {
     },
 
     getters: {
-        getProduct: (state) => (id) => {
-            return _.find(state.items, { id: id })
+        getProduct (state) {
+            return (id) => {
+                return _.find(state.items, ['id', id])
+            }
         }
     }
 }

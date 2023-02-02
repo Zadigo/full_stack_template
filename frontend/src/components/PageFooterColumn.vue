@@ -3,8 +3,9 @@
     <p class="font-weight-bold text-white text-uppercase">
       {{ section.title }}
     </p>
+
     <ul class="p-0">
-      <li v-for="link in section.links" :key="link.id">
+      <li v-for="(link, index) in section.links" :key="index">
         <router-link :to="{ name: link.path }" :aria-labelledby="link.name" role="link">
           {{ link.name }}  
         </router-link>

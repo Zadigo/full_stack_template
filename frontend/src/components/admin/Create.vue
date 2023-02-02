@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-body">
-            <h2>Create new product</h2>
+            <h2>New product</h2>
             <hr class="my-3">
           </div>
         </div>

@@ -1,24 +1,27 @@
 <template>
-  <section id="other-benefits">
+  <section class="page-section p-1 mt-2 mb-4" id="benefits">
 
     <h2 class="my-5 h3 text-center">...and even more</h2>
 
     <div class="row features-small mt-5">
-
-      <div class="col-xl-3 col-lg-6">
+      <div v-for="(benefit, index) in additionalbenefits" :key="index" class="col-xl-3 col-lg-6">
         <div class="row">
           <div class="col-2">
-            <i class="fab fa-firefox fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+            <!-- <i class="fab fa-firefox fa-2x mb-1 indigo-text" aria-hidden="true"></i> -->
+            <font-awesome-icon icon="star" class="fa-2x mb-1 indigo-text"></font-awesome-icon>
           </div>
-          <div class="col-10 mb-2 pl-3">
-            <h5 class="feature-title font-bold mb-1">Cross-browser compatibility</h5>
-            <p class="grey-text mt-2">Chrome, Firefox, IE, Safari, Opera, Microsoft Edge - MDB loves all browsers; all browsers love MDB.
-            </p>
+
+          <div class="col-10 mb-2">
+            <h5 class="feature-title font-bold mb-1">{{ benefit.title }}</h5>
+            <p class="grey-text mt-2">{{ benefit.content }}</p>
+
+            <!-- <h5 class="feature-title font-bold mb-1">Cross-browser compatibility</h5> -->
+            <!-- <p class="grey-text mt-2">Chrome, Firefox, IE, Safari, Opera, Microsoft Edge - MDB loves all browsers; all browsers love MDB. -->
           </div>
         </div>
       </div>
 
-      <div class="col-xl-3 col-lg-6">
+      <!-- <div class="col-xl-3 col-lg-6">
         <div class="row">
           <div class="col-2">
             <i class="fas fa-level-up-alt fa-2x mb-1 indigo-text" aria-hidden="true"></i>
@@ -87,7 +90,6 @@
       </div>
 
       <div class="col-xl-3 col-lg-6">
-        <!--Grid row-->
         <div class="row">
           <div class="col-2">
             <i class="fas fa-th fa-2x mb-1 indigo-text" aria-hidden="true"></i>
@@ -100,7 +102,6 @@
       </div>
 
       <div class="col-xl-3 col-lg-6">
-        <!--Grid row-->
         <div class="row">
           <div class="col-2">
             <i class="far fa-file-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
@@ -110,14 +111,22 @@
             <p class="grey-text mt-2">Arranged and well documented .scss files can't wait until you compile them.</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
   </section>
 </template>
 
 <script>
+import additionalbenefits from '../../../data/additionalbenefits.json'
+
 export default {
-  name: 'OtherBenefits'
+  name: 'AdditionalBenefits',
+
+  data () {
+    return {
+      additionalbenefits: additionalbenefits
+    }
+  }
 }
 </script>

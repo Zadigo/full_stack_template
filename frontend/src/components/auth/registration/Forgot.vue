@@ -1,5 +1,5 @@
 <template>
-  <base-registration-layout @startAuthentication="sendRequest" :buttonName="'Send me a password reset email'">
+  <base-layout @startAuthentication="sendRequest" :buttonName="'Send me a password reset email'">
     
     <div class="form-group">
       <label class="font-weight-bold" for="email">Email</label>
@@ -12,22 +12,20 @@
       </p>
     </template>
   
-  </base-registration-layout>
+  </base-layout>
 </template>
 
 <script>
 import { isNull } from 'lodash'
 
-import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
+import BaseLayout from './BaseLayout.vue'
 
 export default {
   name: 'ForgotPassword',
   title () {
     return 'Forgot password'
   },
-  components: {
-    BaseRegistrationLayout
-  },
+  components: { BaseLayout },
   
   data () {
     return {

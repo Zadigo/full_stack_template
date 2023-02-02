@@ -1,5 +1,5 @@
 // Hero
-import Home from '@/pages/Home.vue'
+// import Home from '@/pages/Home.vue'
 
 // Global components
 import PageNavigation from '@/components/BaseNavigation.vue'
@@ -15,21 +15,27 @@ import Contact from '@/pages/Contact.vue'
 
 var globalRoutes = [
     {
+        // path: '/',
+        // components: {
+        //     default: Home,
+        // },
+        // children: [
+        //     {
+        //         name: 'home',
+        //         path: '/',
+        //         components: {
+        //             nav: PageNavigation,
+        //             default: () => import(/* webpackChunkName: "home" */ '@/components/hero/Intro.vue'),
+        //             footer: PageFooter
+        //         }
+        //     }
+        // ]
         path: '/',
+        name: 'home',
         components: {
-            default: Home,
-        },
-        children: [
-            {
-                name: 'home',
-                path: '/',
-                components: {
-                    nav: PageNavigation,
-                    default: () => import(/* webpackChunkName: "home" */ '@/components/hero/Intro.vue'),
-                    footer: PageFooter
-                }
-            }
-        ]
+            default: () => import(/* webpackChunkname: "home" */ '@/pages/TestHome.vue'),
+            footer: PageFooter
+        }
     },
 
     {
@@ -75,6 +81,16 @@ var globalRoutes = [
             default: Contact,
             footer: PageFooter
         }
+    },
+
+    {
+      name: 'press',
+      path: '/press',
+      components: {
+          nav: PageNavigation,
+          default: () => import(/* webpackChunkName "press" */ '@/pages/Press.vue'),
+          footer: PageFooter
+      }  
     },
 
     {

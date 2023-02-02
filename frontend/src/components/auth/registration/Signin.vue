@@ -1,5 +1,5 @@
 <template>
-  <base-registration-layout @startAuthentication="loginUser" :buttonName="'Sign in to your account'">
+  <base-layout @startAuthentication="loginUser" :buttonName="'Sign in to your account'">
     
     <div class="form-group">
       <label class="font-weight-bold" for="email">Email</label>
@@ -18,11 +18,11 @@
       </div>
     </template>
  
-  </base-registration-layout>
+  </base-layout>
 </template>
 
 <script>
-import BaseRegistrationLayout from './BaseRegistrationLayout.vue'
+import BaseLayout from './BaseLayout.vue'
 
 import { mapActions } from 'vuex'
 
@@ -32,7 +32,7 @@ export default {
     return 'Signin'
   },
   components: {
-    BaseRegistrationLayout
+    BaseLayout
   },
 
   data() {

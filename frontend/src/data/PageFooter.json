@@ -4,19 +4,20 @@
         "title": "Company",
         "links": [
             {
-                "id": 1,
                 "name": "Home",
                 "path": "home"
             },
             {
-                "id": 2,
                 "name": "About us",
                 "path": "about"
             },
             {
-                "id": 3,
                 "name": "Career",
                 "path": "jobs"
+            },
+            {
+                "name": "Press",
+                "path": "press"
             }
         ]
     },
@@ -25,7 +26,6 @@
         "title": "Pricing",
         "links": [
             {
-                "id": 1,
                 "name": "Pricing",
                 "path": "pricing"
             }
@@ -36,7 +36,6 @@
         "title": "Customer care",
         "links": [
             {
-                "id": 1,
                 "name": "Contact",
                 "path": "contact"
             }

@@ -6,14 +6,15 @@ import router from './router'
 import store from './stores'
 
 // CSS
-require('buefy/dist/buefy.css')
+// require('buefy/dist/buefy.css')
 require('../node_modules/bootstrap/dist/css/bootstrap.css')
 require('./assets/style.css')
 require('./assets/admin.css')
+// require('')
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash, faPen, faCheck, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faCheck, faStar, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global components
@@ -33,15 +34,16 @@ import formMixin from './mixins/form'
 // Plugins
 import Stripe from './plugins/stripe'
 import Api from './plugins/api'
-// import vuetify from './plugins/vuetify'
 import BootstrapVue from 'bootstrap-vue'
-import Buefy from 'buefy'
+import vuetify from './plugins/vuetify'
+// import Buefy from 'buefy'
 
 // Font awesome
 library.add(faTrash)
 library.add(faPen)
 library.add(faCheck)
 library.add(faStar)
+library.add(faSearch)
 
 // Mixins
 Vue.mixin(globalMixin)
@@ -51,7 +53,7 @@ Vue.mixin(formMixin)
 Vue.use(Api)
 Vue.use(BootstrapVue)
 Vue.use(Stripe)
-Vue.use(Buefy)
+// Vue.use(Buefy)
 // Vue.use(Analytics)
 
 // Components
@@ -69,7 +71,7 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  // vuetify,
-  
+  vuetify,
+
   render: h => h(App),
 }).$mount('#app')

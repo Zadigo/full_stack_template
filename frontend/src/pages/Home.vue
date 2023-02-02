@@ -12,8 +12,6 @@
       </div>
     </header>
 
-    <CTA class="blue darken-3" />
-
     <!-- Companies -->
     <div class="p-4 mt-2 mb-4 text-center" id="banner">
       <div class="container">
@@ -27,11 +25,17 @@
     <!-- Testimonials -->
     <Testimonials />
 
+    <!-- CTA -->
+    <CTA class="mt-4 mb-4 blue darken-3" />
+
     <div class="container">
       <hr class="mb-5">
       
       <!-- Details -->
       <Boxes />
+
+      <!-- Team -->
+      <Team />
 
       <!-- Cta -->
       <base-secondary-cta />
@@ -47,6 +51,7 @@ import Testimonials from '@/components/hero/sections/Testimonials.vue'
 import CTA from '../components/hero/sections/CTA.vue'
 
 import companies from '../data/companies.json'
+import Team from '../components/hero/sections/Team.vue'
 
 export default {
   name: 'Home',
@@ -58,7 +63,8 @@ export default {
   components: {
     Testimonials,
     Boxes,
-    CTA
+    CTA,
+    Team
   },
 
   data () {

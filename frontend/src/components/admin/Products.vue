@@ -2,65 +2,64 @@
   <div class="row">
     <div class="col-12">
       <!-- Header -->
-      <PageHeader @doSearch="searchItems" v-if="products.length > 0" homePageName="Dashboard" currentPageName="Products" />
+      <PageHeader @doSearch="searchItems" homePageName="Dashboard" currentPageName="Products" />
       
-      <div v-if="products.length > 0" class="card">
+      <div v-if="items.length > 0" class="card">
         <div class="card-header">
-          <!-- Actions -->
-          <!-- <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Actions
-              <span class="badge badge-pill">{{ numberOfSelections }}</span>
-            </button>
+          <v-menu transition="slide-y-transition">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-on="on" v-bind="attrs" color="primary">
+                Actions
+                <v-icon class="ml-2">mdi-chevron-down</v-icon>
+              </v-btn>
+            </template>
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div> -->
-          <b-dropdown id="table-actions" text="Actions">
-            <b-dropdown-item>Activate</b-dropdown-item>
-            <b-dropdown-item>Deactivate</b-dropdown-item>
-            <b-dropdown-item>Duplicate</b-dropdown-item>
-            <!-- <b-dropdown-item active>Active action</b-dropdown-item> -->
-            <b-dropdown-divider></b-dropdown-divider>
-            <b-dropdown-item>Delete</b-dropdown-item>
-          </b-dropdown>
+            <v-list>
+              <v-list-item-group>
+                <v-list-item @click="action.func" v-for="(action, index) in actions" :key="index">
+                  {{ action.name }}
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-menu>
         </div>
 
         <div class="card-body">
-          <!-- Table -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th><b-form-checkbox id="select-all"></b-form-checkbox></th>
-                <th>Name</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            
-            <tbody>
-              <tr v-for="product in searchedProducts" :key="product.id">
-                <td>
-                  <b-form-checkbox v-model="selected" :value="product.id"></b-form-checkbox>
-                </td>
-                <td scope="row">
-                  <router-link :to="{ name: 'admin_product', params: { id: product.id } }">
-                    {{ product.name }}
-                  </router-link>
-                </td>
-                <td>{{ product.price|currency }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">
+                    Name
+                  </th>
+                  <th class="text-left">
+                    price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in items" :key="index">
+                  <td scope="row">
+                    <router-link :to="{ name: 'admin_product', params: { id: item.id } }">
+                      {{ item.name }}
+                    </router-link>
+                  </td>
+                  <td>{{ item.price }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+          <!-- <v-data-table :headers="headers" :items="items" :items-per-page="10" class="elevation-1"></v-data-table> -->
         </div>
       </div>
 
       <div v-else class="text-center">
-        <div id="image">
-          <img src="../../assets/no_data.svg" alt="no-products" height="300" width="auto" role="img">
+        <div class="row">
+          <div class="col-12">
+            <img :src="require('@/assets/no_data.svg')" class="img-fluid" alt="no-products" height="200" width="auto" role="img">
+          </div>
         </div>
+        
         <router-link :to="{ name: 'admin_product_create' }" class="btn btn-lg btn-primary mt-4" role="link">
           Create new
         </router-link>
@@ -71,6 +70,7 @@
 
 <script>
 var _ = require('lodash')
+import { mapState } from 'vuex'
 
 import PageHeader from './nav/PageHeader.vue'
 
@@ -82,12 +82,30 @@ export default {
   data () {
     return {
       selected: [],
-      searchedItem: null
+      searchedItem: null,
+      headers: [
+        {
+          text: 'name',
+          value: 'name'
+        },
+        {
+          text: 'price',
+          value: 'price'
+        }
+      ],
+      actions: [
+        { name: 'Activate', func: () => { alert('something') }},
+        { name: 'Deactivate', func: () => { alert('something') }},
+        { name: 'Duplicate', func: () => { alert('something') }},
+        { name: 'Delete', func: () => { alert('something') }}
+      ]
     }
   },
+
   components: {
     PageHeader
   },
+  
   computed: {
     searchedProducts () {
       if (this.searchedItem === null | this.searchedItem === '') {
@@ -98,9 +116,9 @@ export default {
         })
       }
     },
-    products () {
-      return this.$store.getters['itemsModule/getItems']
-    },
+    
+    ...mapState('shopModule', ['items']),
+
     numberOfSelections () {
       return this.selected.length
     }

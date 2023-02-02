@@ -1,5 +1,6 @@
 npm install --save-dev eslint eslint-plugin-vue
 
+# Current bootstrap 5.1.1
 npm install --save bootstrap@next bootstrap-vue
 npm install --save axios router vue-router vuex lodash
 

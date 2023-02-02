@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg d-lg-block" style="z-index: 2000;">
+  <nav :class="{ 'navbar-light': !navbarDark, 'navbar-dark': navbarDark }" class="navbar navbar-expand-lg d-lg-block" style="z-index:2000;">
 
     <div class="container">
       <!-- Navbar brand -->
@@ -66,8 +66,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
-  name: 'Navbar',
+  name: 'BaseNavigation',
+  props: {
+    navbarDark: Boolean
+  },
 
   data() {
     return {
@@ -105,29 +109,20 @@ export default {
 </script>
 
 <style scoped>
-  /* .navbar .nav-link {
-    color: #fff !important;
-  } */
-
   .navbar .nav-flex-icons {
     flex-direction: row;
   }
-  /* .navbar.bg-white .nav-link {
-    color: black !important;
-  } */
 
   .navbar-light .navbar-brand, .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
-    color: rgba(0,0,0,.9);
+    color: rgba(0, 0, 0, .9);
   }
-
-  /* navbar-light bg-light */
 
   .navbar.navbar-dark {
     background-color: transparent;
   }
 
   .navbar.navbar-dark .breadcrumb .nav-item.active>.nav-link, .navbar.navbar-dark .navbar-nav .nav-item.active>.nav-link {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .navbar.navbar-dark .breadcrumb .nav-item .nav-link, .navbar.navbar-dark .navbar-nav .nav-item .nav-link {
@@ -141,7 +136,7 @@ export default {
       display: block;
   }
   .navbar-dark .navbar-nav .nav-link {
-      color: rgba(255,255,255,.5);
+      color: rgba(255, 255, 255, .5);
   }
 
   @media (min-width: 600px) {

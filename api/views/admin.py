@@ -15,12 +15,3 @@ class UsersViewset(GenericViewSet, RetrieveModelMixin, ListModelMixin):
     authentication_classes = []
     queryset = USER_MODEL.objects.all()
     serializer_class = UserSerializer
-
-
-def test_endpoint(request, **kwargs):
-    return JsonResponse({'test': 'test data'})
-
-class TestEndpoint(GenericAPIView):
-    def post(self, request, **kwargs):
-        print(request.user)
-        return Response({'name': 'not done'})
