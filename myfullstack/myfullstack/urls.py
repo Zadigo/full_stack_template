@@ -5,9 +5,11 @@ from django.urls.conf import include
 from drf_spectacular import views as drf_views
 from rest_framework_simplejwt import views as jwt_views
 
-from myfullstack.views import index
-
 urlpatterns = [
+    path(
+        '__debug__/',
+        include('debug_toolbar.urls')
+    ),
     path(
         'auth/v1/token/verify/',
         jwt_views.TokenVerifyView.as_view(),
@@ -54,10 +56,5 @@ urlpatterns = [
     path(
         'admin/',
         admin.site.urls
-    ),
-    path(
-        '',
-        index,
-        name='index'
-    ),
+    )
 ]

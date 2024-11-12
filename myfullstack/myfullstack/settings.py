@@ -13,7 +13,7 @@ if (BASE_DIR / '.env').exists():
 
 def get_debug():
     debug = os.getenv('DEBUG', '0')
-    return True if debug == '0' else False
+    return True if debug == '1' else False
 
 
 # Quick-start development settings - unsuitable for production
@@ -55,9 +55,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'channels',
-    'django_analytics',
-    'django_seo',
-    'django_mobile',
     'django_extensions',
     'django_celery_beat',
     'django.contrib.sitemaps',
@@ -67,7 +64,10 @@ INSTALLED_APPS = [
     'import_export',
 
     'accounts',
-    'promailing',
+    # 'django_analytics',
+    # 'django_seo',
+    # 'django_mobile',
+    # 'promailing',
 ]
 
 MIDDLEWARE = [
@@ -108,13 +108,6 @@ ASGI_APPLICATION = 'myfullstack.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -290,27 +283,20 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r'https://*.ngrok-free.app',
-    r'^https?\:\/\/*.gency313.fr$'
-]
+CORS_ALLOWED_ORIGIN_REGEXES = []
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    'https://app.gency313.fr',
+    'http://localhost:5173'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5173',
-    'https://app.gency313.fr',
-    'https://emailing-admin.gency313.fr'
+    'http://localhost:5173'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework.authentication.SessionAuthentication'
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
 }
@@ -364,13 +350,6 @@ INTERNAL_IPS = [
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
-
-# Promailing
-
-# PROMAILING_EMAIL_VERIFICATION_BACKEND = 'accounts.EmailVerificationCode'
-
-PROMAILING_EMAIL_VERIFICATION_REDIRECT = 'http://localhost:3000?redirect=verify'
 
 
 # Django All Auth for more information

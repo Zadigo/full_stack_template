@@ -3,7 +3,7 @@ import os
 from celery import Celery
 from celery.schedules import crontab
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mycompanies.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myfullstack.settings')
 
 
 def get_broker():
@@ -42,8 +42,3 @@ app.conf.beat_schedule = {
         'schedule': crontab(minute=1)
     }
 }
-
-
-@app.task
-def debug_task():
-    print('debugged')

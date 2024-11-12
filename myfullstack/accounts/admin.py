@@ -1,18 +1,12 @@
 from accounts import forms
-from accounts.models import CustomUser, Subscriber, UserProfile
+from accounts.models import CustomUser, UserProfile
 from accounts.sites import custom_admin_site
 from django.contrib import admin, messages
-from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.forms import AdminPasswordChangeForm
-from django.contrib.auth.models import Group
 from django.contrib.messages import add_message
-from django.contrib.sites.admin import SiteAdmin
-from django.contrib.sites.models import Site
 from django.utils.translation import gettext_lazy as _
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from rest_framework.authtoken.admin import TokenAdmin
-from rest_framework.authtoken.models import TokenProxy
 
 
 class CustomUserResource(resources.ModelResource):
@@ -112,20 +106,11 @@ class CustomUserAdmin(ImportExportModelAdmin):
         return super().get_form(request, obj, **defaults)
 
 
-class CustomUserProfileAdmin(admin.ModelAdmin):
+class UserProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'created_on']
     search_fields = ['user__email', 'user__firstname', 'user__lastname']
     date_hierarchy = 'created_on'
 
 
-class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ['email', 'created_on']
-    search_fields = ['user__email', 'user__firstname', 'user__lastname']
-    date_hierarchy = 'created_on'
-
-
 custom_admin_site.register(CustomUser, CustomUserAdmin)
-custom_admin_site.register(UserProfile, CustomUserProfileAdmin)
-custom_admin_site.register(Subscriber, SubscriberAdmin)
-custom_admin_site.register(Group, GroupAdmin)
-custom_admin_site.register(Site, SiteAdmin)
+custom_admin_site.register(UserProfile, UserProfileAdmin)

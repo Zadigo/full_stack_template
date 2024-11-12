@@ -12,14 +12,6 @@ from django.utils.translation import gettext_lazy as _
 USER_MODEL = get_user_model()
 
 
-class LoginForm(forms.Form):
-    """Login form"""
-
-    email = forms.EmailField(required=False)
-    username = forms.CharField(required=False)
-    password = forms.CharField(required=True)
-
-
 class SignupForm(forms.Form):
     """Signup form"""
 

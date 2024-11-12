@@ -1,12 +1,8 @@
-from accounts.validators import (email_validator, password_validator,
-                                 username_validator)
+from accounts.validators import email_validator, username_validator
 from django.contrib.auth import get_user_model
-from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from promailing import emailing
-from promailing.emailing import VerifyAccount
 from rest_framework import fields
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import AuthenticationFailed, ValidationError

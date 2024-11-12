@@ -1,54 +1,69 @@
+
 import pathlib
+from hashlib import md5
 from uuid import uuid4
 
 from accounts.managers import CustomUserManager
-from accounts.utils import upload_avatar_directory
-from accounts.validators import (avatar_validator, stripe_card_validator,
-                                 stripe_iban_validator, stripe_token_validator)
+from accounts.validators import stripe_card_validator, stripe_iban_validator
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
-from django.db.models.signals import post_delete, post_save, pre_save
+from django.db.models.signals import (post_delete, post_save, pre_delete,
+                                      pre_save)
 from django.dispatch import receiver
+from django.utils import timezone
+from django.utils.crypto import get_random_string
+from django.utils.http import (base36_to_int, int_to_base36,
+                               urlsafe_base64_decode, urlsafe_base64_encode)
 from django.utils.translation import gettext_lazy as _
-from imagekit.models.fields import ProcessedImageField
-from imagekit.processors import ResizeToCover
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    username_validator = UnicodeUsernameValidator()
+
     username = models.CharField(
-        max_length=50,
+        verbose_name=_('username'),
+        max_length=150,
+        unique=True,
         blank=True,
         null=True,
-        unique=True
+        validators=[username_validator]
     )
     email = models.EmailField(
-        blank=False,
-        null=False,
+        verbose_name=_('email address'),
         unique=True
     )
     firstname = models.CharField(
-        max_length=60,
-        blank=True,
-        null=True
+        verbose_name=_('firstname'),
+        max_length=150,
+        blank=True
     )
     lastname = models.CharField(
-        max_length=60,
-        blank=True,
-        null=True
-    )
-    is_admin = models.BooleanField(
-        default=False
+        verbose_name=_('lastname'),
+        max_length=150,
+        blank=True
     )
     is_staff = models.BooleanField(
-        default=False
+        verbose_name=_("staff status"),
+        default=False,
+        help_text=_(
+            "Designates whether the user can "
+            "log into this admin site."
+        ),
     )
     is_active = models.BooleanField(
-        default=False
+        verbose_name=_("active"),
+        default=True,
+        help_text=_(
+            "Designates whether this user should be treated as active. "
+            "Unselect this instead of deleting accounts."
+        ),
     )
     created_on = models.DateTimeField(
-        auto_now_add=True
+        verbose_name=_('date joined'),
+        default=timezone.now
     )
 
     EMAIL_FIELD = 'email'
@@ -57,11 +72,23 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    class Meta:
+        verbose_name = _('custom user')
+        verbose_name_plural = _('custom users')
+        ordering = ['-created_on']
+
     def __str__(self):
-        return self.email
+        return f'Custom User: {self.get_full_name()}'
+
+    def clean(self):
+        super().clean()
+        self.email = self.__class__.objects.normalize_email(self.email)
 
     def get_full_name(self):
         return f'{self.firstname} {self.lastname}'
+
+    def get_short_name(self):
+        return self.firstname
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
@@ -70,36 +97,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class UserProfile(models.Model):
     user = models.OneToOneField(
         CustomUser,
-        on_delete=models.CASCADE
+        models.CASCADE,
+        related_name='user_profile'
     )
-    avatar = ProcessedImageField(
-        upload_to=upload_avatar_directory,
-        validators=[avatar_validator],
-        processors=[ResizeToCover(100, 100)],
-        format='JPEG',
-        options={'quality': 80},
-        blank=True
-    )
-    customer_id = models.CharField(
-        max_length=100,
-        validators=[stripe_token_validator],
-        blank=True,
-        null=True
-    )
-    payments = models.ManyToManyField(
-        'Payment',
-        blank=True
-    )
-    addresses = models.ManyToManyField(
-        'Address',
-        blank=True
-    )
-    created_on = models.DateField(
-        auto_now_add=True
+    created_on = models.DateTimeField(
+        verbose_name=_('date joined'),
+        default=timezone.now
     )
 
     def __str__(self):
-        return f'{self.email}'
+        return f'Profile for {self.user.email}'
 
 
 class Payment(models.Model):
@@ -147,14 +154,6 @@ class Address(models.Model):
 
     def get_full_address(self):
         return f'{self.street_address}, {self.zip_code}, {self.country}'
-
-
-class Subscriber(models.Model):
-    email = models.EmailField(unique=True, blank=True, null=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.email
 
 
 @receiver(post_save, sender=CustomUser)

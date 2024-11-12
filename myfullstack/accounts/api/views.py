@@ -2,10 +2,6 @@ from accounts.api import serializers
 from accounts.api.permissions import HasPermissions, IsAuthenticated
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from promailing import verify_user_code
-from promailing.emailing import VerifyAccount
-from promailing.models import EmailVerificationCode
-from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import NotAcceptable, PermissionDenied
 from rest_framework.permissions import AllowAny
@@ -68,7 +64,7 @@ def confirm_reset_password_view(request, **kwargs):
 @permission_classes([IsAuthenticated])
 def profile_view(request, **kwargs):
     serializer = serializers.ProfileSerializer(
-        instance=request.user.myuserprofile)
+        instance=request.user.userprofile)
     return simple_api_response(serializer)
 
 

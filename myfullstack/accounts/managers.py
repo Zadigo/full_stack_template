@@ -66,7 +66,7 @@ class UsernameManagerMixin:
         return self._create_user(username, email, password, **extra_fields)
 
 
-class CustomUserManager(UsernameManagerMixin, BaseUserManager):
+class CustomUserManager(EmailManagerMixin, BaseUserManager):
     def with_perm(self, perm, is_active=True, include_superusers=True, backend=None, obj=None):
         if backend is None:
             backends = _get_backends(return_tuples=True)
