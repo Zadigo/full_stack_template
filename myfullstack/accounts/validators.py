@@ -46,12 +46,11 @@ def password_validator(value):
 
 
 def username_validator(value):
-    invalid_characters = ['@', '-', '#', ',', ';',
-                          ':', '!', '*', '$', '£', '+', '=', '~']
+    invalid_characters = [
+        '@', '-', '#', ',', ';',
+        ':', '!', '*', '$', '£', '+', '=', '~'
+    ]
     errors = list(filter(lambda x: x in invalid_characters, value))
-    # for x in value:
-    #     if x in invalid_characters:
-    #         errors.append(x)
     if errors:
         raise RestValidationError(
             detail=_("Invalid characters in username: %(characters)s") % {

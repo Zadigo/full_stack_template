@@ -1,6 +1,5 @@
 
 import pathlib
-from hashlib import md5
 from uuid import uuid4
 
 from accounts.managers import CustomUserManager
@@ -10,14 +9,12 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
-from django.db.models.signals import (post_delete, post_save, pre_delete,
-                                      pre_save)
+from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
 from django.utils import timezone
-from django.utils.crypto import get_random_string
-from django.utils.http import (base36_to_int, int_to_base36,
-                               urlsafe_base64_decode, urlsafe_base64_encode)
 from django.utils.translation import gettext_lazy as _
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -99,6 +96,16 @@ class UserProfile(models.Model):
         CustomUser,
         models.CASCADE,
         related_name='user_profile'
+    )
+    avatar = models.ImageField(
+        blank=True,
+        null=True
+    )
+    avatar_thumbnail = ImageSpecField(
+        source='avatar',
+        processors=[ResizeToFill(100, 100)],
+        format='JPEG',
+        options={'quality': 80}
     )
     created_on = models.DateTimeField(
         verbose_name=_('date joined'),
@@ -182,14 +189,14 @@ def delete_avatar_on_update(instance, **kwargs):
     is_s3_backend = getattr(settings, 'USE_S3', False)
     if not is_s3_backend:
         if instance.pk:
+            old_avatar = UserProfile.objects.get(pk=instance.pk)
             try:
-                old_avatar = UserProfile.objects.get(pk=instance.pk)
+                if old_avatar and old_avatar != instance.avatar.url:
+                    path = pathlib.Path(instance.avatar.url.path)
             except:
                 return
             else:
-                if old_avatar and old_avatar != instance.avatar.url:
-                    path = pathlib.Path(instance.avatar.url.path)
-                    if path.exists() and path.is_file():
-                        path.unlink()
+                if path.exists() and path.is_file():
+                    path.unlink()
     else:
         instance.avatar.url.delete()

@@ -16,20 +16,23 @@ urlpatterns = [
     ),
     re_path(
         r'^profile/delete$',
-        views.delete_account_view,
+        views.DestroyAcccountApi.as_view(),
         name='delete_account'
     ),
     re_path(
-        r'^profile/update$',
-        views.update_profile_view,
-        name='update_profile'
+        r'^profile$',
+        views.ProfileApi.as_view(),
+        name='profile'
     ),
     re_path(
-        r'^profile$',  views.profile_view),
+        r'^change-password$',
+        views.UpdatePasswordApi.as_view(),
+        name='change_password'
+    ),
     re_path(
         r'^reset-password/(?P<token>[a-z])$',
-        views.confirm_reset_password_view,
-        name='reset_password'
+        views.ConfirmResetPassword.as_view(),
+        name='confirm_reset_password'
     ),
     re_path(
         r'^forgot-password$',
@@ -38,6 +41,7 @@ urlpatterns = [
     ),
     re_path(
         r'^signup$',
-        views.signup_view
+        views.SignupApi.as_view(),
+        name='signup'
     )
 ]
