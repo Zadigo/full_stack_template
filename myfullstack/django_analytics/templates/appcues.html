@@ -1,0 +1,39 @@
+<!-- Appcues -->
+<script type="text/javascript">
+  window.AppcuesSettings = {
+    enableURLDetection: true
+  };
+</script>
+
+<script src="https://fast.appcues.com/{{ appcues_account_id }}.js"></script>
+
+{% comment %}
+  // Unix timestamp of user signup date
+  created_at: "{{ request.user.created_at }}",
+  // Unix timestamp of account purchase date
+  purchased_at: "{{ current_account_purchased_at }}",
+  // Current user’s plan tier
+  plan_tier: "{{ current_user_plan_tier }}",
+  // Current user’s role or permissions
+  role: "{{ current_user_role }}",
+
+  // Current user’s company
+  company_name: "{{ current_user_company_name }}",
+
+  // a zipcode, state, or country enables location-based targeting
+  location: "{{ current_user_location }}",
+  // users on different versions may need to see different content
+  version: "{{ current_user_version }}",
+  // to remind users to renew
+  renewal_date: "{{ current_user_renewal_date }}"
+{% endcomment %}
+
+<script>
+  window.Appcues.identify("{{ request.user.id|default:0 }}", {
+    account_id: "{{ request.user.id|default:0 }}",
+    language: "{{ LANGUAGE_CODE }}",
+    
+    first_name: "{{ current_user_first_name }}", 
+    email: "{{ request.user.email }}"
+  })
+</script>

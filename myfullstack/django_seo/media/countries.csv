@@ -1,0 +1,251 @@
+id,name,official,cca2,cca3,region,subregion,continents,currency_name_1,currency_symbol_1
+0,Cyprus,Republic of Cyprus,CY,CYP,Europe,Southern Europe,Europe,Euro,€
+1,Eritrea,State of Eritrea,ER,ERI,Africa,Eastern Africa,Africa,Eritrean nakfa,Nfk
+2,Liberia,Republic of Liberia,LR,LBR,Africa,Western Africa,Africa,Liberian dollar,$
+3,Bermuda,Bermuda,BM,BMU,Americas,North America,North America,Bermudian dollar,$
+4,Vatican City,Vatican City State,VA,VAT,Europe,Southern Europe,Europe,Euro,€
+5,Cook Islands,Cook Islands,CK,COK,Oceania,Polynesia,Oceania,New Zealand dollar,$
+6,Somalia,Federal Republic of Somalia,SO,SOM,Africa,Eastern Africa,Africa,Somali shilling,Sh
+7,Zambia,Republic of Zambia,ZM,ZMB,Africa,Eastern Africa,Africa,Zambian kwacha,ZK
+8,Venezuela,Bolivarian Republic of Venezuela,VE,VEN,Americas,South America,South America,Venezuelan bolívar soberano,Bs.S.
+9,Turkmenistan,Turkmenistan,TM,TKM,Asia,Central Asia,Asia,Turkmenistan manat,m
+10,Albania,Republic of Albania,AL,ALB,Europe,Southeast Europe,Europe,Albanian lek,L
+11,Croatia,Republic of Croatia,HR,HRV,Europe,Southeast Europe,Europe,Euro,€
+12,United Kingdom,United Kingdom of Great Britain and Northern Ireland,GB,GBR,Europe,Northern Europe,Europe,British pound,£
+13,Sudan,Republic of the Sudan,SD,SDN,Africa,Northern Africa,Africa,Sudanese pound,
+14,Timor-Leste,Democratic Republic of Timor-Leste,TL,TLS,Asia,South-Eastern Asia,Oceania,United States dollar,$
+15,Republic of the Congo,Republic of the Congo,CG,COG,Africa,Middle Africa,Africa,Central African CFA franc,Fr
+16,Azerbaijan,Republic of Azerbaijan,AZ,AZE,Asia,Western Asia,"Europe, Asia",Azerbaijani manat,₼
+17,Kenya,Republic of Kenya,KE,KEN,Africa,Eastern Africa,Africa,Kenyan shilling,Sh
+18,American Samoa,American Samoa,AS,ASM,Oceania,Polynesia,Oceania,United States dollar,$
+19,Ivory Coast,Republic of Côte d'Ivoire,CI,CIV,Africa,Western Africa,Africa,West African CFA franc,Fr
+20,Senegal,Republic of Senegal,SN,SEN,Africa,Western Africa,Africa,West African CFA franc,Fr
+21,Vietnam,Socialist Republic of Vietnam,VN,VNM,Asia,South-Eastern Asia,Asia,Vietnamese đồng,₫
+22,El Salvador,Republic of El Salvador,SV,SLV,Americas,Central America,North America,United States dollar,$
+23,Afghanistan,Islamic Republic of Afghanistan,AF,AFG,Asia,Southern Asia,Asia,Afghan afghani,؋
+24,Saint Martin,Saint Martin,MF,MAF,Americas,Caribbean,North America,Euro,€
+25,Latvia,Republic of Latvia,LV,LVA,Europe,Northern Europe,Europe,Euro,€
+26,Guatemala,Republic of Guatemala,GT,GTM,Americas,Central America,North America,Guatemalan quetzal,Q
+27,Kuwait,State of Kuwait,KW,KWT,Asia,Western Asia,Asia,Kuwaiti dinar,د.ك
+28,São Tomé and Príncipe,Democratic Republic of São Tomé and Príncipe,ST,STP,Africa,Middle Africa,Africa,São Tomé and Príncipe dobra,Db
+29,Kyrgyzstan,Kyrgyz Republic,KG,KGZ,Asia,Central Asia,Asia,Kyrgyzstani som,с
+30,Poland,Republic of Poland,PL,POL,Europe,Central Europe,Europe,Polish złoty,zł
+31,Guam,Guam,GU,GUM,Oceania,Micronesia,Oceania,United States dollar,$
+32,Ghana,Republic of Ghana,GH,GHA,Africa,Western Africa,Africa,Ghanaian cedi,₵
+33,Lithuania,Republic of Lithuania,LT,LTU,Europe,Northern Europe,Europe,Euro,€
+34,Armenia,Republic of Armenia,AM,ARM,Asia,Western Asia,Asia,Armenian dram,֏
+35,Jersey,Bailiwick of Jersey,JE,JEY,Europe,Northern Europe,Europe,Jersey pound,£
+36,Grenada,Grenada,GD,GRD,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+37,Tajikistan,Republic of Tajikistan,TJ,TJK,Asia,Central Asia,Asia,Tajikistani somoni,ЅМ
+38,Ethiopia,Federal Democratic Republic of Ethiopia,ET,ETH,Africa,Eastern Africa,Africa,Ethiopian birr,Br
+39,Western Sahara,Sahrawi Arab Democratic Republic,EH,ESH,Africa,Northern Africa,Africa,Mauritanian ouguiya,UM
+40,Morocco,Kingdom of Morocco,MA,MAR,Africa,Northern Africa,Africa,Moroccan dirham,د.م.
+41,Puerto Rico,Commonwealth of Puerto Rico,PR,PRI,Americas,Caribbean,North America,United States dollar,$
+42,Christmas Island,Territory of Christmas Island,CX,CXR,Oceania,Australia and New Zealand,Asia,Australian dollar,$
+43,New Zealand,New Zealand,NZ,NZL,Oceania,Australia and New Zealand,Oceania,New Zealand dollar,$
+44,Brunei,"Nation of Brunei, Abode of Peace",BN,BRN,Asia,South-Eastern Asia,Asia,Singapore dollar,$
+45,French Guiana,Guiana,GF,GUF,Americas,South America,South America,Euro,€
+46,Niue,Niue,NU,NIU,Oceania,Polynesia,Oceania,New Zealand dollar,$
+47,Romania,Romania,RO,ROU,Europe,Southeast Europe,Europe,Romanian leu,lei
+48,Svalbard and Jan Mayen,Svalbard og Jan Mayen,SJ,SJM,Europe,Northern Europe,Europe,krone,kr
+49,Belarus,Republic of Belarus,BY,BLR,Europe,Eastern Europe,Europe,Belarusian ruble,Br
+50,Panama,Republic of Panama,PA,PAN,Americas,Central America,North America,United States dollar,$
+51,Cameroon,Republic of Cameroon,CM,CMR,Africa,Middle Africa,Africa,Central African CFA franc,Fr
+52,Czechia,Czech Republic,CZ,CZE,Europe,Central Europe,Europe,Czech koruna,Kč
+53,Saint Barthélemy,Collectivity of Saint Barthélemy,BL,BLM,Americas,Caribbean,North America,Euro,€
+54,Greece,Hellenic Republic,GR,GRC,Europe,Southern Europe,Europe,Euro,€
+55,Mali,Republic of Mali,ML,MLI,Africa,Western Africa,Africa,West African CFA franc,Fr
+56,Martinique,Martinique,MQ,MTQ,Americas,Caribbean,North America,Euro,€
+57,France,French Republic,FR,FRA,Europe,Western Europe,Europe,Euro,€
+58,Pakistan,Islamic Republic of Pakistan,PK,PAK,Asia,Southern Asia,Asia,Pakistani rupee,₨
+59,Peru,Republic of Peru,PE,PER,Americas,South America,South America,Peruvian sol,S/ 
+60,Barbados,Barbados,BB,BRB,Americas,Caribbean,North America,Barbadian dollar,$
+61,Greenland,Greenland,GL,GRL,Americas,North America,North America,krone,kr.
+62,Saint Pierre and Miquelon,Saint Pierre and Miquelon,PM,SPM,Americas,North America,North America,Euro,€
+63,Chad,Republic of Chad,TD,TCD,Africa,Middle Africa,Africa,Central African CFA franc,Fr
+64,Hungary,Hungary,HU,HUN,Europe,Central Europe,Europe,Hungarian forint,Ft
+65,Comoros,Union of the Comoros,KM,COM,Africa,Eastern Africa,Africa,Comorian franc,Fr
+66,Bangladesh,People's Republic of Bangladesh,BD,BGD,Asia,Southern Asia,Asia,Bangladeshi taka,৳
+67,Tokelau,Tokelau,TK,TKL,Oceania,Polynesia,Oceania,New Zealand dollar,$
+68,Fiji,Republic of Fiji,FJ,FJI,Oceania,Melanesia,Oceania,Fijian dollar,$
+69,China,People's Republic of China,CN,CHN,Asia,Eastern Asia,Asia,Chinese yuan,¥
+70,Colombia,Republic of Colombia,CO,COL,Americas,South America,South America,Colombian peso,$
+71,British Virgin Islands,Virgin Islands,VG,VGB,Americas,Caribbean,North America,United States dollar,$
+72,Algeria,People's Democratic Republic of Algeria,DZ,DZA,Africa,Northern Africa,Africa,Algerian dinar,د.ج
+73,Maldives,Republic of the Maldives,MV,MDV,Asia,Southern Asia,Asia,Maldivian rufiyaa,.ރ
+74,Malaysia,Malaysia,MY,MYS,Asia,South-Eastern Asia,Asia,Malaysian ringgit,RM
+75,Cayman Islands,Cayman Islands,KY,CYM,Americas,Caribbean,North America,Cayman Islands dollar,$
+76,Spain,Kingdom of Spain,ES,ESP,Europe,Southern Europe,Europe,Euro,€
+77,Ireland,Republic of Ireland,IE,IRL,Europe,Northern Europe,Europe,Euro,€
+78,Estonia,Republic of Estonia,EE,EST,Europe,Northern Europe,Europe,Euro,€
+79,Paraguay,Republic of Paraguay,PY,PRY,Americas,South America,South America,Paraguayan guaraní,₲
+80,Uruguay,Oriental Republic of Uruguay,UY,URY,Americas,South America,South America,Uruguayan peso,$
+81,South Africa,Republic of South Africa,ZA,ZAF,Africa,Southern Africa,Africa,South African rand,R
+82,Saint Lucia,Saint Lucia,LC,LCA,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+83,Vanuatu,Republic of Vanuatu,VU,VUT,Oceania,Melanesia,Oceania,Vanuatu vatu,Vt
+84,Finland,Republic of Finland,FI,FIN,Europe,Northern Europe,Europe,Euro,€
+85,Sweden,Kingdom of Sweden,SE,SWE,Europe,Northern Europe,Europe,Swedish krona,kr
+86,British Indian Ocean Territory,British Indian Ocean Territory,IO,IOT,Africa,Eastern Africa,Asia,United States dollar,$
+87,Lebanon,Lebanese Republic,LB,LBN,Asia,Western Asia,Asia,Lebanese pound,ل.ل
+88,United States,United States of America,US,USA,Americas,North America,North America,United States dollar,$
+89,Chile,Republic of Chile,CL,CHL,Americas,South America,South America,Chilean peso,$
+90,Norfolk Island,Territory of Norfolk Island,NF,NFK,Oceania,Australia and New Zealand,Oceania,Australian dollar,$
+91,Montserrat,Montserrat,MS,MSR,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+92,Australia,Commonwealth of Australia,AU,AUS,Oceania,Australia and New Zealand,Oceania,Australian dollar,$
+93,Belize,Belize,BZ,BLZ,Americas,Central America,North America,Belize dollar,$
+94,Guyana,Co-operative Republic of Guyana,GY,GUY,Americas,South America,South America,Guyanese dollar,$
+95,Mongolia,Mongolia,MN,MNG,Asia,Eastern Asia,Asia,Mongolian tögrög,₮
+96,Tuvalu,Tuvalu,TV,TUV,Oceania,Polynesia,Oceania,Tuvaluan dollar,$
+97,Dominican Republic,Dominican Republic,DO,DOM,Americas,Caribbean,North America,Dominican peso,$
+98,Equatorial Guinea,Republic of Equatorial Guinea,GQ,GNQ,Africa,Middle Africa,Africa,Central African CFA franc,Fr
+99,Saint Kitts and Nevis,Federation of Saint Christopher and Nevis,KN,KNA,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+100,Bolivia,Plurinational State of Bolivia,BO,BOL,Americas,South America,South America,Bolivian boliviano,Bs.
+101,Nepal,Federal Democratic Republic of Nepal,NP,NPL,Asia,Southern Asia,Asia,Nepalese rupee,₨
+102,French Southern and Antarctic Lands,Territory of the French Southern and Antarctic Lands,TF,ATF,Antarctic,,Antarctica,Euro,€
+103,Taiwan,Republic of China (Taiwan),TW,TWN,Asia,Eastern Asia,Asia,New Taiwan dollar,$
+104,Benin,Republic of Benin,BJ,BEN,Africa,Western Africa,Africa,West African CFA franc,Fr
+105,Bulgaria,Republic of Bulgaria,BG,BGR,Europe,Southeast Europe,Europe,Bulgarian lev,лв
+106,Moldova,Republic of Moldova,MD,MDA,Europe,Eastern Europe,Europe,Moldovan leu,L
+107,Isle of Man,Isle of Man,IM,IMN,Europe,Northern Europe,Europe,Manx pound,£
+108,Bhutan,Kingdom of Bhutan,BT,BTN,Asia,Southern Asia,Asia,Indian rupee,₹
+109,Cambodia,Kingdom of Cambodia,KH,KHM,Asia,South-Eastern Asia,Asia,United States dollar,$
+110,Antigua and Barbuda,Antigua and Barbuda,AG,ATG,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+111,Haiti,Republic of Haiti,HT,HTI,Americas,Caribbean,North America,Haitian gourde,G
+112,Cape Verde,Republic of Cabo Verde,CV,CPV,Africa,Western Africa,Africa,Cape Verdean escudo,Esc
+113,Georgia,Georgia,GE,GEO,Asia,Western Asia,Asia,lari,₾
+114,Burundi,Republic of Burundi,BI,BDI,Africa,Eastern Africa,Africa,Burundian franc,Fr
+115,Bahamas,Commonwealth of the Bahamas,BS,BHS,Americas,Caribbean,North America,United States dollar,$
+116,Mauritius,Republic of Mauritius,MU,MUS,Africa,Eastern Africa,Africa,Mauritian rupee,₨
+117,Libya,State of Libya,LY,LBY,Africa,Northern Africa,Africa,Libyan dinar,ل.د
+118,Malawi,Republic of Malawi,MW,MWI,Africa,Eastern Africa,Africa,Malawian kwacha,MK
+119,Mexico,United Mexican States,MX,MEX,Americas,North America,North America,Mexican peso,$
+120,Eswatini,Kingdom of Eswatini,SZ,SWZ,Africa,Southern Africa,Africa,South African rand,R
+121,Papua New Guinea,Independent State of Papua New Guinea,PG,PNG,Oceania,Melanesia,Oceania,Papua New Guinean kina,K
+122,Dominica,Commonwealth of Dominica,DM,DMA,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+123,Liechtenstein,Principality of Liechtenstein,LI,LIE,Europe,Western Europe,Europe,Swiss franc,Fr
+124,Russia,Russian Federation,RU,RUS,Europe,Eastern Europe,"Europe, Asia",Russian ruble,₽
+125,Israel,State of Israel,IL,ISR,Asia,Western Asia,Asia,Israeli new shekel,₪
+126,Singapore,Republic of Singapore,SG,SGP,Asia,South-Eastern Asia,Asia,Singapore dollar,$
+127,Uganda,Republic of Uganda,UG,UGA,Africa,Eastern Africa,Africa,Ugandan shilling,Sh
+128,Slovakia,Slovak Republic,SK,SVK,Europe,Central Europe,Europe,Euro,€
+129,Tonga,Kingdom of Tonga,TO,TON,Oceania,Polynesia,Oceania,Tongan paʻanga,T$
+130,United Arab Emirates,United Arab Emirates,AE,ARE,Asia,Western Asia,Asia,United Arab Emirates dirham,د.إ
+131,Mayotte,Department of Mayotte,YT,MYT,Africa,Eastern Africa,Africa,Euro,€
+132,Suriname,Republic of Suriname,SR,SUR,Americas,South America,South America,Surinamese dollar,$
+133,Uzbekistan,Republic of Uzbekistan,UZ,UZB,Asia,Central Asia,Asia,Uzbekistani soʻm,so'm
+134,Saudi Arabia,Kingdom of Saudi Arabia,SA,SAU,Asia,Western Asia,Asia,Saudi riyal,ر.س
+135,Egypt,Arab Republic of Egypt,EG,EGY,Africa,Northern Africa,Africa,Egyptian pound,£
+136,Italy,Italian Republic,IT,ITA,Europe,Southern Europe,Europe,Euro,€
+137,Madagascar,Republic of Madagascar,MG,MDG,Africa,Eastern Africa,Africa,Malagasy ariary,Ar
+138,New Caledonia,New Caledonia,NC,NCL,Oceania,Melanesia,Oceania,CFP franc,₣
+139,Canada,Canada,CA,CAN,Americas,North America,North America,Canadian dollar,$
+140,United States Virgin Islands,Virgin Islands of the United States,VI,VIR,Americas,Caribbean,North America,United States dollar,$
+141,Marshall Islands,Republic of the Marshall Islands,MH,MHL,Oceania,Micronesia,Oceania,United States dollar,$
+142,Mauritania,Islamic Republic of Mauritania,MR,MRT,Africa,Western Africa,Africa,Mauritanian ouguiya,UM
+143,Gambia,Republic of the Gambia,GM,GMB,Africa,Western Africa,Africa,dalasi,D
+144,Trinidad and Tobago,Republic of Trinidad and Tobago,TT,TTO,Americas,Caribbean,North America,Trinidad and Tobago dollar,$
+145,Seychelles,Republic of Seychelles,SC,SYC,Africa,Eastern Africa,Africa,Seychellois rupee,₨
+146,Japan,Japan,JP,JPN,Asia,Eastern Asia,Asia,Japanese yen,¥
+147,Brazil,Federative Republic of Brazil,BR,BRA,Americas,South America,South America,Brazilian real,R$
+148,Syria,Syrian Arab Republic,SY,SYR,Asia,Western Asia,Asia,Syrian pound,£
+149,"Saint Helena, Ascension and Tristan da Cunha","Saint Helena, Ascension and Tristan da Cunha",SH,SHN,Africa,Western Africa,Africa,Saint Helena pound,£
+150,Tanzania,United Republic of Tanzania,TZ,TZA,Africa,Eastern Africa,Africa,Tanzanian shilling,Sh
+151,Andorra,Principality of Andorra,AD,AND,Europe,Southern Europe,Europe,Euro,€
+152,Iran,Islamic Republic of Iran,IR,IRN,Asia,Southern Asia,Asia,Iranian rial,﷼
+153,Togo,Togolese Republic,TG,TGO,Africa,Western Africa,Africa,West African CFA franc,Fr
+154,Malta,Republic of Malta,MT,MLT,Europe,Southern Europe,Europe,Euro,€
+155,South Korea,Republic of Korea,KR,KOR,Asia,Eastern Asia,Asia,South Korean won,₩
+156,Samoa,Independent State of Samoa,WS,WSM,Oceania,Polynesia,Oceania,Samoan tālā,T
+157,Germany,Federal Republic of Germany,DE,DEU,Europe,Western Europe,Europe,Euro,€
+158,Niger,Republic of Niger,NE,NER,Africa,Western Africa,Africa,West African CFA franc,Fr
+159,Bouvet Island,Bouvet Island,BV,BVT,Antarctic,,Antarctica,,
+160,Jamaica,Jamaica,JM,JAM,Americas,Caribbean,North America,Jamaican dollar,$
+161,Nicaragua,Republic of Nicaragua,NI,NIC,Americas,Central America,North America,Nicaraguan córdoba,C$
+162,Guinea,Republic of Guinea,GN,GIN,Africa,Western Africa,Africa,Guinean franc,Fr
+163,Anguilla,Anguilla,AI,AIA,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+164,Åland Islands,Åland Islands,AX,ALA,Europe,Northern Europe,Europe,Euro,€
+165,Belgium,Kingdom of Belgium,BE,BEL,Europe,Western Europe,Europe,Euro,€
+166,Portugal,Portuguese Republic,PT,PRT,Europe,Southern Europe,Europe,Euro,€
+167,Denmark,Kingdom of Denmark,DK,DNK,Europe,Northern Europe,Europe,Danish krone,kr
+168,Philippines,Republic of the Philippines,PH,PHL,Asia,South-Eastern Asia,Asia,Philippine peso,₱
+169,Wallis and Futuna,Territory of the Wallis and Futuna Islands,WF,WLF,Oceania,Polynesia,Oceania,CFP franc,₣
+170,Austria,Republic of Austria,AT,AUT,Europe,Central Europe,Europe,Euro,€
+171,Guinea-Bissau,Republic of Guinea-Bissau,GW,GNB,Africa,Western Africa,Africa,West African CFA franc,Fr
+172,Monaco,Principality of Monaco,MC,MCO,Europe,Western Europe,Europe,Euro,€
+173,Namibia,Republic of Namibia,NA,NAM,Africa,Southern Africa,Africa,South African rand,R
+174,United States Minor Outlying Islands,United States Minor Outlying Islands,UM,UMI,Americas,North America,Oceania,United States dollar,$
+175,Costa Rica,Republic of Costa Rica,CR,CRI,Americas,Central America,North America,Costa Rican colón,₡
+176,Bosnia and Herzegovina,Bosnia and Herzegovina,BA,BIH,Europe,Southeast Europe,Europe,Bosnia and Herzegovina convertible mark,
+177,Macau,Macao Special Administrative Region of the People's Republic of China,MO,MAC,Asia,Eastern Asia,Asia,Macanese pataca,P
+178,Mozambique,Republic of Mozambique,MZ,MOZ,Africa,Eastern Africa,Africa,Mozambican metical,MT
+179,Réunion,Réunion Island,RE,REU,Africa,Eastern Africa,Africa,Euro,€
+180,Montenegro,Montenegro,ME,MNE,Europe,Southeast Europe,Europe,Euro,€
+181,North Korea,Democratic People's Republic of Korea,KP,PRK,Asia,Eastern Asia,Asia,North Korean won,₩
+182,Northern Mariana Islands,Commonwealth of the Northern Mariana Islands,MP,MNP,Oceania,Micronesia,Oceania,United States dollar,$
+183,Ukraine,Ukraine,UA,UKR,Europe,Eastern Europe,Europe,Ukrainian hryvnia,₴
+184,Iraq,Republic of Iraq,IQ,IRQ,Asia,Western Asia,Asia,Iraqi dinar,ع.د
+185,South Georgia,South Georgia and the South Sandwich Islands,GS,SGS,Antarctic,,Antarctica,Saint Helena pound,£
+186,Angola,Republic of Angola,AO,AGO,Africa,Middle Africa,Africa,Angolan kwanza,Kz
+187,Sierra Leone,Republic of Sierra Leone,SL,SLE,Africa,Western Africa,Africa,Sierra Leonean leone,Le
+188,Micronesia,Federated States of Micronesia,FM,FSM,Oceania,Micronesia,Oceania,United States dollar,$
+189,Cuba,Republic of Cuba,CU,CUB,Americas,Caribbean,North America,Cuban peso,$
+190,Turks and Caicos Islands,Turks and Caicos Islands,TC,TCA,Americas,Caribbean,North America,United States dollar,$
+191,Serbia,Republic of Serbia,RS,SRB,Europe,Southeast Europe,Europe,Serbian dinar,дин.
+192,Ecuador,Republic of Ecuador,EC,ECU,Americas,South America,South America,United States dollar,$
+193,Faroe Islands,Faroe Islands,FO,FRO,Europe,Northern Europe,Europe,Faroese króna,kr
+194,Antarctica,Antarctica,AQ,ATA,Antarctic,,Antarctica,,
+195,Palestine,State of Palestine,PS,PSE,Asia,Western Asia,Asia,Jordanian dinar,JD
+196,Turkey,Republic of Turkey,TR,TUR,Asia,Western Asia,"Europe, Asia",Turkish lira,₺
+197,Kiribati,Independent and Sovereign Republic of Kiribati,KI,KIR,Oceania,Micronesia,Oceania,Kiribati dollar,$
+198,Kazakhstan,Republic of Kazakhstan,KZ,KAZ,Asia,Central Asia,Asia,Kazakhstani tenge,₸
+199,Gibraltar,Gibraltar,GI,GIB,Europe,Southern Europe,Europe,Gibraltar pound,£
+200,Iceland,Iceland,IS,ISL,Europe,Northern Europe,Europe,Icelandic króna,kr
+201,Palau,Republic of Palau,PW,PLW,Oceania,Micronesia,Oceania,United States dollar,$
+202,Qatar,State of Qatar,QA,QAT,Asia,Western Asia,Asia,Qatari riyal,ر.ق
+203,Switzerland,Swiss Confederation,CH,CHE,Europe,Western Europe,Europe,Swiss franc,Fr.
+204,French Polynesia,French Polynesia,PF,PYF,Oceania,Polynesia,Oceania,CFP franc,₣
+205,Pitcairn Islands,Pitcairn Group of Islands,PN,PCN,Oceania,Polynesia,Oceania,New Zealand dollar,$
+206,Jordan,Hashemite Kingdom of Jordan,JO,JOR,Asia,Western Asia,Asia,Jordanian dinar,د.ا
+207,Myanmar,Republic of the Union of Myanmar,MM,MMR,Asia,South-Eastern Asia,Asia,Burmese kyat,Ks
+208,Thailand,Kingdom of Thailand,TH,THA,Asia,South-Eastern Asia,Asia,Thai baht,฿
+209,Caribbean Netherlands,"Bonaire, Sint Eustatius and Saba",BQ,BES,Americas,Caribbean,North America,United States dollar,$
+210,Aruba,Aruba,AW,ABW,Americas,Caribbean,North America,Aruban florin,ƒ
+211,Guadeloupe,Guadeloupe,GP,GLP,Americas,Caribbean,North America,Euro,€
+212,Nigeria,Federal Republic of Nigeria,NG,NGA,Africa,Western Africa,Africa,Nigerian naira,₦
+213,Bahrain,Kingdom of Bahrain,BH,BHR,Asia,Western Asia,Asia,Bahraini dinar,.د.ب
+214,Laos,Lao People's Democratic Republic,LA,LAO,Asia,South-Eastern Asia,Asia,Lao kip,₭
+215,Cocos (Keeling) Islands,Territory of the Cocos (Keeling) Islands,CC,CCK,Oceania,Australia and New Zealand,Asia,Australian dollar,$
+216,Djibouti,Republic of Djibouti,DJ,DJI,Africa,Eastern Africa,Africa,Djiboutian franc,Fr
+217,Solomon Islands,Solomon Islands,SB,SLB,Oceania,Melanesia,Oceania,Solomon Islands dollar,$
+218,Heard Island and McDonald Islands,Heard Island and McDonald Islands,HM,HMD,Antarctic,,Antarctica,,
+219,India,Republic of India,IN,IND,Asia,Southern Asia,Asia,Indian rupee,₹
+220,San Marino,Republic of San Marino,SM,SMR,Europe,Southern Europe,Europe,Euro,€
+221,Luxembourg,Grand Duchy of Luxembourg,LU,LUX,Europe,Western Europe,Europe,Euro,€
+222,Sint Maarten,Sint Maarten,SX,SXM,Americas,Caribbean,North America,Netherlands Antillean guilder,ƒ
+223,Falkland Islands,Falkland Islands,FK,FLK,Americas,South America,South America,Falkland Islands pound,£
+224,Central African Republic,Central African Republic,CF,CAF,Africa,Middle Africa,Africa,Central African CFA franc,Fr
+225,Botswana,Republic of Botswana,BW,BWA,Africa,Southern Africa,Africa,Botswana pula,P
+226,Curaçao,Country of Curaçao,CW,CUW,Americas,Caribbean,North America,Netherlands Antillean guilder,ƒ
+227,Guernsey,Bailiwick of Guernsey,GG,GGY,Europe,Northern Europe,Europe,Guernsey pound,£
+228,Norway,Kingdom of Norway,NO,NOR,Europe,Northern Europe,Europe,Norwegian krone,kr
+229,Gabon,Gabonese Republic,GA,GAB,Africa,Middle Africa,Africa,Central African CFA franc,Fr
+230,Zimbabwe,Republic of Zimbabwe,ZW,ZWE,Africa,Southern Africa,Africa,Zimbabwean dollar,$
+231,Lesotho,Kingdom of Lesotho,LS,LSO,Africa,Southern Africa,Africa,South African rand,R
+232,Slovenia,Republic of Slovenia,SI,SVN,Europe,Central Europe,Europe,Euro,€
+233,Argentina,Argentine Republic,AR,ARG,Americas,South America,South America,Argentine peso,$
+234,Burkina Faso,Burkina Faso,BF,BFA,Africa,Western Africa,Africa,West African CFA franc,Fr
+235,Yemen,Republic of Yemen,YE,YEM,Asia,Western Asia,Asia,Yemeni rial,﷼
+236,DR Congo,Democratic Republic of the Congo,CD,COD,Africa,Middle Africa,Africa,Congolese franc,FC
+237,Oman,Sultanate of Oman,OM,OMN,Asia,Western Asia,Asia,Omani rial,ر.ع.
+238,Indonesia,Republic of Indonesia,ID,IDN,Asia,South-Eastern Asia,Asia,Indonesian rupiah,Rp
+239,Nauru,Republic of Nauru,NR,NRU,Oceania,Micronesia,Oceania,Australian dollar,$
+240,Rwanda,Republic of Rwanda,RW,RWA,Africa,Eastern Africa,Africa,Rwandan franc,Fr
+241,North Macedonia,Republic of North Macedonia,MK,MKD,Europe,Southeast Europe,Europe,denar,den
+242,Kosovo,Republic of Kosovo,XK,UNK,Europe,Southeast Europe,Europe,Euro,€
+243,Netherlands,Kingdom of the Netherlands,NL,NLD,Europe,Western Europe,Europe,Euro,€
+244,Tunisia,Tunisian Republic,TN,TUN,Africa,Northern Africa,Africa,Tunisian dinar,د.ت
+245,South Sudan,Republic of South Sudan,SS,SSD,Africa,Middle Africa,Africa,South Sudanese pound,£
+246,Honduras,Republic of Honduras,HN,HND,Americas,Central America,North America,Honduran lempira,L
+247,Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,VC,VCT,Americas,Caribbean,North America,Eastern Caribbean dollar,$
+248,Sri Lanka,Democratic Socialist Republic of Sri Lanka,LK,LKA,Asia,Southern Asia,Asia,Sri Lankan rupee,Rs  රු
+249,Hong Kong,Hong Kong Special Administrative Region of the People's Republic of China,HK,HKG,Asia,Eastern Asia,Asia,Hong Kong dollar,$

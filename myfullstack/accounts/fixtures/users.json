@@ -1,0 +1,21 @@
+[
+    {
+        "model": "accounts.CustomUser",
+        "pk": 1,
+        "fields": {
+            "firstname": "Lena",
+            "lastname": "Vivas",
+            "email": "lena.vivas@yopmail.com",
+            "password": "touparet",            
+            "created_on": "2022-03-18T11:10:45.922Z"
+        }
+    },
+    {
+        "model": "accounts.Subscriber",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "created_on": "2022-03-18T11:10:45.922Z"
+        }
+    }
+]

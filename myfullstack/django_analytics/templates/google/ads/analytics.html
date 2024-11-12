@@ -1,0 +1,30 @@
+{# This tag is build to include both Google Analytics and Google Ads by building a single datalayer #}
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_tag }}"></script>
+
+<!-- Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ google_ads_id }}"></script>
+
+{% if debug %}
+  {# Since Google does not toggle debug, we need to create a conditional script #}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('set', { 'currency': '{{ currency }}' });
+    gtag('set', { 'user_id': '{{ request.user.id|default_if_none:"" }}' });
+    gtag('config', '{{ analytics_tag }}', { 'debug': 'true' });
+    gtag('config', '{{ google_ads_id }}');
+  </script>
+{% else %}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('set', { 'currency': '{{ currency }}' });
+    gtag('set', { 'user_id': '{{ request.user.id|default_if_none:"" }}' });
+    gtag('config', '{{ analytics_tag }}');
+    gtag('config', '{{ google_ads_id }}');
+  </script>
+{% endif %}

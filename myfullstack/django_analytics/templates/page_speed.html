@@ -1,0 +1,62 @@
+<script>
+    (function () {
+        var navigationEntries = null
+        var timingData = {}
+
+        function createTimeStamp () {
+            var now = new Date()
+            var tzo = -now.getTimezoneOffset()
+            var dif = tzo >= 0 ? '+' : '-'
+
+            function padNumber (num) {
+                var norm = Math.abs(Math.floor(num))
+                return (norm < 10 ? '0' : '') + norm
+            }
+
+            return now.getFullYear()
+                + '-' + padNumber(now.getMonth() + 1)
+                + '-' + padNumber(now.getDate())
+                + 'T' + padNumber(now.getHours())
+                + ':' + padNumber(now.getMinutes())
+                + ':' + padNumber(now.getSeconds())
+                + '.' + padNumber(now.getMilliseconds())
+                + dif + padNumber(tzo / 60)
+                + ':' + padNumber(tzo % 60)
+        }
+
+        function calculateSpeed () {
+            if (performance && performance.getEntriesByType) {
+                navigationEntries = performance.getEntriesByType('navigation')
+                if (navigationEntries.length > 0) {
+                    var entry = navigationEntries[0]
+                    timingData = {
+                        page_load_time: entry.fetchStart - entry.loadEventStart,
+                        page_download_time: entry.responseEnd - entry.responseStart,
+                        dns_time: entry.domainLookupEnd - entry.domainLookupStart,
+                        server_response_time: entry.responseStart - entry.requestStart,
+                        tcp_connect_time: entry.connectEnd - entry.connectStart,
+                        dom_interactive_time: entry.domInteractive - entry.fetchStart,
+                        content_load_time: entry.domContentLoadedEventStart - entry.fetchStart,
+                        page_completed: entry.loadEventEnd - entry.fetchStart
+                        // 'redirect_response_time': pt.fetchStart - pt.navigationStart,
+                    }
+                }
+            }
+            return timingData
+        }
+
+        var result = calculateSpeed()
+        var negativeValues = Object.keys(result).map(function (key) {
+            return result[key] < 0
+        })
+
+        if (negativeValues.every(function (x) { return x === false })) {
+            var params = {
+                event: 'performance_timing',
+                timestamp: createTimeStamp()
+            }
+            var extraParams = Object.assign(timingData, params)
+            window.dataLayer && window.dataLayer.push(extraParams)
+        }
+    })() 
+</script>

@@ -1,0 +1,69 @@
+<script>
+    (function () {
+        var isError = false
+        var entry = performance.getEntriesByType('navigation')[0]
+        var result = entry.toJSON()
+        var isError = result.responseStatus >= 399
+        var params = {
+            event: 'exception',
+            description: null,
+            timestamp: null,
+            url: window.location.href,
+            fatal: false,
+            code: result.responseStatus
+        }
+
+        function createTimeStamp () {
+            var now = new Date()
+            var tzo = -now.getTimezoneOffset()
+            var dif = tzo >= 0 ? '+' : '-'
+
+            function padNumber (num) {
+                var norm = Math.abs(Math.floor(num))
+                return (norm < 10 ? '0' : '') + norm
+            }
+
+            return now.getFullYear()
+                + '-' + padNumber(now.getMonth() + 1)
+                + '-' + padNumber(now.getDate())
+                + 'T' + padNumber(now.getHours())
+                + ':' + padNumber(now.getMinutes())
+                + ':' + padNumber(now.getSeconds())
+                + '.' + padNumber(now.getMilliseconds())
+                + dif + padNumber(tzo / 60)
+                + ':' + padNumber(tzo % 60)
+        }
+
+        if (!isError) {
+            return
+        }
+
+        params.timestamp = createTimeStamp()
+
+        if (result.responseStatus === 400) {
+            params.description = "Server can't return a response due to an error on the client's end"
+            params.fatal = true
+            isError = true
+        }
+
+        if (result.responseStatus >= 500 && result.responseStatus <= 503) {
+            params.description = "There was an error on the server and the request could not be completed"
+            params.fatal = true
+            isError = true
+        }
+
+        if (result.responseStatus >= 401 && result.responseStatus <= 499) {
+            params.description = "Fault with the browser and/or request"
+            isError = true
+        }
+
+        if (result.responseStatus >= 504 && result.responseStatus <= 525) {
+            params.description = "Problem on the server side"
+            isError = true
+        }
+
+        if (isError) {
+            window.dataLayer && window.dataLayer.push(params)
+        }
+    })()
+</script>

@@ -1,0 +1,19 @@
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_tag }}"></script>
+
+{% if debug %}
+  {# Since Google does not toggle debug, we need to create a conditional script #}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ analytics_tag }}', { 'currency': '{{ currency }}', 'debug': 'true', 'user_id': '{{ request.user.id }}' });
+  </script>
+{% else %}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ analytics_tag }}', { 'currency': '{{ currency }}', user_id: '{{ request.user.id }}' });
+  </script>
+{% endif %}
