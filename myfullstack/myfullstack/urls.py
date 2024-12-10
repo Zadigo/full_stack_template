@@ -5,6 +5,8 @@ from django.urls.conf import include
 from drf_spectacular import views as drf_views
 from rest_framework_simplejwt import views as jwt_views
 
+from myfullstack import views
+
 urlpatterns = [
     path(
         '__debug__/',
@@ -56,5 +58,10 @@ urlpatterns = [
     path(
         'admin/',
         admin.site.urls
+    ),
+    path(
+        '',
+        views.HomeView.as_view(),
+        name='home'
     )
 ]

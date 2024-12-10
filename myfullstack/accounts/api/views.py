@@ -8,6 +8,7 @@ from rest_framework.exceptions import NotAcceptable, PermissionDenied
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      RetrieveUpdateAPIView, UpdateAPIView)
 from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 USER_MODEL = get_user_model()
 

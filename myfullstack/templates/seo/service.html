@@ -1,0 +1,39 @@
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ name }}",
+    "description": "{{ description }}",
+    "serviceType": "ServiceType",
+    "provider": {
+        "@type": "Organization",
+        "name": "{{ legal_business.legal_name }}",
+        "logo": "{{ legal_business.logo }}",
+        "url": "{{ request.build_absolute_uri }}",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "{{ legal_business.telephone }}",
+            "contactType": "sales",
+            "availableLanguage": "French"
+        }
+    },
+    "potentialAction": {
+        "@type": "ContactAction",
+        "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "{{ action_page }}",
+            "inLanguage": "French",
+            "actionPlatform": [
+                "http://schema.org/DesktopWebPlatform",
+                "http://schema.org/MobileWebPlatform",
+                "http://schema.org/IOSPlatform"
+            ]
+        },
+        "result": {
+            "@type": "ActionStatus",
+            "description": "Form submission successful",
+            "resultStatus": "http://schema.org/Completed"
+        }
+    }
+}
+</script>

@@ -1,0 +1,22 @@
+{% extends "base_site.html" %}
+{% load i18n seo %}
+
+{% block title %}
+    {% page_title "Home page" %}
+{% endblock %}
+
+{% block social_tags %}
+    {% social_metatags "Home Page" %}
+{% endblock %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    Django website
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

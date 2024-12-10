@@ -65,7 +65,7 @@ INSTALLED_APPS = [
 
     'accounts',
     # 'django_analytics',
-    # 'django_seo',
+    'django_seo',
     # 'django_mobile',
     # 'promailing',
 ]
@@ -98,6 +98,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_seo.context_processors.seo'
             ],
         },
     },
@@ -329,15 +330,15 @@ AUTHENTICATION_BACKENDS = [
 
 # Emailing
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', None)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 EMAIL_USE_TLS = True
 
-EMAIL_PORT = 587
+EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
 
 EMAIL_USE_LOCALTIME = True
 

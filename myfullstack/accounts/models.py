@@ -75,7 +75,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ordering = ['-created_on']
 
     def __str__(self):
-        return f'Custom User: {self.get_full_name()}'
+        return f'{self.get_full_name()}'
 
     def clean(self):
         super().clean()
@@ -190,12 +190,8 @@ def delete_avatar_on_update(instance, **kwargs):
     if not is_s3_backend:
         if instance.pk:
             old_avatar = UserProfile.objects.get(pk=instance.pk)
-            try:
-                if old_avatar and old_avatar != instance.avatar.url:
-                    path = pathlib.Path(instance.avatar.url.path)
-            except:
-                return
-            else:
+            if old_avatar and old_avatar != instance.avatar:
+                path = pathlib.Path(instance.avatar.url.path)
                 if path.exists() and path.is_file():
                     path.unlink()
     else:

@@ -1,0 +1,66 @@
+{% load static seo %}
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.get_host }}",
+    "image": "{% static 'hero/hero5.webp' %}",
+    "name": "{{ company }}",
+    "legalName": "{{ company }}",
+    "description": "{{ description }}",
+    "logo": "{% static 'icons/gency.png' %}",
+    "url": "{{ request.build_absolute_uri }}",
+    "email": "{{ email }}",
+    "telephone": "{{ legal_business.telephone|default_if_none:'' }}",
+    "foundingDate": "2023-01-01",
+    "keywords": [
+        "growth marketing", 
+        "lead generation",
+        "content marketing", 
+        "email marketing", 
+        "search engine optimization", 
+        "marketing automation", 
+        "consulting agency", 
+        "marketing consulting agency",
+        "paid advertising"
+    ],
+    "knowsAbout": [
+        "Marketing automation",
+        "Growth Marketing",
+        "Growth Hacking",
+        "Lead Generation",
+        "SEO"
+    ],
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ legal_business.address_line }}",
+        "addressLocality": "{{ legal_business.locality }}",
+        "addressRegion": "{{ legal_business.region }}",
+        "postalCode": "{{ postal_code }}",
+        "addressCountry": "{% country 'France' 'cca2' %}"
+    },
+    "sameAs": [
+        {% if legal_business.tiktok  %}"{{ legal_business.tiktok }}",{% endif %}
+        {% if legal_business.twitter  %}"{{ legal_business.twitter }}",{% endif %}
+        {% if legal_business.facebook  %}"{{ legal_business.facebook }}",{% endif %}
+        {% if legal_business.instagram  %}"{{ legal_business.instagram }}",{% endif %}
+        {% if legal_business.youtube  %}"{{ legal_business.youtube }}",{% endif %}
+    ],
+    "founder": {
+        "@type": "Person",
+        "name": "{{ author }}",
+        "sameAs": [
+            {% for social in socials %}
+                "{{ social }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    },
+    "areaServed": [
+        {
+            "@type": "City",
+            "name": "Lille"
+        }
+    ]
+}   
+</script>

@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from django_seo.models import LegalBusiness, SEOVersion
+from django_seo.models import LegalBusiness, SearchEngineDetail
 
 
 def load_from_cache(name, model):
@@ -15,7 +15,7 @@ def load_from_cache(name, model):
 
 def seo(request):
     """Load the SEO data into the templates"""
-    return load_from_cache('seo', SEOVersion)
+    return load_from_cache('seo', SearchEngineDetail)
 
 
 def legal_business(request):

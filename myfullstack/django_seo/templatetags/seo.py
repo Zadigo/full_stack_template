@@ -3,49 +3,12 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.core.cache import cache
-from django.template import Library, Node
-from django.template.exceptions import TemplateSyntaxError
+from django.template import Library
+from django_seo.models import SearchEngineDetail
+from django.template.context import Context
+from django.core.exceptions import ObjectDoesNotExist
 
 register = Library()
-
-
-# class WebsiteSEONode(Node):
-#     def __init__(self, extra_context, keys, key=None):
-#         self.key = key
-#         self.keys = keys
-#         self.extra_context = extra_context or {}
-
-#     def render(self, context):
-
-#         return ''
-
-
-# @register.simple_tag(takes_context=True)
-# def website_seo(context, key=None):
-#     """Implement SEO functionnalities
-#     in the website"""
-#     items = ['SEO_SOCIALS']
-
-#     def get_setting(name):
-#         return name, getattr(settings, name, {})
-
-#     result = list(map(get_setting, items))
-
-#     keys = ', '.join(x[0] for x in result)
-
-#     extra_context = {}
-#     for name, value in result:
-#         _, rhv = name.split('_', 1)
-#         extra_context.update({rhv.lower(): value})
-#     context.push(seo=extra_context)
-
-#     if key is not None:
-#         try:
-#             context.push(**{key: extra_context[key]})
-#         except KeyError:
-#             raise TemplateSyntaxError(
-#                 f'Could not find {key} in items. Valid keys are: {keys}')
-#     return ''
 
 
 @register.filter(name='canonical')
@@ -57,7 +20,7 @@ def canonical(url):
 
     In order words, `http://example.com` and `http://example.com?q=1`
     will resolve to `http://example.com` being
-    the single source."""
+    the single source"""
     url_object = urlparse(url)
     if url_object.query:
         new_url = f'{url_object.scheme}://{url_object.netloc}{url_object.path}'
@@ -67,6 +30,8 @@ def canonical(url):
 
 @register.inclusion_tag('page_title.html', takes_context=True)
 def page_title(context, title):
+    """Customizes the page title by adding the branding
+    or the company name"""
     from django_seo.models import LegalBusiness
 
     business = cache.get('legal_business', None)
@@ -97,3 +62,27 @@ def country(name, sub_key=None):
     if sub_key is not None:
         return item[sub_key]
     return item
+
+
+@register.inclusion_tag('social_metatags.html', takes_context=True)
+def social_metatags(context, page_name):
+    page_titles = cache.get('page_titles', None)
+    if page_titles is None:
+        seo = SearchEngineDetail.objects.get_latest_version()
+        if seo:
+            page_titles = seo.pages.all()
+            cache.set('page_titles', page_titles, timeout=(1 * 60))
+
+    if not page_titles:
+        return None
+
+    try:
+        page = page_titles.get(name=page_name)
+    except ObjectDoesNotExist:
+        raise ObjectDoesNotExist(
+            f"Page with name {page_name} does not "
+            "exist on the database"
+        )
+    else:
+        context.push({'page_seo': page})
+        return context

@@ -1,0 +1,34 @@
+{% load i18n %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Services",
+  "description": "Utilisez notre expertise pour concevoir des stratégies growth hacking, SEO et d'automatisation pour votre entreprise en utilisant les dernières  technologies de l'industrie",
+  "itemListElement": [
+    {
+      "@type": "Service",
+      "name": "Growth Marketing",
+      "description": "{% blocktrans %}Notre expertise en growth hacking optimise votre présence en ligne, vous aide a acquérir du trafic qualifié, améliore la conversion et la fidélisation de vos clients actuel{% endblocktrans %}"
+    },
+    {
+      "@type": "Service",
+      "name": "SEO",
+      "description": "{% blocktrans %}Vous voulez un site web plus visible ? Avec notre expertise SEO, on optimise votre site pour attirer plus de visiteurs et booster vos ventes{% endblocktrans %}"
+    },
+    {
+      "@type": "Service",
+      "name": "Analytics et tracking",
+      "description": "{% blocktrans %}Suivez le comportement de vos visiteurs sur votre site web et obtenez des données
+      précieuses pour améliorer votre conversion et l'expérience utilisateur{% endblocktrans %}"
+    },
+    {
+      "@type": "Service",
+      "name": "Automatisation",
+      "description": "{% blocktrans %}Economisez du temps et de l'argent en réduisant les erreurs humaines et en augmentant l'efficacité
+      des différents processus commerciaux et marketing de votre entreprise{% endblocktrans %}"
+    }
+  ]
+}
+</script>

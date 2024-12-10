@@ -1,0 +1,9 @@
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ page_seo.name }}">
+<meta property="og:description" content="{{ page_seo.description|default_if_none:seo.description }}">
+<meta property="og:site_name" content="">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="">
+<meta property="og:image:alt" content="">
+<meta property="og:image:width" content="{{ page_seo.image_width|default_if_none:"1208" }}">
+<meta property="og:image:height" content="{{ page_seo.image_width|default_if_none:"630" }}">

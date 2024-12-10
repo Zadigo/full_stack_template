@@ -6,9 +6,9 @@
     "configurations": [
         {
             "name": "Full stack template",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}\\manage.py",
+            "program": "${workspaceFolder}\\forum\\manage.py",
             "args": [
                 "runserver"
             ],

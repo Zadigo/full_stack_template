@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block structured_data %}
+    {% include "seo/local_business.html" with company=legal_business.legal_name description=seo.description postal_code=legal_business.postal_code country=legal_business.country email=legal_business.general_email author=seo.author %}
+{% endblock %}
+
+{% block keywords %}
+    {{ seo.keywords }}
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+    {% block container %}{% endblock %}
+</div>
+{% endblock %}
