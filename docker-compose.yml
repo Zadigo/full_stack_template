@@ -1,0 +1,22 @@
+secrets:
+  something: what
+
+networks:
+  forum:
+    driver: something
+
+services:
+  main_site:
+    build: ./myfullstack
+    env_file:
+      - ./docker/main_site.env
+    labels:
+      - com.host.description=label
+  
+  proxy:
+    image: something
+    labels:
+      - com.host.description=label
+    env_file:
+      - fileName
+    

@@ -1,10 +1,11 @@
 /// <reference types="vitest" />
 
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
 import UnheadVite from "@unhead/addons/vite";
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import vue from '@vitejs/plugin-vue'
 import eslint from "vite-plugin-eslint"
 
@@ -13,7 +14,7 @@ export default defineConfig(({ mode }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
   process.env = { ...process.env, ...env }
-
+  
   return {
     root,
     resolve: {
@@ -32,12 +33,21 @@ export default defineConfig(({ mode }) => {
       vue(),
       UnheadVite(),
       eslint({
-        lintOnStart: true,
+        lintOnStart: true
+        
+      }),
+      VueI18nPlugin({
+        include: resolve(
+          dirname(fileURLToPath(import.meta.url)),
+          "./src/locales/**"
+        ),
+        fullInstall: false,
+        compositionOnly: true,
       }),
     ],
     test: {
       globals: true,
-      environment: 'jsdom'
+      environment: 'node'
     }
   }
 })

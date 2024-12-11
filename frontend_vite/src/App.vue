@@ -1,11 +1,3 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      Welcome
-    </div>
-  </div>
+  <RouterView />
 </template>
-
-<script setup lang="ts">
-
-</script>
