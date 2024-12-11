@@ -1,13 +1,19 @@
 <template>
-  <Suspense>
-    <template #default>
-      <AsyncWelcomeBlock />
-    </template>
+  <div class="section my-5">
+    <div class="row">
+      <div class="col-sm-12 col-md-4 offset-md-4">
+        <Suspense>
+          <template #default>
+            <AsyncWelcomeBlock />
+          </template>
 
-    <template #fallback>
-      Loading...
-    </template>
-  </Suspense>
+          <template #fallback>
+            Loading...
+          </template>
+        </Suspense>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

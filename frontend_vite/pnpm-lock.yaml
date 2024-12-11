@@ -37,7 +37,7 @@ importers:
         version: 10.11.1(vue@3.5.13(typescript@5.6.3))
       '@vueuse/integrations':
         specifier: ^10.9.0
-        version: 10.11.1(axios@1.7.9)(vue@3.5.13(typescript@5.6.3))
+        version: 10.11.1(axios@1.7.9)(universal-cookie@7.2.2)(vue@3.5.13(typescript@5.6.3))
       autoprefixer:
         specifier: ^10.4.2
         version: 10.4.20(postcss@8.4.49)
@@ -65,6 +65,9 @@ importers:
       unhead:
         specifier: ^1.9.5
         version: 1.11.14
+      universal-cookie:
+        specifier: ^7.2.2
+        version: 7.2.2
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.6.3)
@@ -96,9 +99,6 @@ importers:
       '@types/node':
         specifier: ^22.5.4
         version: 22.10.1
-      '@types/vue':
-        specifier: ^2.0.0
-        version: 2.0.0(typescript@5.6.3)
       '@types/webfontloader':
         specifier: ^1.6.38
         version: 1.6.38
@@ -1473,10 +1473,6 @@ packages:
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
-
-  '@types/vue@2.0.0':
-    resolution: {integrity: sha512-WDElkBv/o4lVwu6wYHB06AXs4Xo2fwDjJUpvPRc1QQdzkUSiGFjrYuSCy8raxLE5FObgKq8ND7R5gSZTFLK60w==}
-    deprecated: This is a stub types definition for vuejs (https://github.com/vuejs/vue). vuejs provides its own type definitions, so you don't need @types/vue installed!
 
   '@types/web-bluetooth@0.0.20':
     resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==}
@@ -3444,6 +3440,9 @@ packages:
     resolution: {integrity: sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==}
     engines: {node: '>=8'}
 
+  universal-cookie@7.2.2:
+    resolution: {integrity: sha512-fMiOcS3TmzP2x5QV26pIH3mvhexLIT0HmPa3V7Q7knRfT9HG6kTwq02HZGLPw0sAOXrAmotElGRvTLCMbJsvxQ==}
+
   universalify@0.2.0:
     resolution: {integrity: sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==}
     engines: {node: '>= 4.0.0'}
@@ -5162,12 +5161,6 @@ snapshots:
 
   '@types/trusted-types@2.0.7': {}
 
-  '@types/vue@2.0.0(typescript@5.6.3)':
-    dependencies:
-      vue: 3.5.13(typescript@5.6.3)
-    transitivePeerDependencies:
-      - typescript
-
   '@types/web-bluetooth@0.0.20': {}
 
   '@types/webfontloader@1.6.38': {}
@@ -5472,13 +5465,14 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.11.1(axios@1.7.9)(vue@3.5.13(typescript@5.6.3))':
+  '@vueuse/integrations@10.11.1(axios@1.7.9)(universal-cookie@7.2.2)(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       '@vueuse/core': 10.11.1(vue@3.5.13(typescript@5.6.3))
       '@vueuse/shared': 10.11.1(vue@3.5.13(typescript@5.6.3))
       vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.3))
     optionalDependencies:
       axios: 1.7.9
+      universal-cookie: 7.2.2
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -7361,6 +7355,11 @@ snapshots:
   unique-string@2.0.0:
     dependencies:
       crypto-random-string: 2.0.0
+
+  universal-cookie@7.2.2:
+    dependencies:
+      '@types/cookie': 0.6.0
+      cookie: 0.7.2
 
   universalify@0.2.0: {}
 

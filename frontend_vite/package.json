@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vite build",
+    "build:tsc": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "test:ui": "vitest --ui",
     "test:run": "vitest run"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
     "pinia": "^2.1.7",
     "sass": "^1.80.6",
     "unhead": "^1.9.5",
+    "universal-cookie": "^7.2.2",
     "vue": "^3.5.13",
     "vue-i18n": "^9.13.0",
     "vue-router": "^4.3.0",
@@ -42,7 +45,6 @@
     "@types/jsdom": "^21.1.7",
     "@types/lodash": "^4.17.7",
     "@types/node": "^22.5.4",
-    "@types/vue": "^2.0.0",
     "@types/webfontloader": "^1.6.38",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",

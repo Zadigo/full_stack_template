@@ -1,7 +1,11 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      {{ posts }}
+  <div class="row">
+    <div v-for="post in posts" :key="post.useId" class="col-sm-12 col-md-12">
+      <div class="card mb-1 shadow-sm">
+        <div class="card-body">
+          {{ post.body }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -15,7 +19,7 @@ import { storeToRefs } from 'pinia';
 
 const store = usePosts()
 const { hasPosts } = storeToRefs(store)
-const posts = useSessionStorage('posts', [], {
+const posts = useSessionStorage<Post[]>('posts', [], {
   serializer: {
     read (raw) {
       return JSON.parse(raw)

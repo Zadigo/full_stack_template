@@ -13,12 +13,19 @@ describe("Use Axios", () => {
 
     it('can return custom url', async () => {
         const { getBaseUrl } = useAxios()
-        let result = getBaseUrl('http://example.com')
+        let result = getBaseUrl(null, 'http://example.com')
 
         expect(result).toEqual('http://example.com/')
 
-        result = getBaseUrl('http://example.com', 'api/v1/')
+        result = getBaseUrl('api/v1/', 'http://example.com')
         expect(result).toContain('/api/v1/')
+    })
+
+    it.skip('can use default client api', async () => {
+        const { defaultClient } = useAxios()
+        const client = defaultClient()
+        const result = await client.get<Post[]>('/posts')
+        expect(result.data.length > 0).toBeTruthy()
     })
 
     it.skip('can return client', async () => {
